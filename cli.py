@@ -1903,6 +1903,7 @@ STEP15_COMMAND_GROUPS = frozenset({
     "stats",
     "report",
     "compare",
+    "doctor",
 })
 
 

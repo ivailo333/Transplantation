@@ -233,6 +233,21 @@ class TestStep28Export(Step28LiveFixture):
         self.assertTrue(info["json_path"].exists())
         self.assertTrue(info["csv_path"].exists())
 
+
+    def test_html_export(self):
+        result = step28_report_comparison.build_live_level_comparison(
+            self.db, "recipient", "RECIP-001",
+            levels=["lgx", "G"],
+        )
+        info = step28_report_comparison.export_comparison(
+            result, output_dir=self.out, export_format="html"
+        )
+        self.assertTrue(info["html_path"].exists())
+        html = info["html_path"].read_text(encoding="utf-8")
+        self.assertIn("<html", html)
+        self.assertIn("STEP 28 HLA Report Comparison", html)
+        self.assertIn("NON-CLINICAL", html)
+
     def test_overwrite_protection(self):
         result = step28_report_comparison.build_live_level_comparison(
             self.db, "recipient", "RECIP-001",

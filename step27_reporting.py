@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import csv
 import json
+from html import escape
 from pathlib import Path
 
 import comparison_statistics
@@ -29,7 +30,7 @@ import mismatch_summary
 REPORT_SCHEMA = "hla-analytical-report-v1"
 REPORT_TYPE = "HLA_ANALYTICAL_REPORT"
 DEFAULT_EXPORT_DIR = Path(__file__).with_name("exports") / "reports"
-VALID_EXPORT_FORMATS = ("json", "csv", "both")
+VALID_EXPORT_FORMATS = ("json", "csv", "html", "both")
 
 
 class ReportingError(ValueError):
@@ -633,6 +634,183 @@ def render_report(report):
     return "\n".join(lines)
 
 
+def _html(value):
+    return escape(_fmt(value), quote=True)
+
+
+def _html_table(columns, rows):
+    header = "".join(f"<th>{escape(label)}</th>" for _, label in columns)
+    body_rows = []
+    for row in rows:
+        cells = "".join(
+            f"<td>{_html(row.get(key))}</td>" for key, _ in columns
+        )
+        body_rows.append(f"<tr>{cells}</tr>")
+    if not body_rows:
+        body_rows.append(
+            f'<tr><td colspan="{len(columns)}">No represented rows</td></tr>'
+        )
+    return (
+        "<table>"
+        f"<thead><tr>{header}</tr></thead>"
+        f"<tbody>{''.join(body_rows)}</tbody>"
+        "</table>"
+    )
+
+
+def _distribution_rows(distribution, total):
+    return [
+        {
+            "classification": label,
+            "count": distribution[label]["count"],
+            "total": total,
+            "percentage": f"{distribution[label]['percentage']:.2f}%",
+        }
+        for label in mismatch_summary.CLASSIFICATIONS
+    ]
+
+
+def render_report_html(report):
+    reference = report["hla_reference"]
+    anchor = report["anchor"]
+    ordering = report.get("software_ordering")
+    locus_observations = report["pair_count"] * len(reference["loci"])
+    ordering_text = "none"
+    if ordering:
+        ordering_text = (
+            f"metric={_html(ordering['metric'])}, "
+            f"order={_html(ordering['order'])}, "
+            f"level={_html(ordering['level_label'])}"
+        )
+
+    pair_columns = (
+        ("candidate_external_id", "Candidate"),
+        ("shared_count", "Shared"),
+        ("donor_only_count", "Donor only"),
+        ("recipient_only_count", "Recipient only"),
+        ("classification", "Software class"),
+    )
+    locus_columns = (
+        ("locus", "Locus"),
+        ("pair_count", "Pairs"),
+        ("shared_sum", "Shared sum"),
+        ("donor_only_sum", "Donor only sum"),
+        ("recipient_only_sum", "Recipient only sum"),
+        ("complete_count", "Complete"),
+        ("partial_count", "Partial"),
+        ("no_shared_count", "No shared"),
+    )
+    distribution_columns = (
+        ("classification", "Classification"),
+        ("count", "Count"),
+        ("total", "Total"),
+        ("percentage", "Percentage"),
+    )
+    stats_rows = [
+        {
+            "metric": field,
+            **report["pair_total_statistics"][field],
+        }
+        for field in comparison_statistics.COUNT_FIELDS
+    ]
+    stats_columns = (
+        ("metric", "Metric"),
+        ("count", "Count"),
+        ("sum", "Sum"),
+        ("min", "Min"),
+        ("max", "Max"),
+        ("mean", "Mean"),
+        ("median", "Median"),
+    )
+
+    html = f'''<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>STEP 27 HLA Analytical Report</title>
+  <style>
+    :root {{
+      color-scheme: light;
+      --ink: #18212f;
+      --muted: #536173;
+      --line: #d6dde7;
+      --panel: #f7f9fb;
+      --accent: #0f766e;
+    }}
+    body {{
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: #ffffff;
+      line-height: 1.45;
+    }}
+    main {{
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 20px 44px;
+    }}
+    h1 {{ margin: 0 0 8px; font-size: 28px; }}
+    h2 {{ margin: 28px 0 10px; font-size: 18px; }}
+    .meta {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }}
+    .meta div {{ min-width: 0; }}
+    .label {{ color: var(--muted); font-size: 12px; text-transform: uppercase; }}
+    .value {{ font-weight: 700; overflow-wrap: anywhere; }}
+    table {{ border-collapse: collapse; width: 100%; font-size: 14px; }}
+    th, td {{ border: 1px solid var(--line); padding: 8px 10px; text-align: left; }}
+    th {{ background: #eef3f8; }}
+    .notice {{
+      margin-top: 28px;
+      padding: 14px 16px;
+      border-left: 4px solid var(--accent);
+      background: #eefaf8;
+      color: #173f3b;
+    }}
+  </style>
+</head>
+<body>
+<main>
+  <h1>STEP 27 HLA Analytical Report</h1>
+  <div class="meta">
+    <div><div class="label">Source</div><div class="value">{_html(report['source'])}</div></div>
+    <div><div class="label">Direction</div><div class="value">{_html(report['direction'])}</div></div>
+    <div><div class="label">Anchor</div><div class="value">{_html(anchor['external_id'])} / typing {_html(anchor['typing_id'])}</div></div>
+    <div><div class="label">IPD-IMGT/HLA</div><div class="value">{_html(reference['ipd_imgt_hla_version'])}</div></div>
+    <div><div class="label">Level</div><div class="value">{_html(reference['level_label'])}</div></div>
+    <div><div class="label">Pairs</div><div class="value">{_html(report['pair_count'])}</div></div>
+    <div><div class="label">Loci</div><div class="value">{_html(', '.join(reference['loci']))}</div></div>
+    <div><div class="label">Software ordering</div><div class="value">{ordering_text}</div></div>
+  </div>
+
+  <h2>Pair Overview</h2>
+  {_html_table(pair_columns, report['pair_rows'])}
+
+  <h2>Locus Overview</h2>
+  {_html_table(locus_columns, report['locus_rows'])}
+
+  <h2>Locus Classification Distribution</h2>
+  {_html_table(distribution_columns, _distribution_rows(report['locus_classification_distribution'], locus_observations))}
+
+  <h2>Descriptive Pair Statistics</h2>
+  {_html_table(stats_columns, stats_rows)}
+
+  <div class="notice">
+    STEP 27 is a deterministic NON-CLINICAL analytical software report. It does not recalculate py-ard reductions and does not create analysis_runs.
+  </div>
+</main>
+</body>
+</html>
+'''
+    return html
+
+
 def normalize_export_format(value):
     if value is None:
         return None
@@ -646,7 +824,7 @@ def normalize_export_format(value):
     if value not in VALID_EXPORT_FORMATS:
         raise ReportingError(
             "Невалиден report export format. "
-            "Допустими: json, csv, both."
+            "Допустими: json, csv, html, both."
         )
 
     return value
@@ -789,6 +967,8 @@ def export_report(
         targets["json"] = output_dir / f"{name}.json"
     if export_format in ("csv", "both"):
         targets["csv"] = output_dir / f"{name}.csv"
+    if export_format == "html":
+        targets["html"] = output_dir / f"{name}.html"
 
     if not overwrite:
         existing = [
@@ -843,12 +1023,29 @@ def export_report(
             if tmp.exists():
                 tmp.unlink()
 
+
+
+    if "html" in targets:
+        tmp = targets["html"].with_name(
+            targets["html"].name + ".tmp"
+        )
+        try:
+            tmp.write_text(
+                render_report_html(report),
+                encoding="utf-8",
+            )
+            tmp.replace(targets["html"])
+        finally:
+            if tmp.exists():
+                tmp.unlink()
+
     return {
         "format": export_format.upper(),
         "export_name": name,
         "output_dir": output_dir,
         "json_path": targets.get("json"),
         "csv_path": targets.get("csv"),
+        "html_path": targets.get("html"),
         "pair_count": report["pair_count"],
         "locus_count": len(
             report["hla_reference"]["loci"]
@@ -883,6 +1080,8 @@ def render_export_summary(info):
         lines.append(f"JSON: {info['json_path']}")
     if info.get("csv_path") is not None:
         lines.append(f"CSV: {info['csv_path']}")
+    if info.get("html_path") is not None:
+        lines.append(f"HTML: {info['html_path']}")
 
     lines.extend(
         [

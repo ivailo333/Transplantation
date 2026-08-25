@@ -83,6 +83,9 @@ class TestStep15Detection(unittest.TestCase):
             cli.uses_command_style(["--db", "other.db", "--help"])
         )
 
+    def test_doctor_command_style_is_detected(self):
+        self.assertTrue(cli.uses_command_style(["doctor"]))
+
     def test_empty_argv_is_not_command_style(self):
         self.assertFalse(cli.uses_command_style([]))
 
@@ -102,6 +105,7 @@ class TestStep15Help(unittest.TestCase):
         self.assertEqual(result, 0)
         self.assertIn("STEP 15", rendered)
         self.assertIn("analyses export", rendered)
+        self.assertIn("python main.py doctor", rendered)
 
     def test_public_main_root_help_uses_command_help(self):
         output = []

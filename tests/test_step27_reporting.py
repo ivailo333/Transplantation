@@ -379,6 +379,24 @@ class TestStep27Export(Step27Fixture):
         self.assertIn("PAIR", text)
         self.assertIn("LOCUS", text)
 
+
+    def test_html_export(self):
+        report = step27_reporting.build_live_report(
+            self.db,
+            "recipient",
+            "RECIP-001",
+        )
+        info = step27_reporting.export_report(
+            report,
+            output_dir=self.out,
+            export_format="html",
+        )
+        self.assertTrue(info["html_path"].exists())
+        html = info["html_path"].read_text(encoding="utf-8")
+        self.assertIn("<html", html)
+        self.assertIn("STEP 27 HLA Analytical Report", html)
+        self.assertIn("NON-CLINICAL", html)
+
     def test_overwrite_protection(self):
         report = step27_reporting.build_live_report(
             self.db,

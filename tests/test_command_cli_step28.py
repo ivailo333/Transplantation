@@ -116,6 +116,19 @@ class TestStep28CLI(Step28CLIFixture):
         self.assertEqual(code, 0)
         self.assertIn("Format: JSON", text)
 
+
+    def test_compare_export_html(self):
+        code, text = self.run_cli(
+            "compare", "levels", "recipient", "RECIP-001",
+            "--level", "lgx", "--level", "G",
+            "--export", "html",
+            "--output-dir", str(self.out),
+        )
+        self.assertEqual(code, 0)
+        self.assertIn("Format: HTML", text)
+        self.assertIn("HTML:", text)
+        self.assertTrue(any(self.out.glob("*.html")))
+
     def test_report_step27_still_works(self):
         code, text = self.run_cli(
             "report", "recipient", "RECIP-001"

@@ -32,6 +32,12 @@ python -m pip install -e .[dev]
 
 ## Quick Start
 
+Run project health checks:
+
+```powershell
+python .\main.py doctor
+```
+
 Check the database and migrations:
 
 ```powershell
@@ -62,6 +68,13 @@ Compare persisted batches:
 python .\main.py compare batches 1 3
 ```
 
+Export a browser-readable HTML report:
+
+```powershell
+python .\main.py report recipient RECIP-001 --export html
+python .\main.py compare levels recipient RECIP-001 --export html
+```
+
 Show command-style help:
 
 ```powershell
@@ -73,6 +86,7 @@ Legacy flags such as `--db-status`, `--list-subjects`, `--show-results`, and
 
 ## Main Commands
 
+- `doctor`: run project health checks without modifying data.
 - `db status` / `db migrate`: inspect and apply SQLite migrations.
 - `subjects list`: list saved DONOR / RECIPIENT subjects.
 - `typings history/show/import`: inspect or import HLA typings.
@@ -134,7 +148,7 @@ python -m pytest
 The default SQLite database is `transplant.db`. Export commands write under
 `exports/` unless another output directory is supplied.
 
-JSON and CSV exports are deterministic software artifacts. They are intended
+JSON, CSV, and HTML exports are deterministic software artifacts. They are intended
 for reproducibility and auditability, not clinical decision-making.
 
 

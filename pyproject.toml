@@ -32,6 +32,7 @@ py-modules = [
     "comparison_statistics",
     "config",
     "database",
+    "doctor",
     "exporters",
     "hla_comparison",
     "hla_match",

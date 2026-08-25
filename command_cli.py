@@ -32,6 +32,7 @@ import copy
 from pathlib import Path
 
 import database
+import doctor
 import exporters
 import importers
 import batch_analysis
@@ -62,6 +63,7 @@ COMMAND_GROUPS = frozenset({
     "stats",
     "report",
     "compare",
+    "doctor",
 })
 
 
@@ -113,6 +115,23 @@ def build_parser():
     )
 
     groups = parser.add_subparsers(dest="group")
+
+
+    # ------------------------------------------------------------
+    # doctor
+    # ------------------------------------------------------------
+    doctor_parser = groups.add_parser(
+        "doctor",
+        add_help=False,
+        help="Project health checks.",
+    )
+    doctor_parser.add_argument(
+        "-h",
+        "--help",
+        action="store_true",
+        dest="_group_help",
+    )
+    doctor_parser.set_defaults(command="check")
 
     # ------------------------------------------------------------
     # db
@@ -547,7 +566,7 @@ def build_parser():
             choices=step27_reporting.VALID_EXPORT_FORMATS,
             default=None,
             help=(
-                "Export report as json, csv, or both. "
+                "Export report as json, csv, html, or both. "
                 "Bare --export means both."
             ),
         )
@@ -1352,6 +1371,7 @@ def command_help_text():
 HLA donor/recipient comparison CLI
 
 Quick start:
+  python main.py doctor
   python main.py db status
   python main.py subjects list
   python main.py report recipient RECIP-001
@@ -1371,6 +1391,9 @@ Current layer: STEP 28 report comparison / multi-report analysis.
 Built on STEP 27 reporting / STEP 26 statistics / STEP 25 summary / STEP 24 matrix / STEP 23 pair profiles / STEP 22 selection / STEP 21 history management / STEP 20 persistent history / STEP 19 export / STEP 18 ordering / STEP 17 batch analysis / STEP 16 import / STEP 15 CLI.
 
 Command examples:
+
+Doctor:
+  python main.py doctor
 
 Database:
   python main.py db status
@@ -1454,6 +1477,7 @@ Report comparison / multi-report analysis (STEP 28):
   python main.py compare batches 1 3 --level lgx
   python main.py compare levels recipient RECIP-001 --export both
   python main.py compare batches 1 3 --export json
+  python main.py compare levels recipient RECIP-001 --export html
 
 Batch:
   python main.py batch recipient RECIP-001
@@ -1493,6 +1517,9 @@ Persistent batch history (STEP 20 + STEP 21):
   python main.py batches results 1
   python main.py batches export 1 --format both
 
+Doctor:
+  python main.py doctor
+
 Workflow:
   python main.py workflow interactive
   python main.py workflow demo
@@ -1508,6 +1535,13 @@ Backward compatibility:
 
 def _group_help(group):
     messages = {
+        "doctor": """\
+Project health checks:
+  doctor
+
+Checks Python, py-ard, py-ard data, SQLite schema/integrity, demo data, and export location.
+Diagnostic only: does not migrate or modify data.
+""",
         "db": """\
 Database commands:
   db status
@@ -1554,7 +1588,7 @@ Report comparison / multi-report analysis (STEP 28):
                  [--locus LOCUS]
                  [--sort-by donor-only|shared|recipient-only]
                  [--sort-order auto|asc|desc]
-                 [--export [json|csv|both]]
+                 [--export [json|csv|html|both]]
                  [--output-dir PATH] [--name NAME] [--overwrite]
 
   compare levels donor DONOR_ID
@@ -1565,7 +1599,7 @@ Report comparison / multi-report analysis (STEP 28):
                   [--locus LOCUS]
                   [--sort-by donor-only|shared|recipient-only]
                   [--sort-order auto|asc|desc]
-                  [--export [json|csv|both]]
+                  [--export [json|csv|html|both]]
                   [--output-dir PATH] [--name NAME] [--overwrite]
 
 LEVELS compares the same live scope across stored representation levels.
@@ -1581,7 +1615,7 @@ Analytical reporting (STEP 27):
                    [--locus LOCUS]
                    [--sort-by donor-only|shared|recipient-only]
                    [--sort-order auto|asc|desc]
-                   [--export [json|csv|both]]
+                   [--export [json|csv|html|both]]
                    [--output-dir PATH] [--name NAME] [--overwrite]
 
   report donor DONOR_ID [--typing-id ID]
@@ -1591,7 +1625,7 @@ Analytical reporting (STEP 27):
                         [--locus LOCUS]
                         [--sort-by donor-only|shared|recipient-only]
                         [--sort-order auto|asc|desc]
-                        [--export [json|csv|both]]
+                        [--export [json|csv|html|both]]
                         [--output-dir PATH] [--name NAME] [--overwrite]
 
 STEP 27 composes and validates STEP 24 + STEP 25 + STEP 26 data.
@@ -1774,6 +1808,11 @@ def _dispatch(args, input_func, output_func):
         output_func(command_help_text().rstrip())
         return 0
 
+
+    if args.group == "doctor" and getattr(args, "_group_help", False):
+        output_func(_group_help("doctor").rstrip())
+        return 0
+
     if getattr(args, "_group_help", False) and args.command is None:
         output_func(_group_help(args.group).rstrip())
         return 0
@@ -1808,6 +1847,15 @@ def _dispatch(args, input_func, output_func):
                 output_func=output_func,
             )
             return 0
+
+
+    # ------------------------------------------------------------
+    # Doctor
+    # ------------------------------------------------------------
+    if args.group == "doctor":
+        report = doctor.run_doctor(database_path)
+        output_func(doctor.render_doctor(report))
+        return doctor.doctor_exit_code(report)
 
     # All remaining commands operate on a current database.
     _normal_db_guard(database_path)

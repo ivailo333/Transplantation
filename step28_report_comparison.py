@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import csv
 import json
+from html import escape
 from pathlib import Path
 
 import hla_matrix
@@ -29,7 +30,7 @@ import step27_reporting
 
 COMPARISON_SCHEMA = "hla-report-comparison-v1"
 DEFAULT_EXPORT_DIR = Path(__file__).with_name("exports") / "comparisons"
-VALID_EXPORT_FORMATS = ("json", "csv", "both")
+VALID_EXPORT_FORMATS = ("json", "csv", "html", "both")
 VALID_MODES = ("levels", "batches")
 
 _LEVEL_ORDER = ("canonical", "lgx", "G", "P")
@@ -759,6 +760,197 @@ def render_comparison(comparison):
     return "\n".join(lines)
 
 
+def _html(value):
+    if value is None:
+        rendered = "n/a"
+    elif isinstance(value, float):
+        rendered = f"{value:.3f}"
+    else:
+        rendered = str(value)
+    return escape(rendered, quote=True)
+
+
+def _html_table(columns, rows):
+    header = "".join(f"<th>{escape(label)}</th>" for _, label in columns)
+    body_rows = []
+    for row in rows:
+        cells = "".join(
+            f"<td>{_html(row.get(key))}</td>" for key, _ in columns
+        )
+        body_rows.append(f"<tr>{cells}</tr>")
+    if not body_rows:
+        body_rows.append(
+            f'<tr><td colspan="{len(columns)}">No represented rows</td></tr>'
+        )
+    return (
+        "<table>"
+        f"<thead><tr>{header}</tr></thead>"
+        f"<tbody>{''.join(body_rows)}</tbody>"
+        "</table>"
+    )
+
+
+def _summary_items(comparison):
+    if comparison["mode"] == "levels":
+        anchor = comparison["anchor"]
+        return [
+            ("Mode", "LEVELS"),
+            ("Direction", comparison["direction"]),
+            ("Anchor", f"{anchor['external_id']} / typing {anchor['typing_id']}"),
+            ("Levels", ", ".join(comparison["levels"])),
+            ("Pairs", comparison["pair_count"]),
+            ("Loci", ", ".join(comparison["loci"])),
+        ]
+    return [
+        ("Mode", "BATCHES"),
+        ("Left batch", comparison["left"]["batch_id"]),
+        ("Right batch", comparison["right"]["batch_id"]),
+        ("Level", comparison["level_label"]),
+        ("Common pairs", comparison["common_pair_count"]),
+        ("Loci", ", ".join(comparison["loci"])),
+    ]
+
+
+def render_comparison_html(comparison):
+    level_columns = (
+        ("level_label", "Level"),
+        ("pair_count", "Pairs"),
+        ("shared_sum", "Shared sum"),
+        ("donor_only_sum", "Donor only sum"),
+        ("recipient_only_sum", "Recipient only sum"),
+        ("complete_count", "Complete"),
+        ("partial_count", "Partial"),
+        ("no_shared_count", "No shared"),
+    )
+    pair_columns = (
+        ("candidate_external_id", "Candidate"),
+        ("from", "From"),
+        ("to", "To"),
+        ("shared_delta", "d shared"),
+        ("donor_only_delta", "d donor"),
+        ("recipient_only_delta", "d recipient"),
+        ("classification_changed", "Class changed"),
+    )
+    locus_columns = (
+        ("locus", "Locus"),
+        ("from", "From"),
+        ("to", "To"),
+        ("shared_sum_delta", "d shared sum"),
+        ("donor_only_sum_delta", "d donor sum"),
+        ("recipient_only_sum_delta", "d recipient sum"),
+        ("complete_count_delta", "d complete"),
+        ("partial_count_delta", "d partial"),
+        ("no_shared_count_delta", "d no shared"),
+    )
+    membership_rows = []
+    if comparison["mode"] == "batches":
+        membership_rows.extend(
+            {
+                "candidate_external_id": item,
+                "membership": "ONLY_LEFT",
+            }
+            for item in comparison["only_left_candidates"]
+        )
+        membership_rows.extend(
+            {
+                "candidate_external_id": item,
+                "membership": "ONLY_RIGHT",
+            }
+            for item in comparison["only_right_candidates"]
+        )
+
+    meta = "".join(
+        '<div><div class="label">{}</div><div class="value">{}</div></div>'.format(
+            escape(label), _html(value)
+        )
+        for label, value in _summary_items(comparison)
+    )
+    level_section = ""
+    if comparison["mode"] == "levels":
+        level_section = f'''
+  <h2>Level Overview</h2>
+  {_html_table(level_columns, comparison['level_rows'])}
+'''
+    membership_section = ""
+    if comparison["mode"] == "batches":
+        membership_section = f'''
+  <h2>Candidate Membership</h2>
+  {_html_table((("candidate_external_id", "Candidate"), ("membership", "Membership")), membership_rows)}
+'''
+
+    html = f'''<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>STEP 28 HLA Report Comparison</title>
+  <style>
+    :root {{
+      color-scheme: light;
+      --ink: #172033;
+      --muted: #556171;
+      --line: #d6dde7;
+      --panel: #f8fafc;
+      --accent: #2563eb;
+    }}
+    body {{
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: #ffffff;
+      line-height: 1.45;
+    }}
+    main {{
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 20px 44px;
+    }}
+    h1 {{ margin: 0 0 8px; font-size: 28px; }}
+    h2 {{ margin: 28px 0 10px; font-size: 18px; }}
+    .meta {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }}
+    .meta div {{ min-width: 0; }}
+    .label {{ color: var(--muted); font-size: 12px; text-transform: uppercase; }}
+    .value {{ font-weight: 700; overflow-wrap: anywhere; }}
+    table {{ border-collapse: collapse; width: 100%; font-size: 14px; }}
+    th, td {{ border: 1px solid var(--line); padding: 8px 10px; text-align: left; }}
+    th {{ background: #edf4ff; }}
+    .notice {{
+      margin-top: 28px;
+      padding: 14px 16px;
+      border-left: 4px solid var(--accent);
+      background: #eff6ff;
+      color: #17345f;
+    }}
+  </style>
+</head>
+<body>
+<main>
+  <h1>STEP 28 HLA Report Comparison</h1>
+  <div class="meta">{meta}</div>
+{level_section}
+  <h2>Pair Deltas</h2>
+  {_html_table(pair_columns, comparison['pair_delta_rows'])}
+
+  <h2>Locus Deltas</h2>
+  {_html_table(locus_columns, comparison['locus_delta_rows'])}
+{membership_section}
+  <div class="notice">
+    STEP 28 compares deterministic NON-CLINICAL software reports only. It does not recalculate py-ard reductions and does not create analysis_runs.
+  </div>
+</main>
+</body>
+</html>
+'''
+    return html
+
+
 def normalize_export_format(value):
     if value is None:
         return "both"
@@ -769,7 +961,7 @@ def normalize_export_format(value):
     value = value.strip().lower()
     if value not in VALID_EXPORT_FORMATS:
         raise ReportComparisonError(
-            "Невалиден export format. Допустими: json, csv, both."
+            "Невалиден export format. Допустими: json, csv, html, both."
         )
     return value
 
@@ -882,6 +1074,8 @@ def export_comparison(
         targets["json"] = output_dir / f"{name}.json"
     if export_format in ("csv", "both"):
         targets["csv"] = output_dir / f"{name}.csv"
+    if export_format == "html":
+        targets["html"] = output_dir / f"{name}.html"
 
     if not overwrite:
         existing = [
@@ -935,12 +1129,29 @@ def export_comparison(
             if tmp.exists():
                 tmp.unlink()
 
+
+
+    if "html" in targets:
+        tmp = targets["html"].with_name(
+            targets["html"].name + ".tmp"
+        )
+        try:
+            tmp.write_text(
+                render_comparison_html(comparison),
+                encoding="utf-8",
+            )
+            tmp.replace(targets["html"])
+        finally:
+            if tmp.exists():
+                tmp.unlink()
+
     return {
         "format": export_format.upper(),
         "export_name": name,
         "output_dir": output_dir,
         "json_path": targets.get("json"),
         "csv_path": targets.get("csv"),
+        "html_path": targets.get("html"),
         "mode": comparison["mode"],
     }
 
@@ -959,6 +1170,8 @@ def render_export_summary(info):
         lines.append(f"JSON: {info['json_path']}")
     if info.get("csv_path") is not None:
         lines.append(f"CSV: {info['csv_path']}")
+    if info.get("html_path") is not None:
+        lines.append(f"HTML: {info['html_path']}")
     lines.extend(
         [
             "Export contains NON-CLINICAL software-report comparison data only.",
