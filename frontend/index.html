@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HLA Validation Console</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Primary">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">HLA</span>
+        <div>
+          <strong>Validation Console</strong>
+          <small>Non-clinical prototype</small>
+        </div>
+      </div>
+
+      <nav class="tabs" aria-label="Views">
+        <button class="tab-button active" type="button" data-view="case">Case</button>
+        <button class="tab-button" type="button" data-view="comparison">Comparison</button>
+        <button class="tab-button" type="button" data-view="report">Report</button>
+        <button class="tab-button" type="button" data-view="audit">Audit</button>
+        <button class="tab-button" type="button" data-view="review">Review</button>
+      </nav>
+
+      <section class="connection-block" aria-labelledby="connection-title">
+        <h2 id="connection-title">Connection</h2>
+        <label>
+          API key
+          <input id="apiKey" type="password" autocomplete="off" placeholder="optional">
+        </label>
+        <label>
+          Request ID
+          <input id="requestId" type="text" autocomplete="off">
+        </label>
+        <div class="probe-row">
+          <button id="liveButton" type="button" title="Liveness probe">Live</button>
+          <button id="readyButton" type="button" title="Readiness probe">Ready</button>
+        </div>
+        <output id="connectionStatus" class="status-pill muted">Not checked</output>
+      </section>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Backend integration</p>
+          <h1>HLA report review</h1>
+        </div>
+        <div class="boundary">
+          Not approved for clinical use. No donor acceptance, allocation, DSA,
+          MFI, cPRA, eplet, PIRCHE, or autonomous clinical decision support.
+        </div>
+      </header>
+
+      <section class="notice-band" aria-label="Safety boundary">
+        <strong>Validation use only</strong>
+        <span>Use synthetic, demo, anonymized, or validation-planning records. Final clinical decisions require qualified independent review.</span>
+      </section>
+
+      <section class="view active" id="view-case" aria-labelledby="case-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Input</p>
+            <h2 id="case-title">Case workspace</h2>
+          </div>
+          <div class="segmented" role="group" aria-label="Direction">
+            <button type="button" class="active" data-direction="recipient">Recipient</button>
+            <button type="button" data-direction="donor">Donor</button>
+          </div>
+        </div>
+
+        <form id="caseForm" class="control-grid">
+          <label>
+            External ID
+            <input id="externalId" type="text" value="RECIP-001" required>
+          </label>
+          <label>
+            Typing ID
+            <input id="typingId" type="number" min="1" step="1" placeholder="latest">
+          </label>
+          <label>
+            Candidate IDs
+            <input id="candidateIds" type="text" placeholder="comma separated">
+          </label>
+          <label>
+            Level
+            <select id="level">
+              <option value="lgx">LGX</option>
+              <option value="canonical">Canonical</option>
+              <option value="g">G group</option>
+              <option value="p">P group</option>
+            </select>
+          </label>
+          <label>
+            Loci
+            <input id="loci" type="text" placeholder="A,B,C,DRB1,DQB1">
+          </label>
+          <label>
+            Sort
+            <select id="sortBy">
+              <option value="">Default</option>
+              <option value="mismatch_count">Mismatch count</option>
+              <option value="candidate_external_id">Candidate ID</option>
+              <option value="donor_external_id">Donor ID</option>
+              <option value="recipient_external_id">Recipient ID</option>
+            </select>
+          </label>
+          <label>
+            Order
+            <select id="sortOrder">
+              <option value="auto">Auto</option>
+              <option value="asc">Ascending</option>
+              <option value="desc">Descending</option>
+            </select>
+          </label>
+          <label class="check-field">
+            <input id="includeText" type="checkbox">
+            Include text artifact
+          </label>
+        </form>
+
+        <div class="action-row">
+          <button id="buildReport" class="primary" type="button">Build report</button>
+          <button id="compareLevels" type="button">Compare levels</button>
+          <button id="createAudit" type="button">Create audit</button>
+        </div>
+
+        <div class="metric-grid" id="metricGrid">
+          <div class="metric"><span>Pairs</span><strong id="metricPairs">-</strong></div>
+          <div class="metric"><span>Level</span><strong id="metricLevel">-</strong></div>
+          <div class="metric"><span>Anchor</span><strong id="metricAnchor">-</strong></div>
+          <div class="metric"><span>Request</span><strong id="metricRequest">-</strong></div>
+        </div>
+      </section>
+
+      <section class="view" id="view-comparison" aria-labelledby="comparison-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Representation levels</p>
+            <h2 id="comparison-title">Comparison</h2>
+          </div>
+          <div class="level-picker" aria-label="Levels">
+            <label><input type="checkbox" name="comparisonLevel" value="canonical" checked> Canonical</label>
+            <label><input type="checkbox" name="comparisonLevel" value="lgx" checked> LGX</label>
+            <label><input type="checkbox" name="comparisonLevel" value="g"> G</label>
+            <label><input type="checkbox" name="comparisonLevel" value="p"> P</label>
+          </div>
+        </div>
+
+        <div class="table-shell">
+          <table>
+            <caption>Level summary</caption>
+            <thead id="levelHead"></thead>
+            <tbody id="levelRows"></tbody>
+          </table>
+        </div>
+
+        <div class="two-column">
+          <div class="table-shell">
+            <table>
+              <caption>Pair deltas</caption>
+              <thead id="pairDeltaHead"></thead>
+              <tbody id="pairDeltaRows"></tbody>
+            </table>
+          </div>
+          <div class="table-shell">
+            <table>
+              <caption>Locus deltas</caption>
+              <thead id="locusDeltaHead"></thead>
+              <tbody id="locusDeltaRows"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-report" aria-labelledby="report-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">STEP 27</p>
+            <h2 id="report-title">Report</h2>
+          </div>
+          <div id="reportMeta" class="meta-strip">No report loaded</div>
+        </div>
+
+        <div class="two-column report-layout">
+          <div class="table-shell">
+            <table>
+              <caption>Pair rows</caption>
+              <thead id="pairHead"></thead>
+              <tbody id="pairRows"></tbody>
+            </table>
+          </div>
+          <div class="locus-rail" id="locusRail" aria-label="Locus summary"></div>
+        </div>
+      </section>
+
+      <section class="view" id="view-audit" aria-labelledby="audit-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Reproducibility</p>
+            <h2 id="audit-title">Audit bundle</h2>
+          </div>
+          <label class="check-field inline">
+            <input id="zipBundle" type="checkbox">
+            Zip
+          </label>
+        </div>
+
+        <div class="audit-summary" id="auditSummary">
+          <div><span>Bundle</span><strong>-</strong></div>
+          <div><span>Doctor</span><strong>-</strong></div>
+          <div><span>Files</span><strong>-</strong></div>
+          <div><span>Archive</span><strong>-</strong></div>
+        </div>
+      </section>
+
+      <section class="view" id="view-review" aria-labelledby="review-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Human review</p>
+            <h2 id="review-title">Validation notes</h2>
+          </div>
+          <output class="status-pill warning">Local only</output>
+        </div>
+
+        <div class="review-grid">
+          <label>
+            Reviewer note
+            <textarea id="reviewNote" rows="8" placeholder="Validation observations, questions, and usability findings."></textarea>
+          </label>
+          <div class="review-panel">
+            <h3>Clinical gate</h3>
+            <p>This prototype does not store clinical approval, donor acceptance, donor rejection, or treatment decisions.</p>
+            <button id="saveNote" type="button">Save note</button>
+            <button type="button" disabled>Approve clinical use</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="raw-panel" aria-labelledby="raw-title">
+        <div class="section-heading compact">
+          <h2 id="raw-title">Raw response</h2>
+          <button id="clearRaw" type="button">Clear</button>
+        </div>
+        <pre id="rawJson">{}</pre>
+      </section>
+    </main>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

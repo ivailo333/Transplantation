@@ -117,6 +117,14 @@ Invoke-RestMethod http://127.0.0.1:8000/v1/live
 Invoke-RestMethod http://127.0.0.1:8000/v1/ready
 ```
 
+Start the non-clinical frontend validation prototype after the backend is running:
+
+```powershell
+python .\frontend\serve.py
+```
+
+Open `http://127.0.0.1:4173/`.
+
 Legacy flags such as `--db-status`, `--list-subjects`, `--show-results`, and
 `--export-analysis` are still supported for backward compatibility.
 
@@ -192,6 +200,7 @@ hla-api
 - `command_cli.py`: command-style parser and dispatch.
 - `backend_app.py`: FastAPI component exposing reports, comparisons, doctor checks, and audit bundles.
 - `backend_config.py` and `backend_services.py`: backend settings, .env loading, probes, and service envelope layer.
+- `frontend/`: static non-clinical validation UI prototype and local API proxy.
 - `Dockerfile` and `.dockerignore`: container runtime packaging for the backend service.
 - `config.py`: shared HLA loci, representation levels, and data paths.
 - `hla_validation.py`: py-ard initialization and allele validation.
@@ -215,6 +224,7 @@ hla-api
 - [Clinical quality system draft](docs/clinical/quality-system.md)
 - [Clinical risk management draft](docs/clinical/risk-register.md)
 - [Clinical software lifecycle draft](docs/clinical/software-lifecycle.md)
+- [Clinical frontend prototype draft](docs/clinical/frontend-prototype.md)
 - [Database schema](docs/schema.md)
 - [Data policy](docs/data.md)
 
