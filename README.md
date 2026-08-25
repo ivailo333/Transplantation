@@ -24,6 +24,14 @@ Install runtime dependencies:
 python -m pip install -r requirements.txt
 ```
 
+Install FastAPI backend dependencies:
+
+```powershell
+python -m pip install -e .[api]
+# or
+python -m pip install -r requirements-api.txt
+```
+
 For development tools:
 
 ```powershell
@@ -90,6 +98,16 @@ Show command-style help:
 python .\main.py --help
 ```
 
+Start the backend API component for a larger application:
+
+```powershell
+hla-api
+# or
+python -m backend_app
+```
+
+The default API URL is `http://127.0.0.1:8000`; OpenAPI is available at `/openapi.json` and interactive docs at `/docs`.
+
 Legacy flags such as `--db-status`, `--list-subjects`, `--show-results`, and
 `--export-analysis` are still supported for backward compatibility.
 
@@ -138,7 +156,9 @@ The GitHub Actions workflow in `.github/workflows/ci.yml` runs on Windows and ch
 - Python compilation with `compileall`
 - the full unittest suite
 - CLI smoke tests for `--help` and `doctor --json`
+- FastAPI backend app creation smoke test
 - source and wheel builds with `python -m build`
+- installed console-script metadata for `hla-match` and `hla-api`
 - the installed `hla-match` console script
 
 ## Packaging
@@ -149,10 +169,11 @@ Build release artifacts locally with:
 python -m build
 ```
 
-The project exposes the console script:
+The project exposes console scripts for CLI and API use:
 
 ```powershell
 hla-match --help
+hla-api
 ```
 
 ## Project Layout
@@ -160,6 +181,8 @@ hla-match --help
 - `main.py`: minimal executable entry point.
 - `cli.py`: legacy-compatible CLI entry and command-style routing.
 - `command_cli.py`: command-style parser and dispatch.
+- `backend_app.py`: FastAPI component exposing reports, comparisons, doctor checks, and audit bundles.
+- `backend_config.py` and `backend_services.py`: backend settings and service envelope layer.
 - `config.py`: shared HLA loci, representation levels, and data paths.
 - `hla_validation.py`: py-ard initialization and allele validation.
 - `hla_reduction.py`: CANONICAL to LGX / G / P reductions.
@@ -175,6 +198,7 @@ hla-match --help
 
 ## Documentation
 
+- [Backend API component](docs/backend.md)
 - [Database schema](docs/schema.md)
 - [Data policy](docs/data.md)
 
