@@ -67,7 +67,26 @@ class TestBackendServices(BackendServiceFixture):
         )
         self.assertEqual(response["request_id"], "rid-1")
         self.assertFalse(response["clinical"])
-        self.assertIn("/reports/live", response["data"]["supported_endpoints"])
+        self.assertIn("/v1/reports/live", response["data"]["supported_endpoints"])
+        self.assertIn("/reports/live", response["data"]["legacy_endpoints"])
+
+    def test_liveness_does_not_touch_database(self):
+        missing_settings = BackendSettings(database_path=Path("missing.db"))
+        response = backend_services.liveness(missing_settings, request_id="rid-live")
+        self.assertEqual(response["request_id"], "rid-live")
+        self.assertEqual(response["data"]["status"], "live")
+        self.assertEqual(response["data"]["api_version"], "v1")
+
+    def test_readiness_includes_probe_summary(self):
+        with patch.object(
+            backend_services.doctor,
+            "run_doctor",
+            return_value=FAKE_DOCTOR,
+        ):
+            response = backend_services.readiness(self.settings)
+        self.assertTrue(response["data"]["ready"])
+        self.assertEqual(response["data"]["status"], "ready")
+        self.assertEqual(backend_services.readiness_status_code(response), 200)
 
     def test_health_includes_schema_and_doctor_summary(self):
         with patch.object(

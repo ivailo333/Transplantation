@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
 
 import audit_bundle
 import database
@@ -9,9 +8,10 @@ import doctor
 import hla_matrix
 import step27_reporting
 import step28_report_comparison
-from backend_config import BackendSettings, load_backend_settings
+from backend_config import BackendConfigError, BackendSettings, load_backend_settings
 
 
+BACKEND_API_VERSION = "v1"
 BACKEND_RESPONSE_SCHEMA = "hla-backend-response-v1"
 NON_CLINICAL_NOTICE = (
     "This backend exposes deterministic NON-CLINICAL HLA software artifacts. "
@@ -56,17 +56,81 @@ def ensure_database_ready(settings=None):
     return database.get_database_schema_status(settings.database_path)
 
 
+def _readiness_snapshot(settings):
+    schema_status = database.get_database_schema_status(settings.database_path)
+    doctor_report = doctor.run_doctor(settings.database_path)
+    doctor_summary = doctor_report["summary"]
+    doctor_failures = doctor_summary.get(doctor.STATUS_FAIL, 0)
+    ready = bool(
+        schema_status.get("exists")
+        and schema_status.get("is_current")
+        and doctor_failures == 0
+    )
+    return schema_status, doctor_report, doctor_summary, ready
+
+
+def liveness(settings=None, *, request_id=None):
+    settings = _settings(settings)
+    return envelope(
+        {
+            "status": "live",
+            "component": "hla-transplantation-backend",
+            "api_version": BACKEND_API_VERSION,
+            "name": settings.app_name,
+        },
+        request_id=request_id,
+    )
+
+
+def readiness(settings=None, *, request_id=None):
+    settings = _settings(settings)
+    schema_status, _doctor_report, doctor_summary, ready = _readiness_snapshot(settings)
+    return envelope(
+        {
+            "ready": ready,
+            "status": "ready" if ready else "not_ready",
+            "component": "hla-transplantation-backend",
+            "api_version": BACKEND_API_VERSION,
+            "database_exists": bool(schema_status.get("exists")),
+            "schema_current": bool(schema_status.get("is_current")),
+            "schema_version": schema_status.get("current_version"),
+            "required_schema_version": schema_status.get("required_version"),
+            "doctor_failures": doctor_summary.get(doctor.STATUS_FAIL, 0),
+            "doctor_warnings": doctor_summary.get(doctor.STATUS_WARN, 0),
+        },
+        request_id=request_id,
+    )
+
+
+def readiness_status_code(response):
+    return 200 if response["data"].get("ready") else 503
+
+
 def backend_metadata(settings=None, *, request_id=None):
     settings = _settings(settings)
     return envelope(
         {
             "name": settings.app_name,
             "component": "hla-transplantation-backend",
+            "api_version": BACKEND_API_VERSION,
             "database_path": settings.database_path,
             "export_dir": settings.export_dir,
+            "env_file": settings.env_file,
             "auto_migrate": settings.auto_migrate,
             "api_key_required": settings.api_key is not None,
             "supported_endpoints": [
+                "/v1/live",
+                "/v1/ready",
+                "/v1/health",
+                "/v1/doctor",
+                "/v1/reports/live",
+                "/v1/reports/batch",
+                "/v1/comparisons/levels",
+                "/v1/comparisons/batches",
+                "/v1/audit/live",
+                "/v1/audit/batches",
+            ],
+            "legacy_endpoints": [
                 "/health",
                 "/doctor",
                 "/reports/live",
@@ -83,19 +147,13 @@ def backend_metadata(settings=None, *, request_id=None):
 
 def health(settings=None, *, request_id=None):
     settings = _settings(settings)
-    schema_status = database.get_database_schema_status(settings.database_path)
-    doctor_report = doctor.run_doctor(settings.database_path)
-    ready = bool(
-        schema_status.get("exists")
-        and schema_status.get("is_current")
-        and doctor_report["summary"][doctor.STATUS_FAIL] == 0
-    )
+    schema_status, doctor_report, doctor_summary, ready = _readiness_snapshot(settings)
     return envelope(
         {
             "ready": ready,
             "database_path": settings.database_path,
             "schema_status": schema_status,
-            "doctor_summary": doctor_report["summary"],
+            "doctor_summary": doctor_summary,
         },
         request_id=request_id,
     )
@@ -288,6 +346,7 @@ def create_batch_audit(settings, request, *, request_id=None):
 
 
 SERVICE_ERROR_TYPES = (
+    BackendConfigError,
     BackendServiceError,
     database.DatabaseSchemaError,
     database.MigrationError,

@@ -32,6 +32,8 @@ python -m pip install -e .[api]
 python -m pip install -r requirements-api.txt
 ```
 
+Copy `backend.env.example` to `backend.env` for local backend runtime settings.
+
 For development tools:
 
 ```powershell
@@ -106,7 +108,14 @@ hla-api
 python -m backend_app
 ```
 
-The default API URL is `http://127.0.0.1:8000`; OpenAPI is available at `/openapi.json` and interactive docs at `/docs`.
+The default API URL is `http://127.0.0.1:8000`. New integrations should use `/v1` endpoints; OpenAPI is available at `/openapi.json` and interactive docs at `/docs`.
+
+Probe the backend component:
+
+```powershell
+Invoke-RestMethod http://127.0.0.1:8000/v1/live
+Invoke-RestMethod http://127.0.0.1:8000/v1/ready
+```
 
 Legacy flags such as `--db-status`, `--list-subjects`, `--show-results`, and
 `--export-analysis` are still supported for backward compatibility.
@@ -156,7 +165,7 @@ The GitHub Actions workflow in `.github/workflows/ci.yml` runs on Windows and ch
 - Python compilation with `compileall`
 - the full unittest suite
 - CLI smoke tests for `--help` and `doctor --json`
-- FastAPI backend app creation smoke test
+- FastAPI backend app and OpenAPI contract smoke test
 - source and wheel builds with `python -m build`
 - installed console-script metadata for `hla-match` and `hla-api`
 - the installed `hla-match` console script
@@ -182,7 +191,8 @@ hla-api
 - `cli.py`: legacy-compatible CLI entry and command-style routing.
 - `command_cli.py`: command-style parser and dispatch.
 - `backend_app.py`: FastAPI component exposing reports, comparisons, doctor checks, and audit bundles.
-- `backend_config.py` and `backend_services.py`: backend settings and service envelope layer.
+- `backend_config.py` and `backend_services.py`: backend settings, .env loading, probes, and service envelope layer.
+- `Dockerfile` and `.dockerignore`: container runtime packaging for the backend service.
 - `config.py`: shared HLA loci, representation levels, and data paths.
 - `hla_validation.py`: py-ard initialization and allele validation.
 - `hla_reduction.py`: CANONICAL to LGX / G / P reductions.
@@ -199,6 +209,7 @@ hla-api
 ## Documentation
 
 - [Backend API component](docs/backend.md)
+- [Backend integration guide](docs/backend-integration.md)
 - [Database schema](docs/schema.md)
 - [Data policy](docs/data.md)
 

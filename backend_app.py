@@ -1,4 +1,4 @@
-import os
+import logging
 from uuid import uuid4
 
 from backend_config import BackendSettings, load_backend_settings
@@ -6,6 +6,8 @@ import backend_services
 
 
 API_SCHEMA = "hla-backend-api-v1"
+API_PREFIX = "/v1"
+LOGGER = logging.getLogger("hla_backend")
 
 
 def _payload(model):
@@ -29,9 +31,26 @@ def _service_status(exc):
     return 400
 
 
+def _error_content(request, error, message, *, details=None):
+    request_id = getattr(request.state, "request_id", None)
+    content = {
+        "schema": API_SCHEMA,
+        "request_id": request_id,
+        "clinical": False,
+        "notice": backend_services.NON_CLINICAL_NOTICE,
+        "error": error,
+        "message": message,
+    }
+    if details is not None:
+        content["details"] = details
+    return content
+
+
 def create_app(settings: BackendSettings | None = None):
     try:
         from fastapi import Depends, FastAPI, Header, HTTPException, Request
+        from fastapi.encoders import jsonable_encoder
+        from fastapi.exceptions import RequestValidationError
         from fastapi.middleware.cors import CORSMiddleware
         from fastapi.responses import JSONResponse
         from pydantic import BaseModel
@@ -128,7 +147,12 @@ def create_app(settings: BackendSettings | None = None):
             allow_origins=list(settings.cors_origins),
             allow_credentials=False,
             allow_methods=["GET", "POST"],
-            allow_headers=["Authorization", "Content-Type", "X-API-Key", "X-Request-ID"],
+            allow_headers=[
+                "Authorization",
+                "Content-Type",
+                "X-API-Key",
+                "X-Request-ID",
+            ],
         )
 
     async def require_api_key(x_api_key: str | None = Header(default=None)):
@@ -136,8 +160,7 @@ def create_app(settings: BackendSettings | None = None):
             raise HTTPException(
                 status_code=401,
                 detail={
-                    "schema": API_SCHEMA,
-                    "error": "unauthorized",
+                    "error": "Unauthorized",
                     "message": "Missing or invalid X-API-Key header.",
                 },
             )
@@ -146,49 +169,112 @@ def create_app(settings: BackendSettings | None = None):
     async def request_id_middleware(request: Request, call_next):
         request_id = request.headers.get("X-Request-ID") or str(uuid4())
         request.state.request_id = request_id
-        response = await call_next(request)
+        try:
+            response = await call_next(request)
+        except Exception:
+            LOGGER.exception(
+                "request_failed path=%s method=%s request_id=%s",
+                request.url.path,
+                request.method,
+                request_id,
+            )
+            raise
         response.headers["X-Request-ID"] = request_id
+        LOGGER.info(
+            "request_complete method=%s path=%s status=%s request_id=%s",
+            request.method,
+            request.url.path,
+            response.status_code,
+            request_id,
+        )
         return response
 
-    async def service_error_handler(request: Request, exc: Exception):
-        request_id = getattr(request.state, "request_id", None)
+    async def http_exception_handler(request: Request, exc: HTTPException):
+        detail = exc.detail if isinstance(exc.detail, dict) else {}
         return JSONResponse(
-            status_code=_service_status(exc),
-            content={
-                "schema": API_SCHEMA,
-                "request_id": request_id,
-                "clinical": False,
-                "notice": backend_services.NON_CLINICAL_NOTICE,
-                "error": exc.__class__.__name__,
-                "message": str(exc),
-            },
+            status_code=exc.status_code,
+            content=_error_content(
+                request,
+                detail.get("error", exc.__class__.__name__),
+                detail.get("message", str(exc.detail)),
+            ),
+            headers=getattr(exc, "headers", None),
         )
 
+    async def validation_error_handler(request: Request, exc: RequestValidationError):
+        return JSONResponse(
+            status_code=422,
+            content=_error_content(
+                request,
+                "RequestValidationError",
+                "Request validation failed.",
+                details=jsonable_encoder(exc.errors()),
+            ),
+        )
+
+    async def service_error_handler(request: Request, exc: Exception):
+        return JSONResponse(
+            status_code=_service_status(exc),
+            content=_error_content(
+                request,
+                exc.__class__.__name__,
+                str(exc),
+            ),
+        )
+
+    app.add_exception_handler(HTTPException, http_exception_handler)
+    app.add_exception_handler(RequestValidationError, validation_error_handler)
     for exc_type in backend_services.SERVICE_ERROR_TYPES:
         app.add_exception_handler(exc_type, service_error_handler)
 
-    @app.get("/", dependencies=[Depends(require_api_key)])
+    secured = [Depends(require_api_key)]
+
+    @app.get("/", dependencies=secured, include_in_schema=False)
+    @app.get(f"{API_PREFIX}", dependencies=secured, tags=["metadata"])
     def root(request: Request):
         return backend_services.backend_metadata(
             settings,
             request_id=request.state.request_id,
         )
 
-    @app.get("/health", dependencies=[Depends(require_api_key)])
+    @app.get("/live", include_in_schema=False)
+    @app.get(f"{API_PREFIX}/live", tags=["probes"])
+    def live(request: Request):
+        return backend_services.liveness(
+            settings,
+            request_id=request.state.request_id,
+        )
+
+    @app.get("/ready", include_in_schema=False)
+    @app.get(f"{API_PREFIX}/ready", tags=["probes"])
+    def ready(request: Request):
+        response = backend_services.readiness(
+            settings,
+            request_id=request.state.request_id,
+        )
+        return JSONResponse(
+            status_code=backend_services.readiness_status_code(response),
+            content=response,
+        )
+
+    @app.get("/health", dependencies=secured, include_in_schema=False)
+    @app.get(f"{API_PREFIX}/health", dependencies=secured, tags=["probes"])
     def health(request: Request):
         return backend_services.health(
             settings,
             request_id=request.state.request_id,
         )
 
-    @app.get("/doctor", dependencies=[Depends(require_api_key)])
+    @app.get("/doctor", dependencies=secured, include_in_schema=False)
+    @app.get(f"{API_PREFIX}/doctor", dependencies=secured, tags=["diagnostics"])
     def doctor_status(request: Request):
         return backend_services.doctor_status(
             settings,
             request_id=request.state.request_id,
         )
 
-    @app.post("/reports/live", dependencies=[Depends(require_api_key)])
+    @app.post("/reports/live", dependencies=secured, include_in_schema=False)
+    @app.post(f"{API_PREFIX}/reports/live", dependencies=secured, tags=["reports"])
     def reports_live(payload: LiveReportRequest, request: Request):
         return backend_services.build_live_report(
             settings,
@@ -196,7 +282,8 @@ def create_app(settings: BackendSettings | None = None):
             request_id=request.state.request_id,
         )
 
-    @app.post("/reports/batch", dependencies=[Depends(require_api_key)])
+    @app.post("/reports/batch", dependencies=secured, include_in_schema=False)
+    @app.post(f"{API_PREFIX}/reports/batch", dependencies=secured, tags=["reports"])
     def reports_batch(payload: BatchReportRequest, request: Request):
         return backend_services.build_batch_report(
             settings,
@@ -204,7 +291,12 @@ def create_app(settings: BackendSettings | None = None):
             request_id=request.state.request_id,
         )
 
-    @app.post("/comparisons/levels", dependencies=[Depends(require_api_key)])
+    @app.post("/comparisons/levels", dependencies=secured, include_in_schema=False)
+    @app.post(
+        f"{API_PREFIX}/comparisons/levels",
+        dependencies=secured,
+        tags=["comparisons"],
+    )
     def comparisons_levels(payload: LevelComparisonRequest, request: Request):
         return backend_services.build_level_comparison(
             settings,
@@ -212,7 +304,12 @@ def create_app(settings: BackendSettings | None = None):
             request_id=request.state.request_id,
         )
 
-    @app.post("/comparisons/batches", dependencies=[Depends(require_api_key)])
+    @app.post("/comparisons/batches", dependencies=secured, include_in_schema=False)
+    @app.post(
+        f"{API_PREFIX}/comparisons/batches",
+        dependencies=secured,
+        tags=["comparisons"],
+    )
     def comparisons_batches(payload: BatchComparisonRequest, request: Request):
         return backend_services.build_batch_comparison(
             settings,
@@ -220,7 +317,8 @@ def create_app(settings: BackendSettings | None = None):
             request_id=request.state.request_id,
         )
 
-    @app.post("/audit/live", dependencies=[Depends(require_api_key)])
+    @app.post("/audit/live", dependencies=secured, include_in_schema=False)
+    @app.post(f"{API_PREFIX}/audit/live", dependencies=secured, tags=["audit"])
     def audit_live(payload: LiveAuditRequest, request: Request):
         return backend_services.create_live_audit(
             settings,
@@ -228,7 +326,8 @@ def create_app(settings: BackendSettings | None = None):
             request_id=request.state.request_id,
         )
 
-    @app.post("/audit/batches", dependencies=[Depends(require_api_key)])
+    @app.post("/audit/batches", dependencies=secured, include_in_schema=False)
+    @app.post(f"{API_PREFIX}/audit/batches", dependencies=secured, tags=["audit"])
     def audit_batches(payload: BatchAuditRequest, request: Request):
         return backend_services.create_batch_audit(
             settings,
@@ -245,6 +344,14 @@ except RuntimeError:  # pragma: no cover - optional API dependencies
     app = None
 
 
+def _configure_logging(settings):
+    level = getattr(logging, settings.log_level.upper(), logging.INFO)
+    logging.basicConfig(
+        level=level,
+        format="%(asctime)s %(levelname)s %(name)s %(message)s",
+    )
+
+
 def main():
     try:
         import uvicorn
@@ -254,13 +361,14 @@ def main():
             "Install with: python -m pip install -e .[api]"
         ) from exc
 
-    host = os.environ.get("HLA_BACKEND_HOST", "127.0.0.1")
-    port = int(os.environ.get("HLA_BACKEND_PORT", "8000"))
+    settings = load_backend_settings()
+    _configure_logging(settings)
     uvicorn.run(
         "backend_app:app",
-        host=host,
-        port=port,
+        host=settings.host,
+        port=settings.port,
         reload=False,
+        log_level=settings.log_level.lower(),
     )
 
 

@@ -37,8 +37,8 @@ jobs:
       - name: Smoke test doctor JSON
         run: python -B .\main.py doctor --json
 
-      - name: Smoke test backend app
-        run: python -B -c "from backend_app import create_app; app = create_app(); assert app.title; print(app.title)"
+      - name: Smoke test backend OpenAPI contract
+        run: python -B -c "from backend_app import create_app; app=create_app(); paths=app.openapi()['paths']; assert '/v1/live' in paths and '/v1/reports/live' in paths; print(app.title)"
 
       - name: Build source and wheel distributions
         run: python -m build
