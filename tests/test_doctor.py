@@ -1,3 +1,4 @@
+import json
 import tempfile
 from pathlib import Path
 from types import SimpleNamespace
@@ -40,6 +41,41 @@ class TestDoctor(unittest.TestCase):
         self.assertIn("HLA PROJECT DOCTOR", rendered)
         self.assertIn("SQLite schema version", rendered)
         self.assertIn("Doctor is diagnostic only", rendered)
+
+    def test_render_doctor_json(self):
+        report = {
+            "schema": "hla-project-doctor-v1",
+            "checks": [],
+            "summary": {
+                doctor.STATUS_OK: 0,
+                doctor.STATUS_WARN: 0,
+                doctor.STATUS_FAIL: 0,
+            },
+        }
+        payload = json.loads(doctor.render_doctor_json(report))
+        self.assertEqual(payload["schema"], "hla-project-doctor-v1")
+        self.assertEqual(payload["summary"][doctor.STATUS_FAIL], 0)
+
+    def test_cli_doctor_json_renders_machine_readable_report(self):
+        report = {
+            "schema": "hla-project-doctor-v1",
+            "checks": [],
+            "summary": {
+                doctor.STATUS_OK: 0,
+                doctor.STATUS_WARN: 0,
+                doctor.STATUS_FAIL: 0,
+            },
+        }
+        output = []
+        with patch.object(command_cli.doctor, "run_doctor", return_value=report):
+            code = command_cli.run_command_cli(
+                ["--db", str(self.db), "doctor", "--json"],
+                output_func=output.append,
+            )
+
+        self.assertEqual(code, 0)
+        payload = json.loads("\n".join(output))
+        self.assertEqual(payload["schema"], "hla-project-doctor-v1")
 
     def test_cli_doctor_command_renders_report(self):
         report = {

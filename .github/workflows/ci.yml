@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-and-package:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install project and development tools
+        run: python -m pip install -e ".[dev]"
+
+      - name: Check whitespace
+        run: git diff --check
+
+      - name: Compile Python modules
+        run: python -B -m compileall -q .
+
+      - name: Run unit tests
+        run: python -B -m unittest discover -s tests
+
+      - name: Smoke test CLI help
+        run: python -B .\main.py --help
+
+      - name: Smoke test doctor JSON
+        run: python -B .\main.py doctor --json
+
+      - name: Build source and wheel distributions
+        run: python -m build
+
+      - name: Smoke test console script from wheel
+        shell: pwsh
+        run: |
+          $wheel = Get-ChildItem .\dist\*.whl | Select-Object -First 1
+          python -m pip install --force-reinstall --no-deps $wheel.FullName
+          hla-match --help

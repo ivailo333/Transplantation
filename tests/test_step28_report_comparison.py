@@ -234,6 +234,19 @@ class TestStep28Export(Step28LiveFixture):
         self.assertTrue(info["csv_path"].exists())
 
 
+    def test_all_export(self):
+        result = step28_report_comparison.build_live_level_comparison(
+            self.db, "recipient", "RECIP-001",
+            levels=["lgx", "G"],
+        )
+        info = step28_report_comparison.export_comparison(
+            result, output_dir=self.out, export_format="all"
+        )
+        self.assertTrue(info["json_path"].exists())
+        self.assertTrue(info["csv_path"].exists())
+        self.assertTrue(info["html_path"].exists())
+        self.assertEqual(info["format"], "ALL")
+
     def test_html_export(self):
         result = step28_report_comparison.build_live_level_comparison(
             self.db, "recipient", "RECIP-001",

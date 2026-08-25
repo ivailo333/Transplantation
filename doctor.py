@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 import sys
 
@@ -245,3 +246,12 @@ def render_doctor(report):
         ]
     )
     return "\n".join(lines)
+
+
+
+def render_doctor_json(report):
+    return json.dumps(
+        report,
+        ensure_ascii=False,
+        indent=2,
+    )

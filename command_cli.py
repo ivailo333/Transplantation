@@ -31,6 +31,7 @@ import argparse
 import copy
 from pathlib import Path
 
+import audit_bundle
 import database
 import doctor
 import exporters
@@ -64,6 +65,7 @@ COMMAND_GROUPS = frozenset({
     "report",
     "compare",
     "doctor",
+    "audit",
 })
 
 
@@ -131,7 +133,118 @@ def build_parser():
         action="store_true",
         dest="_group_help",
     )
+    doctor_parser.add_argument(
+        "--json",
+        action="store_true",
+        dest="json_output",
+        help="Render doctor output as JSON.",
+    )
     doctor_parser.set_defaults(command="check")
+
+
+    # ------------------------------------------------------------
+    # audit
+    # ------------------------------------------------------------
+    audit_parser = groups.add_parser(
+        "audit",
+        add_help=False,
+        help="Create reproducible audit bundles.",
+    )
+    audit_parser.add_argument(
+        "-h",
+        "--help",
+        action="store_true",
+        dest="_group_help",
+    )
+    audit_commands = audit_parser.add_subparsers(dest="command")
+
+    def _add_audit_output_options(subparser):
+        subparser.add_argument(
+            "--output-dir",
+            type=Path,
+            default=audit_bundle.DEFAULT_EXPORT_DIR,
+        )
+        subparser.add_argument("--name", default=None)
+        subparser.add_argument("--overwrite", action="store_true")
+        subparser.add_argument(
+            "--zip",
+            action="store_true",
+            dest="zip_bundle",
+        )
+        subparser.add_argument("-h", "--help", action="store_true")
+
+    def _add_audit_live_options(subparser):
+        subparser.add_argument("external_id")
+        subparser.add_argument("--typing-id", type=int, default=None)
+        subparser.add_argument(
+            "--candidate",
+            action="append",
+            default=None,
+        )
+        subparser.add_argument(
+            "--level",
+            default=hla_matrix.DEFAULT_LEVEL,
+        )
+        subparser.add_argument(
+            "--compare-level",
+            action="append",
+            default=None,
+        )
+        subparser.add_argument(
+            "--locus",
+            action="append",
+            default=None,
+        )
+        subparser.add_argument(
+            "--sort-by",
+            choices=batch_ranking.SORT_METRICS,
+            default=None,
+        )
+        subparser.add_argument(
+            "--sort-order",
+            choices=batch_ranking.SORT_ORDERS,
+            default="auto",
+        )
+        _add_audit_output_options(subparser)
+
+    audit_recipient = audit_commands.add_parser(
+        "recipient",
+        add_help=False,
+    )
+    _add_audit_live_options(audit_recipient)
+
+    audit_donor = audit_commands.add_parser(
+        "donor",
+        add_help=False,
+    )
+    _add_audit_live_options(audit_donor)
+
+    audit_batches = audit_commands.add_parser(
+        "batches",
+        add_help=False,
+    )
+    audit_batches.add_argument("left_batch_id", type=int)
+    audit_batches.add_argument("right_batch_id", type=int)
+    audit_batches.add_argument(
+        "--level",
+        default=hla_matrix.DEFAULT_LEVEL,
+    )
+    audit_batches.add_argument(
+        "--locus",
+        action="append",
+        default=None,
+    )
+    audit_batches.add_argument(
+        "--sort-by",
+        choices=batch_ranking.SORT_METRICS,
+        default=None,
+    )
+    audit_batches.add_argument(
+        "--sort-order",
+        choices=batch_ranking.SORT_ORDERS,
+        default="auto",
+    )
+    _add_audit_output_options(audit_batches)
 
     # ------------------------------------------------------------
     # db
@@ -566,8 +679,8 @@ def build_parser():
             choices=step27_reporting.VALID_EXPORT_FORMATS,
             default=None,
             help=(
-                "Export report as json, csv, html, or both. "
-                "Bare --export means both."
+                "Export report as json, csv, html, both, or all. "
+                "Bare --export means both; all includes HTML."
             ),
         )
         subparser.add_argument(
@@ -1372,6 +1485,7 @@ HLA donor/recipient comparison CLI
 
 Quick start:
   python main.py doctor
+  python main.py audit recipient RECIP-001 --zip
   python main.py db status
   python main.py subjects list
   python main.py report recipient RECIP-001
@@ -1394,6 +1508,12 @@ Command examples:
 
 Doctor:
   python main.py doctor
+  python main.py doctor --json
+
+Audit bundles:
+  python main.py audit recipient RECIP-001
+  python main.py audit donor DONOR-001 --zip
+  python main.py audit batches 1 3 --level lgx
 
 Database:
   python main.py db status
@@ -1478,6 +1598,7 @@ Report comparison / multi-report analysis (STEP 28):
   python main.py compare levels recipient RECIP-001 --export both
   python main.py compare batches 1 3 --export json
   python main.py compare levels recipient RECIP-001 --export html
+  python main.py compare levels recipient RECIP-001 --export all
 
 Batch:
   python main.py batch recipient RECIP-001
@@ -1519,6 +1640,11 @@ Persistent batch history (STEP 20 + STEP 21):
 
 Doctor:
   python main.py doctor
+  python main.py doctor --json
+
+Audit bundles:
+  python main.py audit recipient RECIP-001
+  python main.py audit batches 1 3 --zip
 
 Workflow:
   python main.py workflow interactive
@@ -1537,10 +1663,28 @@ def _group_help(group):
     messages = {
         "doctor": """\
 Project health checks:
-  doctor
+  doctor [--json]
 
 Checks Python, py-ard, py-ard data, SQLite schema/integrity, demo data, and export location.
 Diagnostic only: does not migrate or modify data.
+""",
+        "audit": """\
+Audit bundle commands:
+  audit recipient RECIPIENT_ID [--typing-id ID] [--candidate DONOR_ID]
+                  [--level canonical|lgx|G|P]
+                  [--compare-level canonical|lgx|G|P]...
+                  [--locus LOCUS] [--output-dir PATH] [--name NAME]
+                  [--overwrite] [--zip]
+
+  audit donor DONOR_ID [--typing-id ID] [--candidate RECIPIENT_ID] ...
+
+  audit batches LEFT_BATCH_ID RIGHT_BATCH_ID
+                [--level canonical|lgx|G|P] [--locus LOCUS]
+                [--output-dir PATH] [--name NAME] [--overwrite] [--zip]
+
+Creates a reproducible directory containing doctor output, schema status,
+STEP 27 report artifacts, STEP 28 comparison artifacts, and metadata.
+All artifacts are NON-CLINICAL software outputs.
 """,
         "db": """\
 Database commands:
@@ -1588,7 +1732,7 @@ Report comparison / multi-report analysis (STEP 28):
                  [--locus LOCUS]
                  [--sort-by donor-only|shared|recipient-only]
                  [--sort-order auto|asc|desc]
-                 [--export [json|csv|html|both]]
+                 [--export [json|csv|html|both|all]]
                  [--output-dir PATH] [--name NAME] [--overwrite]
 
   compare levels donor DONOR_ID
@@ -1599,7 +1743,7 @@ Report comparison / multi-report analysis (STEP 28):
                   [--locus LOCUS]
                   [--sort-by donor-only|shared|recipient-only]
                   [--sort-order auto|asc|desc]
-                  [--export [json|csv|html|both]]
+                  [--export [json|csv|html|both|all]]
                   [--output-dir PATH] [--name NAME] [--overwrite]
 
 LEVELS compares the same live scope across stored representation levels.
@@ -1615,7 +1759,7 @@ Analytical reporting (STEP 27):
                    [--locus LOCUS]
                    [--sort-by donor-only|shared|recipient-only]
                    [--sort-order auto|asc|desc]
-                   [--export [json|csv|html|both]]
+                   [--export [json|csv|html|both|all]]
                    [--output-dir PATH] [--name NAME] [--overwrite]
 
   report donor DONOR_ID [--typing-id ID]
@@ -1625,7 +1769,7 @@ Analytical reporting (STEP 27):
                         [--locus LOCUS]
                         [--sort-by donor-only|shared|recipient-only]
                         [--sort-order auto|asc|desc]
-                        [--export [json|csv|html|both]]
+                        [--export [json|csv|html|both|all]]
                         [--output-dir PATH] [--name NAME] [--overwrite]
 
 STEP 27 composes and validates STEP 24 + STEP 25 + STEP 26 data.
@@ -1854,11 +1998,59 @@ def _dispatch(args, input_func, output_func):
     # ------------------------------------------------------------
     if args.group == "doctor":
         report = doctor.run_doctor(database_path)
-        output_func(doctor.render_doctor(report))
+        if args.json_output:
+            output_func(doctor.render_doctor_json(report))
+        else:
+            output_func(doctor.render_doctor(report))
         return doctor.doctor_exit_code(report)
 
     # All remaining commands operate on a current database.
     _normal_db_guard(database_path)
+
+
+    # ------------------------------------------------------------
+    # Audit bundles
+    # ------------------------------------------------------------
+    if args.group == "audit":
+        if args.command in ("recipient", "donor"):
+            info = audit_bundle.create_live_audit_bundle(
+                database_path=database_path,
+                direction=args.command,
+                anchor_external_id=args.external_id,
+                anchor_typing_id=args.typing_id,
+                candidate_external_ids=args.candidate,
+                level=args.level,
+                comparison_levels=args.compare_level,
+                loci=args.locus,
+                sort_by=args.sort_by,
+                sort_order=args.sort_order,
+                output_dir=args.output_dir,
+                bundle_name=args.name,
+                overwrite=args.overwrite,
+                zip_bundle=args.zip_bundle,
+            )
+        elif args.command == "batches":
+            info = audit_bundle.create_batch_audit_bundle(
+                database_path=database_path,
+                left_batch_id=args.left_batch_id,
+                right_batch_id=args.right_batch_id,
+                level=args.level,
+                loci=args.locus,
+                sort_by=args.sort_by,
+                sort_order=args.sort_order,
+                output_dir=args.output_dir,
+                bundle_name=args.name,
+                overwrite=args.overwrite,
+                zip_bundle=args.zip_bundle,
+            )
+        else:
+            raise CommandCLIError(
+                "Липсва audit subcommand. "
+                "Използвайте recipient, donor или batches."
+            )
+
+        output_func(audit_bundle.render_audit_summary(info))
+        return 0
 
     # ------------------------------------------------------------
     # Subjects
@@ -2696,6 +2888,7 @@ def run_command_cli(
         step27_reporting.ReportingExportError,
         step28_report_comparison.ReportComparisonError,
         step28_report_comparison.ReportComparisonExportError,
+        audit_bundle.AuditBundleError,
         batch_exporters.BatchExportError,
         batch_history.BatchRunNotFoundError,
         batch_history.BatchHistoryError,

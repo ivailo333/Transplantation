@@ -380,6 +380,22 @@ class TestStep27Export(Step27Fixture):
         self.assertIn("LOCUS", text)
 
 
+    def test_all_export(self):
+        report = step27_reporting.build_live_report(
+            self.db,
+            "recipient",
+            "RECIP-001",
+        )
+        info = step27_reporting.export_report(
+            report,
+            output_dir=self.out,
+            export_format="all",
+        )
+        self.assertTrue(info["json_path"].exists())
+        self.assertTrue(info["csv_path"].exists())
+        self.assertTrue(info["html_path"].exists())
+        self.assertEqual(info["format"], "ALL")
+
     def test_html_export(self):
         report = step27_reporting.build_live_report(
             self.db,

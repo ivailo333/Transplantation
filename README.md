@@ -36,6 +36,7 @@ Run project health checks:
 
 ```powershell
 python .\main.py doctor
+python .\main.py doctor --json
 ```
 
 Check the database and migrations:
@@ -68,11 +69,19 @@ Compare persisted batches:
 python .\main.py compare batches 1 3
 ```
 
-Export a browser-readable HTML report:
+Export browser-readable reports, or all supported export formats at once:
 
 ```powershell
 python .\main.py report recipient RECIP-001 --export html
 python .\main.py compare levels recipient RECIP-001 --export html
+python .\main.py report recipient RECIP-001 --export all
+```
+
+Create a reproducible audit bundle:
+
+```powershell
+python .\main.py audit recipient RECIP-001 --zip
+python .\main.py audit batches 1 3 --level lgx
 ```
 
 Show command-style help:
@@ -86,7 +95,7 @@ Legacy flags such as `--db-status`, `--list-subjects`, `--show-results`, and
 
 ## Main Commands
 
-- `doctor`: run project health checks without modifying data.
+- `doctor`: run project health checks without modifying data; `--json` emits machine-readable output.
 - `db status` / `db migrate`: inspect and apply SQLite migrations.
 - `subjects list`: list saved DONOR / RECIPIENT subjects.
 - `typings history/show/import`: inspect or import HLA typings.
@@ -99,6 +108,7 @@ Legacy flags such as `--db-status`, `--list-subjects`, `--show-results`, and
 - `stats`: render STEP 26 descriptive statistics.
 - `report`: render STEP 27 analytical reports.
 - `compare`: render STEP 28 report comparisons.
+- `audit`: create a reproducible bundle with doctor output, schema status, STEP 27/28 artifacts, and metadata.
 
 Use another SQLite database with the global `--db PATH` option:
 
@@ -118,6 +128,31 @@ If `pytest` is installed, the project metadata also points it at `tests/`:
 
 ```powershell
 python -m pytest
+```
+
+## Continuous Integration
+
+The GitHub Actions workflow in `.github/workflows/ci.yml` runs on Windows and checks:
+
+- whitespace with `git diff --check`
+- Python compilation with `compileall`
+- the full unittest suite
+- CLI smoke tests for `--help` and `doctor --json`
+- source and wheel builds with `python -m build`
+- the installed `hla-match` console script
+
+## Packaging
+
+Build release artifacts locally with:
+
+```powershell
+python -m build
+```
+
+The project exposes the console script:
+
+```powershell
+hla-match --help
 ```
 
 ## Project Layout
@@ -148,8 +183,7 @@ python -m pytest
 The default SQLite database is `transplant.db`. Export commands write under
 `exports/` unless another output directory is supplied.
 
-JSON, CSV, and HTML exports are deterministic software artifacts. They are intended
-for reproducibility and auditability, not clinical decision-making.
+JSON, CSV, and HTML exports are deterministic software artifacts. `--export all` writes JSON, CSV, and HTML together; `both` remains JSON + CSV for backward compatibility. Audit bundles collect these artifacts with doctor output, schema status, and metadata for reproducibility, not clinical decision-making.
 
 
 

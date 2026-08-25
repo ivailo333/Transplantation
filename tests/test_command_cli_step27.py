@@ -112,6 +112,22 @@ class TestStep27CLI(Step27CLIFixture):
         self.assertIn("Format: JSON", text)
 
 
+    def test_report_export_all(self):
+        code, text = self.run_cli(
+            "report",
+            "recipient",
+            "RECIP-001",
+            "--export",
+            "all",
+            "--output-dir",
+            str(self.out),
+        )
+        self.assertEqual(code, 0)
+        self.assertIn("Format: ALL", text)
+        self.assertIn("JSON:", text)
+        self.assertIn("CSV:", text)
+        self.assertIn("HTML:", text)
+
     def test_report_export_html(self):
         code, text = self.run_cli(
             "report",

@@ -13,6 +13,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+    "build>=1.2",
     "pytest>=8.0",
 ]
 
@@ -22,6 +23,7 @@ hla-match = "cli:main"
 [tool.setuptools]
 py-modules = [
     "analyses",
+    "audit_bundle",
     "batch_analysis",
     "batch_exporters",
     "batch_history",
@@ -35,6 +37,7 @@ py-modules = [
     "doctor",
     "exporters",
     "hla_comparison",
+    "html_reports",
     "hla_match",
     "hla_matrix",
     "hla_reduction",

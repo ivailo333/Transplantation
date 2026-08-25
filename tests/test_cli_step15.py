@@ -83,6 +83,9 @@ class TestStep15Detection(unittest.TestCase):
             cli.uses_command_style(["--db", "other.db", "--help"])
         )
 
+    def test_audit_command_style_is_detected(self):
+        self.assertTrue(cli.uses_command_style(["audit", "recipient", "RECIP-001"]))
+
     def test_doctor_command_style_is_detected(self):
         self.assertTrue(cli.uses_command_style(["doctor"]))
 
@@ -106,6 +109,7 @@ class TestStep15Help(unittest.TestCase):
         self.assertIn("STEP 15", rendered)
         self.assertIn("analyses export", rendered)
         self.assertIn("python main.py doctor", rendered)
+        self.assertIn("audit recipient", rendered)
 
     def test_public_main_root_help_uses_command_help(self):
         output = []
