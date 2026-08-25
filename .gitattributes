@@ -1,0 +1,12 @@
+* text=auto eol=lf
+
+*.db binary
+*.sqlite3 binary
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+
+*.ps1 text eol=crlf

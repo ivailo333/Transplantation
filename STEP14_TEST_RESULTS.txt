@@ -1,0 +1,131 @@
+test_analysis_run_stores_version (test_analyses.TestStep13DAnalysisRun.test_analysis_run_stores_version) ... ok
+test_analysis_run_table_contains_exact_typing_ids (test_analyses.TestStep13DAnalysisRun.test_analysis_run_table_contains_exact_typing_ids) ... ok
+test_create_analysis_for_subjects_can_use_specific_typings (test_analyses.TestStep13DAnalysisRun.test_create_analysis_for_subjects_can_use_specific_typings) ... ok
+test_create_analysis_for_subjects_uses_latest_typings (test_analyses.TestStep13DAnalysisRun.test_create_analysis_for_subjects_uses_latest_typings) ... ok
+test_create_analysis_run_saves_link (test_analyses.TestStep13DAnalysisRun.test_create_analysis_run_saves_link) ... ok
+test_donor_typing_cannot_be_used_as_recipient (test_analyses.TestStep13DAnalysisRun.test_donor_typing_cannot_be_used_as_recipient) ... ok
+test_explicit_wrong_analysis_version_is_rejected (test_analyses.TestStep13DAnalysisRun.test_explicit_wrong_analysis_version_is_rejected) ... ok
+test_incomplete_typing_is_rejected (test_analyses.TestStep13DAnalysisRun.test_incomplete_typing_is_rejected) ... ok
+test_list_analysis_runs_newest_first (test_analyses.TestStep13DAnalysisRun.test_list_analysis_runs_newest_first) ... ok
+test_load_analysis_run_returns_metadata (test_analyses.TestStep13DAnalysisRun.test_load_analysis_run_returns_metadata) ... ok
+test_missing_analysis_run_is_rejected (test_analyses.TestStep13DAnalysisRun.test_missing_analysis_run_is_rejected) ... ok
+test_recipient_typing_cannot_be_used_as_donor (test_analyses.TestStep13DAnalysisRun.test_recipient_typing_cannot_be_used_as_donor) ... ok
+test_unknown_typing_id_is_rejected (test_analyses.TestStep13DAnalysisRun.test_unknown_typing_id_is_rejected) ... ok
+test_version_mismatch_is_rejected (test_analyses.TestStep13DAnalysisRun.test_version_mismatch_is_rejected) ... ok
+test_analysis_results_levels_are_6_each (test_analyses.TestStep13EAnalysisResults.test_analysis_results_levels_are_6_each) ... ok
+test_analysis_run_result_count_becomes_24 (test_analyses.TestStep13EAnalysisResults.test_analysis_run_result_count_becomes_24) ... ok
+test_build_comparison_results_has_four_levels_and_six_loci (test_analyses.TestStep13EAnalysisResults.test_build_comparison_results_has_four_levels_and_six_loci) ... ok
+test_json_lists_round_trip (test_analyses.TestStep13EAnalysisResults.test_json_lists_round_trip) ... ok
+test_list_analysis_runs_reports_24_results (test_analyses.TestStep13EAnalysisResults.test_list_analysis_runs_reports_24_results) ... ok
+test_load_analysis_run_typings_uses_exact_linked_typings (test_analyses.TestStep13EAnalysisResults.test_load_analysis_run_typings_uses_exact_linked_typings) ... ok
+test_load_results_reports_24_rows (test_analyses.TestStep13EAnalysisResults.test_load_results_reports_24_rows) ... ok
+test_load_results_without_saved_rows_raises (test_analyses.TestStep13EAnalysisResults.test_load_results_without_saved_rows_raises) ... ok
+test_missing_level_is_rejected (test_analyses.TestStep13EAnalysisResults.test_missing_level_is_rejected) ... ok
+test_missing_locus_is_rejected (test_analyses.TestStep13EAnalysisResults.test_missing_locus_is_rejected) ... ok
+test_save_analysis_results_creates_exactly_24_rows (test_analyses.TestStep13EAnalysisResults.test_save_analysis_results_creates_exactly_24_rows) ... ok
+test_save_analysis_results_is_idempotent (test_analyses.TestStep13EAnalysisResults.test_save_analysis_results_is_idempotent) ... ok
+test_saved_db_level_is_uppercase_canonical (test_analyses.TestStep13EAnalysisResults.test_saved_db_level_is_uppercase_canonical) ... ok
+test_validate_analysis_results_accepts_valid_structure (test_analyses.TestStep13EAnalysisResults.test_validate_analysis_results_accepts_valid_structure) ... ok
+test_wrong_shared_count_is_rejected (test_analyses.TestStep13EAnalysisResults.test_wrong_shared_count_is_rejected) ... ok
+test_input_person_collects_complete_raw_profile (test_cli.TestStep12InteractiveInput.test_input_person_collects_complete_raw_profile) ... ok
+test_prompt_allele_preserves_raw_value (test_cli.TestStep12InteractiveInput.test_prompt_allele_preserves_raw_value) ... ok
+test_prompt_allele_q_cancels_input (test_cli.TestStep12InteractiveInput.test_prompt_allele_q_cancels_input) ... ok
+test_prompt_allele_retries_after_empty_value (test_cli.TestStep12InteractiveInput.test_prompt_allele_retries_after_empty_value) ... ok
+test_prompt_allele_retries_after_invalid_value (test_cli.TestStep12InteractiveInput.test_prompt_allele_retries_after_invalid_value) ... ok
+test_extract_optional_value_reads_typing_id (test_cli.TestStep13CDisplayAndCLI.test_extract_optional_value_reads_typing_id) ... ok
+test_print_saved_typing_contains_metadata_and_representations (test_cli.TestStep13CDisplayAndCLI.test_print_saved_typing_contains_metadata_and_representations) ... ok
+test_typing_id_without_load_returns_error (test_cli.TestStep13CDisplayAndCLI.test_typing_id_without_load_returns_error) ... ok
+test_extract_pair_values (test_cli.TestStep13DCLI.test_extract_pair_values) ... ok
+test_build_comparison_results_is_copy_sensitive (test_cli.TestStep13ECLIAndDisplay.test_build_comparison_results_is_copy_sensitive) ... ok
+test_print_analysis_results_save_summary_mentions_24 (test_cli.TestStep13ECLIAndDisplay.test_print_analysis_results_save_summary_mentions_24) ... ok
+test_print_export_summary_contains_paths (test_cli.TestStep13FCLIAndDisplay.test_print_export_summary_contains_paths) ... ok
+test_print_schema_status_contains_versions (test_cli.TestStep13GCLIAndDisplay.test_print_schema_status_contains_versions) ... ok
+test_allele_order_does_not_matter (test_comparison.TestCompareLocus.test_allele_order_does_not_matter) ... ok
+test_full_match (test_comparison.TestCompareLocus.test_full_match) ... ok
+test_full_mismatch (test_comparison.TestCompareLocus.test_full_mismatch) ... ok
+test_homozygous_full_match (test_comparison.TestCompareLocus.test_homozygous_full_match) ... ok
+test_homozygous_vs_heterozygous (test_comparison.TestCompareLocus.test_homozygous_vs_heterozygous) ... ok
+test_one_shared_allele (test_comparison.TestCompareLocus.test_one_shared_allele) ... ok
+test_existing_subject_can_receive_new_typing (test_database.TestStep13BDatabasePersistence.test_existing_subject_can_receive_new_typing) ... ok
+test_imgthla_version_is_stored (test_database.TestStep13BDatabasePersistence.test_imgthla_version_is_stored) ... ok
+test_incompatible_existing_schema_is_detected (test_database.TestStep13BDatabasePersistence.test_incompatible_existing_schema_is_detected) ... ok
+test_one_typing_saves_exactly_12_allele_rows (test_database.TestStep13BDatabasePersistence.test_one_typing_saves_exactly_12_allele_rows) ... ok
+test_pair_save_creates_24_allele_rows (test_database.TestStep13BDatabasePersistence.test_pair_save_creates_24_allele_rows) ... ok
+test_pair_save_is_atomic_on_second_subject_failure (test_database.TestStep13BDatabasePersistence.test_pair_save_is_atomic_on_second_subject_failure) ... ok
+test_raw_and_canonical_are_stored_separately (test_database.TestStep13BDatabasePersistence.test_raw_and_canonical_are_stored_separately) ... ok
+test_save_subject_typing_creates_subject (test_database.TestStep13BDatabasePersistence.test_save_subject_typing_creates_subject) ... ok
+test_step13b_schema_is_compatible (test_database.TestStep13BDatabasePersistence.test_step13b_schema_is_compatible) ... ok
+test_subject_type_conflict_is_rejected (test_database.TestStep13BDatabasePersistence.test_subject_type_conflict_is_rejected) ... ok
+test_both_export_creates_json_and_csv (test_exporters.TestStep13FExport.test_both_export_creates_json_and_csv) ... ok
+test_build_export_payload_contains_run_metadata (test_exporters.TestStep13FExport.test_build_export_payload_contains_run_metadata) ... ok
+test_csv_export_is_created (test_exporters.TestStep13FExport.test_csv_export_is_created) ... ok
+test_csv_has_exactly_24_data_rows (test_exporters.TestStep13FExport.test_csv_has_exactly_24_data_rows) ... ok
+test_csv_has_expected_columns (test_exporters.TestStep13FExport.test_csv_has_expected_columns) ... ok
+test_existing_export_is_not_overwritten_by_default (test_exporters.TestStep13FExport.test_existing_export_is_not_overwritten_by_default) ... ok
+test_export_creates_output_directory (test_exporters.TestStep13FExport.test_export_creates_output_directory) ... ok
+test_export_filename_contains_run_id (test_exporters.TestStep13FExport.test_export_filename_contains_run_id) ... ok
+test_export_requires_saved_analysis_results (test_exporters.TestStep13FExport.test_export_requires_saved_analysis_results) ... ok
+test_invalid_export_format_is_rejected (test_exporters.TestStep13FExport.test_invalid_export_format_is_rejected) ... ok
+test_json_export_contains_four_levels (test_exporters.TestStep13FExport.test_json_export_contains_four_levels) ... ok
+test_json_export_is_created (test_exporters.TestStep13FExport.test_json_export_is_created) ... ok
+test_json_preserves_lists_as_json_arrays (test_exporters.TestStep13FExport.test_json_preserves_lists_as_json_arrays) ... ok
+test_normalize_export_format_defaults_to_both (test_exporters.TestStep13FExport.test_normalize_export_format_defaults_to_both) ... ok
+test_overwrite_true_allows_reexport (test_exporters.TestStep13FExport.test_overwrite_true_allows_reexport) ... ok
+test_duplicate_legacy_rows_block_unique_migration (test_migrations.TestStep13GDatabaseMigrations.test_duplicate_legacy_rows_block_unique_migration) ... ok
+test_fresh_database_reaches_current_schema_version (test_migrations.TestStep13GDatabaseMigrations.test_fresh_database_reaches_current_schema_version) ... ok
+test_fresh_database_records_two_migrations (test_migrations.TestStep13GDatabaseMigrations.test_fresh_database_records_two_migrations) ... ok
+test_initialize_database_is_migration_idempotent (test_migrations.TestStep13GDatabaseMigrations.test_initialize_database_is_migration_idempotent) ... ok
+test_legacy_database_is_migrated (test_migrations.TestStep13GDatabaseMigrations.test_legacy_database_is_migrated) ... ok
+test_migrate_database_second_run_applies_nothing (test_migrations.TestStep13GDatabaseMigrations.test_migrate_database_second_run_applies_nothing) ... ok
+test_named_unique_index_is_created (test_migrations.TestStep13GDatabaseMigrations.test_named_unique_index_is_created) ... ok
+test_no_pending_migrations_after_initialize (test_migrations.TestStep13GDatabaseMigrations.test_no_pending_migrations_after_initialize) ... ok
+test_nonexistent_database_status_is_read_only (test_migrations.TestStep13GDatabaseMigrations.test_nonexistent_database_status_is_read_only) ... ok
+test_schema_migrations_table_is_created (test_migrations.TestStep13GDatabaseMigrations.test_schema_migrations_table_is_created) ... ok
+test_schema_status_reports_required_version (test_migrations.TestStep13GDatabaseMigrations.test_schema_status_reports_required_version) ... ok
+test_unique_analysis_results_key_exists (test_migrations.TestStep13GDatabaseMigrations.test_unique_analysis_results_key_exists) ... ok
+test_verify_database_is_current_passes_after_migration (test_migrations.TestStep13GDatabaseMigrations.test_verify_database_is_current_passes_after_migration) ... ok
+test_verify_database_is_current_rejects_missing_db (test_migrations.TestStep13GDatabaseMigrations.test_verify_database_is_current_rejects_missing_db) ... ok
+test_c_05_01_and_c_05_03_have_same_g_group (test_reduction.TestPyardIntegration.test_c_05_01_and_c_05_03_have_same_g_group) ... skipped 'py-ard не е инсталиран в тази среда'
+test_c_05_01_and_c_05_03_have_same_p_group (test_reduction.TestPyardIntegration.test_c_05_01_and_c_05_03_have_same_p_group) ... skipped 'py-ard не е инсталиран в тази среда'
+test_c_05_03_reduces_to_c_05_01_lgx (test_reduction.TestPyardIntegration.test_c_05_03_reduces_to_c_05_01_lgx) ... skipped 'py-ard не е инсталиран в тази среда'
+test_current_donor_profile_is_valid (test_reduction.TestPyardIntegration.test_current_donor_profile_is_valid) ... skipped 'py-ard не е инсталиран в тази среда'
+test_current_recipient_profile_is_valid (test_reduction.TestPyardIntegration.test_current_recipient_profile_is_valid) ... skipped 'py-ard не е инсталиран в тази среда'
+test_high_resolution_a_reduces_to_lgx (test_reduction.TestPyardIntegration.test_high_resolution_a_reduces_to_lgx) ... skipped 'py-ard не е инсталиран в тази среда'
+test_hla_prefix_is_accepted (test_reduction.TestPyardIntegration.test_hla_prefix_is_accepted) ... skipped 'py-ard не е инсталиран в тази среда'
+test_invalid_allele_is_rejected (test_reduction.TestPyardIntegration.test_invalid_allele_is_rejected) ... skipped 'py-ard не е инсталиран в тази среда'
+test_original_and_lgx_comparison_can_differ (test_reduction.TestPyardIntegration.test_original_and_lgx_comparison_can_differ) ... skipped 'py-ard не е инсталиран в тази среда'
+test_prompt_external_id_q_cancels (test_subjects.TestStep13BInteractiveId.test_prompt_external_id_q_cancels) ... ok
+test_prompt_external_id_retries_empty_value (test_subjects.TestStep13BInteractiveId.test_prompt_external_id_retries_empty_value) ... ok
+test_prompt_external_id_strips_outer_spaces (test_subjects.TestStep13BInteractiveId.test_prompt_external_id_strips_outer_spaces) ... ok
+test_incomplete_typing_is_detected (test_typings.TestStep13CLoadTyping.test_incomplete_typing_is_detected) ... ok
+test_invalid_representation_is_rejected (test_typings.TestStep13CLoadTyping.test_invalid_representation_is_rejected) ... ok
+test_latest_typing_is_selected_by_default (test_typings.TestStep13CLoadTyping.test_latest_typing_is_selected_by_default) ... ok
+test_list_subject_typings_returns_newest_first (test_typings.TestStep13CLoadTyping.test_list_subject_typings_returns_newest_first) ... ok
+test_list_subjects_empty_database (test_typings.TestStep13CLoadTyping.test_list_subjects_empty_database) ... ok
+test_list_subjects_returns_saved_subject (test_typings.TestStep13CLoadTyping.test_list_subjects_returns_saved_subject) ... ok
+test_load_latest_typing_round_trips_bundle (test_typings.TestStep13CLoadTyping.test_load_latest_typing_round_trips_bundle) ... ok
+test_load_subject_profile_accepts_lowercase_g (test_typings.TestStep13CLoadTyping.test_load_subject_profile_accepts_lowercase_g) ... ok
+test_load_subject_profile_canonical (test_typings.TestStep13CLoadTyping.test_load_subject_profile_canonical) ... ok
+test_loaded_metadata_contains_subject_and_version (test_typings.TestStep13CLoadTyping.test_loaded_metadata_contains_subject_and_version) ... ok
+test_missing_subject_raises (test_typings.TestStep13CLoadTyping.test_missing_subject_raises) ... ok
+test_specific_older_typing_can_be_loaded (test_typings.TestStep13CLoadTyping.test_specific_older_typing_can_be_loaded) ... ok
+test_typing_id_must_belong_to_subject (test_typings.TestStep13CLoadTyping.test_typing_id_must_belong_to_subject) ... ok
+test_clean_allele_removes_spaces_and_hla_prefix (test_validation.TestInputStructure.test_clean_allele_removes_spaces_and_hla_prefix) ... ok
+test_extra_locus_raises_value_error (test_validation.TestInputStructure.test_extra_locus_raises_value_error) ... ok
+test_missing_locus_raises_value_error (test_validation.TestInputStructure.test_missing_locus_raises_value_error) ... ok
+test_non_string_allele_is_rejected (test_validation.TestInputStructure.test_non_string_allele_is_rejected) ... ok
+test_raw_aliases_point_to_raw_profiles (test_validation.TestInputStructure.test_raw_aliases_point_to_raw_profiles) ... ok
+test_wrong_allele_count_raises_value_error (test_validation.TestInputStructure.test_wrong_allele_count_raises_value_error) ... ok
+test_wrong_container_type_raises_value_error (test_validation.TestInputStructure.test_wrong_container_type_raises_value_error) ... ok
+test_wrong_locus_raises_value_error (test_validation.TestInputStructure.test_wrong_locus_raises_value_error) ... ok
+test_canonical_profile_is_a_separate_structure (test_validation.TestStep11RawCanonical.test_canonical_profile_is_a_separate_structure) ... skipped 'py-ard не е инсталиран в тази среда'
+test_canonicalization_does_not_mutate_raw_input (test_validation.TestStep11RawCanonical.test_canonicalization_does_not_mutate_raw_input) ... skipped 'py-ard не е инсталиран в тази среда'
+test_canonicalization_does_not_perform_lgx_reduction (test_validation.TestStep11RawCanonical.test_canonicalization_does_not_perform_lgx_reduction) ... skipped 'py-ard не е инсталиран в тази среда'
+test_canonicalize_removes_prefix_and_spaces (test_validation.TestStep11RawCanonical.test_canonicalize_removes_prefix_and_spaces) ... skipped 'py-ard не е инсталиран в тази среда'
+test_formatting_only_differences_disappear_at_canonical_level (test_validation.TestStep11RawCanonical.test_formatting_only_differences_disappear_at_canonical_level) ... skipped 'py-ard не е инсталиран в тази среда'
+test_reductions_use_canonical_values (test_validation.TestStep11RawCanonical.test_reductions_use_canonical_values) ... skipped 'py-ard не е инсталиран в тази среда'
+
+----------------------------------------------------------------------
+Ran 126 tests in 4.570s
+
+OK (skipped=15)

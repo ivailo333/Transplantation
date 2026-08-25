@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hla-transplantation-simulation"
+version = "0.1.0"
+description = "Non-clinical HLA donor/recipient comparison CLI prototype."
+requires-python = ">=3.10"
+dependencies = [
+    "py-ard>=2.3.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+]
+
+[project.scripts]
+hla-match = "cli:main"
+
+[tool.setuptools]
+py-modules = [
+    "analyses",
+    "batch_analysis",
+    "batch_exporters",
+    "batch_history",
+    "batch_ranking",
+    "batch_selection",
+    "cli",
+    "command_cli",
+    "comparison_statistics",
+    "config",
+    "database",
+    "exporters",
+    "hla_comparison",
+    "hla_match",
+    "hla_matrix",
+    "hla_reduction",
+    "hla_validation",
+    "importers",
+    "main",
+    "migrations",
+    "mismatch_summary",
+    "pair_profiles",
+    "step21_batch_history",
+    "step27_reporting",
+    "step28_report_comparison",
+    "subjects",
+    "typings",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
