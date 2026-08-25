@@ -213,6 +213,7 @@ hla-api
 - [Clinical intended use draft](docs/clinical/intended-use.md)
 - [Clinical regulatory classification draft](docs/clinical/regulatory-classification.md)
 - [Clinical quality system draft](docs/clinical/quality-system.md)
+- [Clinical risk management draft](docs/clinical/risk-register.md)
 - [Database schema](docs/schema.md)
 - [Data policy](docs/data.md)
 
