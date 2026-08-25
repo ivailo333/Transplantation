@@ -211,6 +211,7 @@ hla-api
 - [Backend API component](docs/backend.md)
 - [Backend integration guide](docs/backend-integration.md)
 - [Clinical intended use draft](docs/clinical/intended-use.md)
+- [Clinical regulatory classification draft](docs/clinical/regulatory-classification.md)
 - [Database schema](docs/schema.md)
 - [Data policy](docs/data.md)
 
