@@ -1,19 +1,14 @@
-# Traceability Matrix Draft
+# Проект На Матрица За Проследимост
 
-Status: Draft for clinical-readiness planning. Not approved for clinical use.
+Статус: Draft за планиране на клинична готовност. Не е одобрен за клинична употреба.
 
-This matrix links the current intended use, initial risk register, software
-requirements, implementation references, and evidence still needed before any
-clinical workflow use can be considered.
+Тази matrix свързва текущия intended use, началния risk register, software requirements, implementation references и evidence, които все още са нужни преди да се разглежда каквато и да е clinical workflow употреба.
 
-## Purpose
+## Цел
 
-Traceability must show that every safety-related or quality-critical concern is
-connected to requirements, design, implementation, verification, validation, and
-release evidence. This draft starts that structure; it is not yet a controlled
-traceability file.
+Traceability трябва да показва, че всяка safety-related или quality-critical тема е свързана с requirements, design, implementation, verification, validation и release evidence. Този draft започва структурата; той все още не е controlled traceability file.
 
-## Source Documents
+## Изходни Документи
 
 - [Intended Use](intended-use.md)
 - [Risk Management And Initial Risk Register](risk-register.md)
@@ -24,20 +19,20 @@ traceability file.
 - [Backend Integration Guide](../backend-integration.md)
 - [Data Policy](../data.md)
 
-## Traceability Fields
+## Traceability Полета
 
-| Field | Meaning |
+| Поле | Значение |
 | --- | --- |
-| Risk | Risk ID from the initial risk register. |
-| Requirement links | Software requirements that implement or plan related controls. |
-| Current references | Current repository files or documents related to the controls. |
-| Verification evidence | Tests or review evidence required to verify implementation. |
-| Validation evidence | Workflow/user evidence required when clinical or usability context is affected. |
-| Gap status | Current gap before clinical use. |
+| Risk | Risk ID от initial risk register. |
+| Requirement links | Software requirements, които implement или plan related controls. |
+| Current references | Текущи repository files или documents, свързани с controls. |
+| Verification evidence | Tests или review evidence, нужни за verification на implementation. |
+| Validation evidence | Workflow/user evidence, нужна когато clinical или usability context е засегнат. |
+| Gap status | Текущ gap преди clinical use. |
 
-## Risk To Requirement Matrix
+## Матрица Риск Към Изискване
 
-| Risk | Requirement links | Current references | Verification evidence | Validation evidence | Gap status |
+| Риск | Връзки към изисквания | Текущи references | Verification evidence | Validation evidence | Gap status |
 | --- | --- | --- | --- | --- | --- |
 | RM-001 Incorrect HLA typing data | DATA-002, DATA-003, UI-003, INT-002 | `hla_validation.py`, `typings.py`, `importers.py`, `frontend/` | Import validation tests; invalid allele tests; API report fixtures | Case-entry validation study; source-data review workflow | Partial controls present; clinical source traceability not defined |
 | RM-002 Donor/recipient identity mix-up | DATA-002, UI-001, INT-002 | `subjects.py`, `backend_services.py`, `frontend/index.html` | Direction/role tests; API request fixtures; UI smoke tests | Representative user task for donor/recipient review | Role labels present; clinical confirmation workflow missing |
@@ -65,9 +60,9 @@ traceability file.
 | RM-024 Incorrect environment configuration | API-005, OPS-001, OPS-002, SEC-001, SEC-003 | `backend_config.py`, `backend.env.example`, `Dockerfile` | Config tests; readiness tests; deployment checklist | Operator deployment rehearsal | Env examples present; production checklist not baselined |
 | RM-025 Report language ambiguity | CLM-001, CLM-003, FUNC-005, UI-005, VAL-003 | `step27_reporting.py`, `step28_report_comparison.py`, `frontend/`, `docs/clinical/` | Report wording tests; claims review | User comprehension validation | Non-clinical wording present; formal label/claims review missing |
 
-## Requirement To Artifact Index
+## Индекс Изискване Към Артефакт
 
-| Requirement group | Current implementation references | Primary evidence still needed |
+| Група изисквания | Текущи implementation references | Основни липсващи evidence |
 | --- | --- | --- |
 | CLM claims controls | `README.md`, `docs/clinical/`, `backend_app.py`, `frontend/` | Claims matrix, clinical/regulatory approval, UI wording validation |
 | DATA data controls | `database.py`, `subjects.py`, `typings.py`, `importers.py`, `.gitignore` | Clinical source traceability, missing-data requirements, data-governance approval |
@@ -80,25 +75,23 @@ traceability file.
 | INT integration controls | `docs/backend-integration.md`, `backend_app.py` | Downstream integration contract, LIS/EHR/FHIR/HL7 design |
 | VAL validation controls | `docs/clinical/software-requirements.md` | Validation plan, representative dataset, validation report |
 
-## Step 7 Completion Criteria
+## Критерии За Завършване На Стъпка 7
 
-This draft completes step 7 at planning level when:
+Този draft завършва step 7 на planning level, когато:
 
-- all initial risks RM-001 through RM-025 have at least one linked requirement;
-- requirements include current CLI/backend/frontend/audit controls and future
-  clinical blockers;
-- current implementation references are identified where available;
-- verification and validation evidence gaps are visible;
-- README and lifecycle documents point to the new requirements artifacts.
+- всички начални рискове RM-001 до RM-025 имат поне един linked requirement;
+- requirements включват текущите CLI/backend/frontend/audit controls и future clinical blockers;
+- current implementation references са идентифицирани, когато са налични;
+- verification и validation evidence gaps са видими;
+- README и lifecycle documents сочат към новите requirements artifacts.
 
-## Next Traceability Work
+## Следваща Traceability Работа
 
-Before clinical-intended development proceeds:
+Преди clinical-intended development да продължи:
 
-1. Review and approve the requirement ID scheme.
-2. Assign requirement owners.
-3. Convert this draft into the selected controlled traceability tool or format.
-4. Add design IDs and test IDs once architecture and verification documents are
-   created.
-5. Hold a clinical/regulatory/quality/software/security review.
-6. Freeze a baseline before formal validation execution.
+1. Review и approval на requirement ID scheme.
+2. Назначаване на requirement owners.
+3. Прехвърляне на draft-а в избрания controlled traceability tool или format.
+4. Добавяне на design IDs и test IDs след създаване на architecture и verification documents.
+5. Clinical/regulatory/quality/software/security review.
+6. Freeze на baseline преди formal validation execution.

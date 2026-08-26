@@ -1,28 +1,24 @@
-# Frontend Prototype
+# Frontend Прототип
 
-Status: Non-clinical validation prototype. Not approved for clinical use.
+Статус: Неклиничен validation прототип. Не е одобрен за клинична употреба.
 
-This directory contains a dependency-free browser prototype for reviewing the
-backend API component during integration planning. It is intended for synthetic,
-demo, anonymized, or validation-planning data only.
+Тази директория съдържа browser прототип без външни зависимости за преглед на backend API компонента по време на integration planning. Предназначен е само за synthetic, demo, anonymized или validation-planning данни.
 
-Start the backend first:
+Първо стартирайте backend-а:
 
 ```powershell
 hla-api
 ```
 
-Then start the frontend proxy:
+След това стартирайте frontend proxy-то:
 
 ```powershell
 python .\frontend\serve.py
 ```
 
-Open `http://127.0.0.1:4173/`.
+Отворете `http://127.0.0.1:4173/`.
 
-The frontend server serves static files from this directory and proxies `/api/*`
-requests to the backend `/v1` API. Override the backend URL with
-`HLA_FRONTEND_BACKEND_URL`, for example:
+Frontend server-ът обслужва static файлове от тази директория и proxy-ва `/api/*` заявки към backend `/v1` API. Backend адресът може да се промени с `HLA_FRONTEND_BACKEND_URL`, например:
 
 ```powershell
 $env:HLA_FRONTEND_BACKEND_URL = "http://127.0.0.1:8000/v1"

@@ -1,85 +1,79 @@
 # HLA Transplantation Simulation
 
-Non-clinical HLA donor/recipient comparison CLI prototype.
+Неклиничен CLI/backend/frontend прототип за сравнение на HLA данни между донор и реципиент.
 
-The project validates and stores HLA typings, computes deterministic software
-comparisons across CANONICAL / LGX / G / P representations, persists analysis
-and batch history in SQLite, and renders matrix, summary, statistics, report,
-and report-comparison views.
+Проектът валидира и съхранява HLA типизации, изчислява детерминистични софтуерни сравнения през CANONICAL / LGX / G / P представяния, пази история на анализи и batch операции в SQLite и генерира matrix, summary, statistics, report и report-comparison изгледи.
 
-This software is strictly non-clinical. It does not calculate transplant
-compatibility, clinical risk, allocation priority, virtual crossmatch, DSA,
-MFI, unacceptable antigens, cPRA, eplet mismatch, PIRCHE, blood-group
-compatibility, graft outcome, or transplant suitability.
+Софтуерът е строго неклиничен. Той не изчислява трансплантационна съвместимост, клиничен риск, приоритет за алокация, virtual crossmatch, DSA, MFI, unacceptable antigens, cPRA, eplet mismatch, PIRCHE, кръвногрупова съвместимост, прогноза за graft outcome или трансплантационна пригодност.
 
-## Requirements
+## Изисквания
 
-- Python 3.10 or newer
+- Python 3.10 или по-нов
 - `py-ard`
-- Local IPD-IMGT/HLA py-ard data under `pyard-data/`
+- Локални IPD-IMGT/HLA py-ard данни в `pyard-data/`
 
-Install runtime dependencies:
+Инсталиране на runtime зависимости:
 
 ```powershell
 python -m pip install -r requirements.txt
 ```
 
-Install FastAPI backend dependencies:
+Инсталиране на FastAPI backend зависимости:
 
 ```powershell
 python -m pip install -e .[api]
-# or
+# или
 python -m pip install -r requirements-api.txt
 ```
 
-Copy `backend.env.example` to `backend.env` for local backend runtime settings.
+Копирайте `backend.env.example` като `backend.env` за локални backend настройки.
 
-For development tools:
+Инсталиране на development инструменти:
 
 ```powershell
 python -m pip install -e .[dev]
 ```
 
-## Quick Start
+## Бърз Старт
 
-Run project health checks:
+Проверка на състоянието на проекта:
 
 ```powershell
 python .\main.py doctor
 python .\main.py doctor --json
 ```
 
-Check the database and migrations:
+Проверка на базата и миграциите:
 
 ```powershell
 python .\main.py db status
 ```
 
-List saved subjects:
+Списък със записани субекти:
 
 ```powershell
 python .\main.py subjects list
 ```
 
-Show a non-clinical analytical report:
+Показване на неклиничен аналитичен отчет:
 
 ```powershell
 python .\main.py report recipient RECIP-001
 ```
 
-Compare representation levels:
+Сравнение на нива на представяне:
 
 ```powershell
 python .\main.py compare levels recipient RECIP-001 --level canonical --level lgx
 ```
 
-Compare persisted batches:
+Сравнение на записани batch операции:
 
 ```powershell
 python .\main.py compare batches 1 3
 ```
 
-Export browser-readable reports, or all supported export formats at once:
+Експорт на отчети за браузър или всички поддържани формати:
 
 ```powershell
 python .\main.py report recipient RECIP-001 --export html
@@ -87,79 +81,78 @@ python .\main.py compare levels recipient RECIP-001 --export html
 python .\main.py report recipient RECIP-001 --export all
 ```
 
-Create a reproducible audit bundle:
+Създаване на възпроизводим audit bundle:
 
 ```powershell
 python .\main.py audit recipient RECIP-001 --zip
 python .\main.py audit batches 1 3 --level lgx
 ```
 
-Show command-style help:
+Показване на command-style help:
 
 ```powershell
 python .\main.py --help
 ```
 
-Start the backend API component for a larger application:
+Стартиране на backend API компонента за по-голямо приложение:
 
 ```powershell
 hla-api
-# or
+# или
 python -m backend_app
 ```
 
-The default API URL is `http://127.0.0.1:8000`. New integrations should use `/v1` endpoints; OpenAPI is available at `/openapi.json` and interactive docs at `/docs`.
+Стандартният API адрес е `http://127.0.0.1:8000`. Новите интеграции трябва да използват `/v1` endpoints. OpenAPI е достъпен на `/openapi.json`, а interactive docs са на `/docs`.
 
-Probe the backend component:
+Проверка на backend компонента:
 
 ```powershell
 Invoke-RestMethod http://127.0.0.1:8000/v1/live
 Invoke-RestMethod http://127.0.0.1:8000/v1/ready
 ```
 
-Start the non-clinical frontend validation prototype after the backend is running:
+Стартиране на неклиничния frontend validation прототип след като backend-ът работи:
 
 ```powershell
 python .\frontend\serve.py
 ```
 
-Open `http://127.0.0.1:4173/`.
+Отворете `http://127.0.0.1:4173/`.
 
-Legacy flags such as `--db-status`, `--list-subjects`, `--show-results`, and
-`--export-analysis` are still supported for backward compatibility.
+Legacy flags като `--db-status`, `--list-subjects`, `--show-results` и `--export-analysis` остават поддържани за обратна съвместимост.
 
-## Main Commands
+## Основни Команди
 
-- `doctor`: run project health checks without modifying data; `--json` emits machine-readable output.
-- `db status` / `db migrate`: inspect and apply SQLite migrations.
-- `subjects list`: list saved DONOR / RECIPIENT subjects.
-- `typings history/show/import`: inspect or import HLA typings.
-- `analyses create/run/results/export`: manage one donor-recipient analysis.
-- `batch recipient|donor`: run one-to-many software comparisons.
-- `batches list/search/show/results/export`: inspect persistent batch history.
-- `pairs`: render one-pair comparison profiles.
-- `matrix`: render STEP 24 comparison matrices.
-- `summary`: render STEP 25 mismatch summaries.
-- `stats`: render STEP 26 descriptive statistics.
-- `report`: render STEP 27 analytical reports.
-- `compare`: render STEP 28 report comparisons.
-- `audit`: create a reproducible bundle with doctor output, schema status, STEP 27/28 artifacts, and metadata.
+- `doctor`: изпълнява health checks без да променя данни; `--json` връща machine-readable output.
+- `db status` / `db migrate`: проверява и прилага SQLite миграции.
+- `subjects list`: показва записани DONOR / RECIPIENT субекти.
+- `typings history/show/import`: преглежда или импортира HLA типизации.
+- `analyses create/run/results/export`: управлява единичен donor-recipient анализ.
+- `batch recipient|donor`: изпълнява one-to-many софтуерни сравнения.
+- `batches list/search/show/results/export`: преглежда persistent batch история.
+- `pairs`: показва one-pair comparison profiles.
+- `matrix`: показва STEP 24 comparison matrices.
+- `summary`: показва STEP 25 mismatch summaries.
+- `stats`: показва STEP 26 descriptive statistics.
+- `report`: генерира STEP 27 аналитични отчети.
+- `compare`: генерира STEP 28 report comparisons.
+- `audit`: създава възпроизводим bundle с doctor output, schema status, STEP 27/28 artifacts и metadata.
 
-Use another SQLite database with the global `--db PATH` option:
+Използване на друга SQLite база с глобалната опция `--db PATH`:
 
 ```powershell
 python .\main.py --db .\other.db report recipient RECIP-001
 ```
 
-## Tests
+## Тестове
 
-Run the full unittest suite:
+Пускане на целия unittest suite:
 
 ```powershell
 python -m unittest discover -s tests
 ```
 
-If `pytest` is installed, the project metadata also points it at `tests/`:
+Ако `pytest` е инсталиран, project metadata също го насочва към `tests/`:
 
 ```powershell
 python -m pytest
@@ -167,75 +160,72 @@ python -m pytest
 
 ## Continuous Integration
 
-The GitHub Actions workflow in `.github/workflows/ci.yml` runs on Windows and checks:
+GitHub Actions workflow-ът в `.github/workflows/ci.yml` се изпълнява на Windows и проверява:
 
-- whitespace with `git diff --check`
-- Python compilation with `compileall`
-- the full unittest suite
-- CLI smoke tests for `--help` and `doctor --json`
-- FastAPI backend app and OpenAPI contract smoke test
-- source and wheel builds with `python -m build`
-- installed console-script metadata for `hla-match` and `hla-api`
-- the installed `hla-match` console script
+- whitespace с `git diff --check`
+- Python compilation с `compileall`
+- целия unittest suite
+- CLI smoke tests за `--help` и `doctor --json`
+- FastAPI backend app и OpenAPI contract smoke test
+- source и wheel builds с `python -m build`
+- installed console-script metadata за `hla-match` и `hla-api`
+- installed `hla-match` console script
 
 ## Packaging
 
-Build release artifacts locally with:
+Локално build-ване на release artifacts:
 
 ```powershell
 python -m build
 ```
 
-The project exposes console scripts for CLI and API use:
+Проектът предоставя console scripts за CLI и API употреба:
 
 ```powershell
 hla-match --help
 hla-api
 ```
 
-## Project Layout
+## Структура На Проекта
 
-- `main.py`: minimal executable entry point.
-- `cli.py`: legacy-compatible CLI entry and command-style routing.
-- `command_cli.py`: command-style parser and dispatch.
-- `backend_app.py`: FastAPI component exposing reports, comparisons, doctor checks, and audit bundles.
-- `backend_config.py` and `backend_services.py`: backend settings, .env loading, probes, and service envelope layer.
-- `frontend/`: static non-clinical validation UI prototype and local API proxy.
-- `Dockerfile` and `.dockerignore`: container runtime packaging for the backend service.
-- `config.py`: shared HLA loci, representation levels, and data paths.
-- `hla_validation.py`: py-ard initialization and allele validation.
-- `hla_reduction.py`: CANONICAL to LGX / G / P reductions.
+- `main.py`: минимална executable entry point точка.
+- `cli.py`: legacy-compatible CLI entry и command-style routing.
+- `command_cli.py`: command-style parser и dispatch.
+- `backend_app.py`: FastAPI компонент за reports, comparisons, doctor checks и audit bundles.
+- `backend_config.py` и `backend_services.py`: backend settings, `.env` loading, probes и service envelope слой.
+- `frontend/`: static неклиничен validation UI прототип и локален API proxy.
+- `Dockerfile` и `.dockerignore`: container runtime packaging за backend service.
+- `config.py`: shared HLA loci, representation levels и data paths.
+- `hla_validation.py`: py-ard initialization и allele validation.
+- `hla_reduction.py`: CANONICAL към LGX / G / P reductions.
 - `hla_comparison.py`: copy-sensitive multiset comparison.
-- `database.py` and `migrations.py`: SQLite schema and migration helpers.
-- `subjects.py` and `typings.py`: subject and typing persistence.
-- `analyses.py`: analysis run and result persistence.
+- `database.py` и `migrations.py`: SQLite schema и migration helpers.
+- `subjects.py` и `typings.py`: subject и typing persistence.
+- `analyses.py`: analysis run и result persistence.
 - `batch_*.py`: one-to-many batch execution, ranking, selection, export, history.
-- `hla_matrix.py`, `mismatch_summary.py`, `comparison_statistics.py`: STEP 24-26 views.
-- `step27_reporting.py`: analytical report layer.
-- `step28_report_comparison.py`: multi-report comparison layer.
-- `tests/`: unittest coverage for CLI, persistence, import/export, and STEP behavior.
+- `hla_matrix.py`, `mismatch_summary.py`, `comparison_statistics.py`: STEP 24-26 изгледи.
+- `step27_reporting.py`: analytical report слой.
+- `step28_report_comparison.py`: multi-report comparison слой.
+- `tests/`: unittest покритие за CLI, persistence, import/export и STEP behavior.
 
-## Documentation
+## Документация
 
-- [Backend API component](docs/backend.md)
-- [Backend integration guide](docs/backend-integration.md)
-- [Clinical intended use draft](docs/clinical/intended-use.md)
-- [Clinical regulatory classification draft](docs/clinical/regulatory-classification.md)
-- [Clinical quality system draft](docs/clinical/quality-system.md)
-- [Clinical risk management draft](docs/clinical/risk-register.md)
-- [Clinical software lifecycle draft](docs/clinical/software-lifecycle.md)
-- [Clinical frontend prototype draft](docs/clinical/frontend-prototype.md)
-- [Clinical software requirements draft](docs/clinical/software-requirements.md)
-- [Clinical traceability matrix draft](docs/clinical/traceability-matrix.md)
-- [Database schema](docs/schema.md)
-- [Data policy](docs/data.md)
+- [Backend API компонент](docs/backend.md)
+- [Ръководство за backend интеграция](docs/backend-integration.md)
+- [Български clinical readiness обзор](docs/clinical/bg-readiness-overview.md)
+- [Проект на предназначение за употреба](docs/clinical/intended-use.md)
+- [Проект на регулаторна класификация](docs/clinical/regulatory-classification.md)
+- [Проект на система за качество](docs/clinical/quality-system.md)
+- [Проект на управление на риска](docs/clinical/risk-register.md)
+- [Проект на software lifecycle](docs/clinical/software-lifecycle.md)
+- [Проект на frontend прототип](docs/clinical/frontend-prototype.md)
+- [Проект на софтуерни изисквания](docs/clinical/software-requirements.md)
+- [Проект на traceability matrix](docs/clinical/traceability-matrix.md)
+- [Схема на базата данни](docs/schema.md)
+- [Политика за данни](docs/data.md)
 
-## Data And Exports
+## Данни И Експорти
 
-The default SQLite database is `transplant.db`. Export commands write under
-`exports/` unless another output directory is supplied.
+Стандартната SQLite база е `transplant.db`. Export командите записват под `exports/`, освен ако не е подадена друга output директория.
 
-JSON, CSV, and HTML exports are deterministic software artifacts. `--export all` writes JSON, CSV, and HTML together; `both` remains JSON + CSV for backward compatibility. Audit bundles collect these artifacts with doctor output, schema status, and metadata for reproducibility, not clinical decision-making.
-
-
-
+JSON, CSV и HTML export-ите са детерминистични софтуерни артефакти. `--export all` записва JSON, CSV и HTML заедно; `both` остава JSON + CSV за обратна съвместимост. Audit bundle-ите събират тези артефакти с doctor output, schema status и metadata за възпроизводимост, не за клинично вземане на решения.

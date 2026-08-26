@@ -1,148 +1,148 @@
 <!doctype html>
-<html lang="en">
+<html lang="bg">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HLA Validation Console</title>
+  <title>HLA конзола за валидация</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <div class="app-shell">
-    <aside class="sidebar" aria-label="Primary">
+    <aside class="sidebar" aria-label="Основна навигация">
       <div class="brand">
         <span class="brand-mark" aria-hidden="true">HLA</span>
         <div>
-          <strong>Validation Console</strong>
-          <small>Non-clinical prototype</small>
+          <strong>Конзола за валидация</strong>
+          <small>Неклиничен прототип</small>
         </div>
       </div>
 
-      <nav class="tabs" aria-label="Views">
-        <button class="tab-button active" type="button" data-view="case">Case</button>
-        <button class="tab-button" type="button" data-view="comparison">Comparison</button>
-        <button class="tab-button" type="button" data-view="report">Report</button>
-        <button class="tab-button" type="button" data-view="audit">Audit</button>
-        <button class="tab-button" type="button" data-view="review">Review</button>
+      <nav class="tabs" aria-label="Изгледи">
+        <button class="tab-button active" type="button" data-view="case">Случай</button>
+        <button class="tab-button" type="button" data-view="comparison">Сравнение</button>
+        <button class="tab-button" type="button" data-view="report">Отчет</button>
+        <button class="tab-button" type="button" data-view="audit">Одит</button>
+        <button class="tab-button" type="button" data-view="review">Преглед</button>
       </nav>
 
       <section class="connection-block" aria-labelledby="connection-title">
-        <h2 id="connection-title">Connection</h2>
+        <h2 id="connection-title">Връзка</h2>
         <label>
-          API key
-          <input id="apiKey" type="password" autocomplete="off" placeholder="optional">
+          API ключ
+          <input id="apiKey" type="password" autocomplete="off" placeholder="по избор">
         </label>
         <label>
-          Request ID
+          ID на заявка
           <input id="requestId" type="text" autocomplete="off">
         </label>
         <div class="probe-row">
-          <button id="liveButton" type="button" title="Liveness probe">Live</button>
-          <button id="readyButton" type="button" title="Readiness probe">Ready</button>
+          <button id="liveButton" type="button" title="Проверка за работоспособност">Live</button>
+          <button id="readyButton" type="button" title="Проверка за готовност">Ready</button>
         </div>
-        <output id="connectionStatus" class="status-pill muted">Not checked</output>
+        <output id="connectionStatus" class="status-pill muted">Непроверено</output>
       </section>
     </aside>
 
     <main class="workspace">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Backend integration</p>
-          <h1>HLA report review</h1>
+          <p class="eyebrow">Backend интеграция</p>
+          <h1>Преглед на HLA отчет</h1>
         </div>
         <div class="boundary">
-          Not approved for clinical use. No donor acceptance, allocation, DSA,
-          MFI, cPRA, eplet, PIRCHE, or autonomous clinical decision support.
+          Не е одобрено за клинична употреба. Без donor acceptance, allocation, DSA,
+          MFI, cPRA, eplet, PIRCHE или автономна клинична decision support функция.
         </div>
       </header>
 
-      <section class="notice-band" aria-label="Safety boundary">
-        <strong>Validation use only</strong>
-        <span>Use synthetic, demo, anonymized, or validation-planning records. Final clinical decisions require qualified independent review.</span>
+      <section class="notice-band" aria-label="Граница на безопасност">
+        <strong>Само за валидация</strong>
+        <span>Използвайте synthetic, demo, anonymized или validation-planning записи. Финалните клинични решения изискват квалифициран независим преглед.</span>
       </section>
 
       <section class="view active" id="view-case" aria-labelledby="case-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Input</p>
-            <h2 id="case-title">Case workspace</h2>
+            <p class="eyebrow">Вход</p>
+            <h2 id="case-title">Работно място за случай</h2>
           </div>
-          <div class="segmented" role="group" aria-label="Direction">
-            <button type="button" class="active" data-direction="recipient">Recipient</button>
-            <button type="button" data-direction="donor">Donor</button>
+          <div class="segmented" role="group" aria-label="Направление">
+            <button type="button" class="active" data-direction="recipient">Реципиент</button>
+            <button type="button" data-direction="donor">Донор</button>
           </div>
         </div>
 
         <form id="caseForm" class="control-grid">
           <label>
-            External ID
+            Външен ID
             <input id="externalId" type="text" value="RECIP-001" required>
           </label>
           <label>
-            Typing ID
-            <input id="typingId" type="number" min="1" step="1" placeholder="latest">
+            ID на типизация
+            <input id="typingId" type="number" min="1" step="1" placeholder="последна">
           </label>
           <label>
-            Candidate IDs
-            <input id="candidateIds" type="text" placeholder="comma separated">
+            ID на кандидати
+            <input id="candidateIds" type="text" placeholder="разделени със запетая">
           </label>
           <label>
-            Level
+            Ниво
             <select id="level">
               <option value="lgx">LGX</option>
-              <option value="canonical">Canonical</option>
-              <option value="g">G group</option>
-              <option value="p">P group</option>
+              <option value="canonical">Канонично</option>
+              <option value="g">G група</option>
+              <option value="p">P група</option>
             </select>
           </label>
           <label>
-            Loci
+            Локуси
             <input id="loci" type="text" placeholder="A,B,C,DRB1,DQB1">
           </label>
           <label>
-            Sort
+            Сортиране
             <select id="sortBy">
-              <option value="">Default</option>
-              <option value="mismatch_count">Mismatch count</option>
-              <option value="candidate_external_id">Candidate ID</option>
-              <option value="donor_external_id">Donor ID</option>
-              <option value="recipient_external_id">Recipient ID</option>
+              <option value="">По подразбиране</option>
+              <option value="mismatch_count">Брой несъвпадения</option>
+              <option value="candidate_external_id">ID на кандидат</option>
+              <option value="donor_external_id">ID на донор</option>
+              <option value="recipient_external_id">ID на реципиент</option>
             </select>
           </label>
           <label>
-            Order
+            Ред
             <select id="sortOrder">
-              <option value="auto">Auto</option>
-              <option value="asc">Ascending</option>
-              <option value="desc">Descending</option>
+              <option value="auto">Автоматично</option>
+              <option value="asc">Възходящ</option>
+              <option value="desc">Низходящ</option>
             </select>
           </label>
           <label class="check-field">
             <input id="includeText" type="checkbox">
-            Include text artifact
+            Включи текстов артефакт
           </label>
         </form>
 
         <div class="action-row">
-          <button id="buildReport" class="primary" type="button">Build report</button>
-          <button id="compareLevels" type="button">Compare levels</button>
-          <button id="createAudit" type="button">Create audit</button>
+          <button id="buildReport" class="primary" type="button">Създай отчет</button>
+          <button id="compareLevels" type="button">Сравни нива</button>
+          <button id="createAudit" type="button">Създай одит</button>
         </div>
 
         <div class="metric-grid" id="metricGrid">
-          <div class="metric"><span>Pairs</span><strong id="metricPairs">-</strong></div>
-          <div class="metric"><span>Level</span><strong id="metricLevel">-</strong></div>
-          <div class="metric"><span>Anchor</span><strong id="metricAnchor">-</strong></div>
-          <div class="metric"><span>Request</span><strong id="metricRequest">-</strong></div>
+          <div class="metric"><span>Двойки</span><strong id="metricPairs">-</strong></div>
+          <div class="metric"><span>Ниво</span><strong id="metricLevel">-</strong></div>
+          <div class="metric"><span>Опорен запис</span><strong id="metricAnchor">-</strong></div>
+          <div class="metric"><span>Заявка</span><strong id="metricRequest">-</strong></div>
         </div>
       </section>
 
       <section class="view" id="view-comparison" aria-labelledby="comparison-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Representation levels</p>
-            <h2 id="comparison-title">Comparison</h2>
+            <p class="eyebrow">Нива на представяне</p>
+            <h2 id="comparison-title">Сравнение</h2>
           </div>
-          <div class="level-picker" aria-label="Levels">
+          <div class="level-picker" aria-label="Нива">
             <label><input type="checkbox" name="comparisonLevel" value="canonical" checked> Canonical</label>
             <label><input type="checkbox" name="comparisonLevel" value="lgx" checked> LGX</label>
             <label><input type="checkbox" name="comparisonLevel" value="g"> G</label>
@@ -152,7 +152,7 @@
 
         <div class="table-shell">
           <table>
-            <caption>Level summary</caption>
+            <caption>Обобщение по нива</caption>
             <thead id="levelHead"></thead>
             <tbody id="levelRows"></tbody>
           </table>
@@ -161,14 +161,14 @@
         <div class="two-column">
           <div class="table-shell">
             <table>
-              <caption>Pair deltas</caption>
+              <caption>Разлики по двойки</caption>
               <thead id="pairDeltaHead"></thead>
               <tbody id="pairDeltaRows"></tbody>
             </table>
           </div>
           <div class="table-shell">
             <table>
-              <caption>Locus deltas</caption>
+              <caption>Разлики по локуси</caption>
               <thead id="locusDeltaHead"></thead>
               <tbody id="locusDeltaRows"></tbody>
             </table>
@@ -180,70 +180,70 @@
         <div class="section-heading">
           <div>
             <p class="eyebrow">STEP 27</p>
-            <h2 id="report-title">Report</h2>
+            <h2 id="report-title">Отчет</h2>
           </div>
-          <div id="reportMeta" class="meta-strip">No report loaded</div>
+          <div id="reportMeta" class="meta-strip">Няма зареден отчет</div>
         </div>
 
         <div class="two-column report-layout">
           <div class="table-shell">
             <table>
-              <caption>Pair rows</caption>
+              <caption>Редове по двойки</caption>
               <thead id="pairHead"></thead>
               <tbody id="pairRows"></tbody>
             </table>
           </div>
-          <div class="locus-rail" id="locusRail" aria-label="Locus summary"></div>
+          <div class="locus-rail" id="locusRail" aria-label="Обобщение по локуси"></div>
         </div>
       </section>
 
       <section class="view" id="view-audit" aria-labelledby="audit-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Reproducibility</p>
-            <h2 id="audit-title">Audit bundle</h2>
+            <p class="eyebrow">Възпроизводимост</p>
+            <h2 id="audit-title">Одитен пакет</h2>
           </div>
           <label class="check-field inline">
             <input id="zipBundle" type="checkbox">
-            Zip
+            ZIP
           </label>
         </div>
 
         <div class="audit-summary" id="auditSummary">
-          <div><span>Bundle</span><strong>-</strong></div>
+          <div><span>Пакет</span><strong>-</strong></div>
           <div><span>Doctor</span><strong>-</strong></div>
-          <div><span>Files</span><strong>-</strong></div>
-          <div><span>Archive</span><strong>-</strong></div>
+          <div><span>Файлове</span><strong>-</strong></div>
+          <div><span>Архив</span><strong>-</strong></div>
         </div>
       </section>
 
       <section class="view" id="view-review" aria-labelledby="review-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Human review</p>
-            <h2 id="review-title">Validation notes</h2>
+            <p class="eyebrow">Човешки преглед</p>
+            <h2 id="review-title">Бележки от валидация</h2>
           </div>
-          <output class="status-pill warning">Local only</output>
+          <output class="status-pill warning">Само локално</output>
         </div>
 
         <div class="review-grid">
           <label>
-            Reviewer note
-            <textarea id="reviewNote" rows="8" placeholder="Validation observations, questions, and usability findings."></textarea>
+            Бележка на проверяващия
+            <textarea id="reviewNote" rows="8" placeholder="Наблюдения от валидация, въпроси и usability findings."></textarea>
           </label>
           <div class="review-panel">
-            <h3>Clinical gate</h3>
-            <p>This prototype does not store clinical approval, donor acceptance, donor rejection, or treatment decisions.</p>
-            <button id="saveNote" type="button">Save note</button>
-            <button type="button" disabled>Approve clinical use</button>
+            <h3>Клинична бариера</h3>
+            <p>Този прототип не съхранява клинично одобрение, donor acceptance, donor rejection или терапевтични решения.</p>
+            <button id="saveNote" type="button">Запази бележка</button>
+            <button type="button" disabled>Одобри клинична употреба</button>
           </div>
         </div>
       </section>
 
       <section class="raw-panel" aria-labelledby="raw-title">
         <div class="section-heading compact">
-          <h2 id="raw-title">Raw response</h2>
-          <button id="clearRaw" type="button">Clear</button>
+          <h2 id="raw-title">Суров отговор</h2>
+          <button id="clearRaw" type="button">Изчисти</button>
         </div>
         <pre id="rawJson">{}</pre>
       </section>

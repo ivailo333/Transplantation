@@ -1,14 +1,12 @@
-# Frontend Prototype Draft
+# Frontend Прототип
 
-Status: Draft for clinical-readiness planning. Not approved for clinical use.
+Статус: Draft за планиране на клинична готовност. Не е одобрен за клинична употреба.
 
-This document defines the initial non-clinical frontend prototype added in step
-6. The prototype is a browser-based validation console for the backend API
-component and is not a production clinical user interface.
+Този документ описва началния неклиничен frontend прототип, добавен в стъпка 6. Прототипът е browser-based validation console за backend API компонента и не е production клиничен потребителски интерфейс.
 
-## Source Documents
+## Изходни Документи
 
-Internal source documents reviewed for this draft:
+Вътрешни документи, използвани за този draft:
 
 - [Intended Use](intended-use.md)
 - [Regulatory Classification Draft](regulatory-classification.md)
@@ -19,125 +17,112 @@ Internal source documents reviewed for this draft:
 - [Backend Integration Guide](../backend-integration.md)
 - [Data Policy](../data.md)
 
-## Prototype Location
+## Местоположение На Прототипа
 
-The prototype source is stored in `frontend/`.
+Source файловете са в `frontend/`.
 
-Key files:
+Ключови файлове:
 
-- `frontend/index.html`: validation console markup.
+- `frontend/index.html`: markup на validation console.
 - `frontend/styles.css`: responsive operational UI styling.
-- `frontend/app.js`: browser logic for backend API calls and local review notes.
-- `frontend/serve.py`: static development server and `/api/*` proxy to backend
-  `/v1` endpoints.
-- `frontend/README.md`: local run instructions.
+- `frontend/app.js`: browser логика за backend API заявки и локални validation notes.
+- `frontend/serve.py`: static development server и `/api/*` proxy към backend `/v1` endpoints.
+- `frontend/README.md`: локални инструкции за стартиране.
 
-## Scope
+## Обхват
 
-The prototype supports the following non-clinical workflow:
+Прототипът поддържа следния неклиничен workflow:
 
-- backend liveness and readiness probes;
-- donor-side or recipient-side case parameter entry;
-- STEP 27 live report creation through `/v1/reports/live`;
-- STEP 28 representation-level comparison through `/v1/comparisons/levels`;
-- reproducible live audit bundle creation through `/v1/audit/live`;
-- raw JSON response review;
-- local-only validation notes.
+- backend liveness и readiness probes;
+- въвеждане на donor-side или recipient-side case параметри;
+- създаване на STEP 27 live report чрез `/v1/reports/live`;
+- STEP 28 comparison между representation levels чрез `/v1/comparisons/levels`;
+- създаване на reproducible live audit bundle чрез `/v1/audit/live`;
+- преглед на raw JSON response;
+- локални validation notes.
 
-The prototype is intended to help developers, technical evaluators, and
-validation personnel inspect backend behavior during integration planning.
+Прототипът е предназначен да помага на developers, technical evaluators и validation personnel да инспектират backend behavior по време на integration planning.
 
-## Non-Intended Uses
+## Непредназначени Употреби
 
-The prototype must not be used for:
+Прототипът не трябва да се използва за:
 
-- clinical donor acceptance or rejection;
-- organ allocation, prioritization, or waitlist decision-making;
+- клинично приемане или отхвърляне на донор;
+- organ allocation, prioritization или waitlist decision-making;
 - virtual crossmatch interpretation;
-- DSA, MFI, unacceptable antigen, cPRA, eplet, or PIRCHE interpretation;
+- DSA, MFI, unacceptable antigen, cPRA, eplet или PIRCHE interpretation;
 - graft outcome prediction;
 - treatment recommendation;
-- autonomous or semi-autonomous clinical decision support;
-- storage of clinical approval or final clinical sign-off.
+- autonomous или semi-autonomous clinical decision support;
+- съхранение на clinical approval или final clinical sign-off.
 
-The visible UI includes a non-clinical status boundary and intentionally keeps
-the clinical approval control disabled.
+Видимият UI съдържа неклинична status граница и умишлено държи clinical approval контрола disabled.
 
-## Backend Dependency
+## Backend Зависимост
 
-The prototype depends on the backend API component being available. The default
-proxy target is:
+Прототипът зависи от наличен backend API компонент. Стандартният proxy target е:
 
 ```text
 http://127.0.0.1:8000/v1
 ```
 
-The target can be overridden with `HLA_FRONTEND_BACKEND_URL`.
+Target адресът може да се промени чрез `HLA_FRONTEND_BACKEND_URL`.
 
-Local startup:
+Локално стартиране:
 
 ```powershell
 hla-api
 python .\frontend\serve.py
 ```
 
-Open:
+Отваряне:
 
 ```text
 http://127.0.0.1:4173/
 ```
 
-## Safety And Claims Controls
+## Safety И Claims Контроли
 
-The prototype includes these initial controls:
+Прототипът включва начални контроли:
 
-- explicit non-clinical labeling in the first screen;
-- no clinical approval persistence;
+- explicit non-clinical labeling на първия екран;
+- без persistence на clinical approval;
 - disabled clinical-use approval button;
 - local-only reviewer note storage;
-- raw backend response panel for traceability during validation;
-- same-origin frontend proxy so browser calls do not require a separate CORS
-  configuration during local evaluation;
-- no scoring, recommendation, or acceptance/rejection language.
+- raw backend response panel за traceability по време на validation;
+- same-origin frontend proxy, така че browser calls да не изискват отделна CORS конфигурация при локална оценка;
+- без scoring, recommendation или acceptance/rejection language.
 
-These controls are not sufficient for clinical release. They are planning and
-prototype controls only.
+Тези контроли не са достатъчни за clinical release. Те са само planning и prototype controls.
 
 ## Usability Validation Notes
 
-Future usability work should define and test user tasks before clinical use is
-considered. Initial candidate tasks:
+Бъдещата usability работа трябва да дефинира и тества user tasks преди да се разглежда клинична употреба. Начални candidate tasks:
 
-- verify backend readiness before reviewing a case;
-- enter a donor or recipient identifier and create a report;
-- compare representation levels and identify where deterministic software
-  outputs differ;
-- create an audit bundle and confirm its file manifest;
-- record validation observations without implying clinical approval.
+- проверка на backend readiness преди преглед на случай;
+- въвеждане на donor или recipient identifier и създаване на report;
+- сравнение на representation levels и идентифициране къде deterministic software outputs се различават;
+- създаване на audit bundle и потвърждение на file manifest;
+- записване на validation observations без внушение за clinical approval.
 
-Usability validation must include representative intended users, realistic
-workflow constraints, and documented pass/fail criteria.
+Usability validation трябва да включва representative intended users, реалистични workflow constraints и документирани pass/fail criteria.
 
 ## Data Governance Notes
 
-The prototype is limited to synthetic, demo, anonymized, or validation-planning
-records. Any use with identifiable donor, recipient, or patient data requires an
-approved governance process, access controls, retention rules, audit review, and
-legal basis for processing before data is entered into the system.
+Прототипът е ограничен до synthetic, demo, anonymized или validation-planning записи. Всяка употреба с identifiable donor, recipient или patient data изисква approved governance process, access controls, retention rules, audit review и legal basis for processing преди въвеждане на данни в системата.
 
-## Open Items Before Clinical Use
+## Open Items Преди Клинична Употреба
 
-Before this can become part of a clinical workflow, the project still needs at
-least:
+Преди това да стане част от клиничен workflow, проектът все още има нужда поне от:
 
 - formally approved intended use and claims;
-- regulatory classification confirmation;
+- потвърдена regulatory classification;
 - reviewed and baselined software requirements linked to risk controls;
 - role-based authentication and authorization;
 - validated audit trail and retention behavior;
 - clinical workflow hazard analysis;
 - cybersecurity risk assessment;
-- usability engineering file and formative/summative validation;
-- verification and validation protocol with objective acceptance criteria;
+- usability engineering file и formative/summative validation;
+- verification and validation protocol с objective acceptance criteria;
 - production deployment architecture and operational procedures;
-- approved release, change-control, incident, and post-market processes.
+- approved release, change-control, incident и post-market processes.

@@ -23,7 +23,7 @@ function setRaw(payload) {
 function setBusy(button, busy) {
   button.disabled = busy;
   button.dataset.originalText = button.dataset.originalText || button.textContent;
-  button.textContent = busy ? "Working..." : button.dataset.originalText;
+  button.textContent = busy ? "Работи..." : button.dataset.originalText;
 }
 
 function activeView(name) {
@@ -133,8 +133,28 @@ function textValue(value) {
   return String(value);
 }
 
+const COLUMN_LABELS = {
+  rank: "Ред",
+  donor_external_id: "ID на донор",
+  recipient_external_id: "ID на реципиент",
+  candidate_external_id: "ID на кандидат",
+  mismatch_count: "Брой несъвпадения",
+  matched_pairs: "Съвпадащи двойки",
+  mismatched_pairs: "Несъвпадащи двойки",
+  level: "Ниво",
+  level_label: "Етикет на ниво",
+  pair_count: "Брой двойки",
+  stability: "Стабилност",
+  reference_mismatch_count: "Несъвпадения в референтно ниво",
+  comparison_mismatch_count: "Несъвпадения в сравнявано ниво",
+  delta: "Разлика",
+  locus: "Локус",
+  hla_locus: "HLA локус",
+  name: "Име",
+};
+
 function titleFromKey(key) {
-  return key
+  return COLUMN_LABELS[key] || key
     .replace(/_/g, " ")
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
@@ -168,7 +188,7 @@ function renderTable(headSelector, bodySelector, rows, preferred = []) {
   if (!Array.isArray(rows) || rows.length === 0) {
     const tr = document.createElement("tr");
     tr.className = "empty-row";
-    tr.innerHTML = "<td>No rows loaded</td>";
+    tr.innerHTML = "<td>Няма заредени редове</td>";
     body.appendChild(tr);
     return;
   }
@@ -210,7 +230,7 @@ function renderLocusRail(rows) {
   if (!Array.isArray(rows) || rows.length === 0) {
     const empty = document.createElement("div");
     empty.className = "locus-item";
-    empty.innerHTML = "<span>Loci</span><strong>No locus rows</strong>";
+    empty.innerHTML = "<span>Локуси</span><strong>Няма редове по локуси</strong>";
     rail.appendChild(empty);
     return;
   }
@@ -253,7 +273,7 @@ function renderReport(envelope) {
     report.schema || "report",
     provenance.generated_at || report.generated_at,
     report.imgthla_version,
-  ].filter(Boolean).join(" | ") || "Report loaded";
+  ].filter(Boolean).join(" | ") || "Отчетът е зареден";
 }
 
 function renderComparison(envelope) {
@@ -296,7 +316,7 @@ function renderAudit(envelope) {
     [bundle.bundle_name || "-", bundle.bundle_dir || ""],
     [`OK ${doctor.OK ?? 0} / WARN ${doctor.WARN ?? 0} / FAIL ${doctor.FAIL ?? 0}`, ""],
     [String(fileCount), ""],
-    [bundle.zip_path ? "Zip created" : "Directory", bundle.zip_path || ""],
+    [bundle.zip_path ? "ZIP създаден" : "Директория", bundle.zip_path || ""],
   ];
 
   $$("#auditSummary > div").forEach((item, index) => {
@@ -333,7 +353,7 @@ async function buildReport(button) {
     });
     renderReport(payload);
     activeView("report");
-    setStatus("Report loaded", "ok");
+    setStatus("Отчетът е зареден", "ok");
   } catch (error) {
     handleError(error);
   } finally {
@@ -344,7 +364,7 @@ async function buildReport(button) {
 async function compareLevels(button) {
   const levels = comparisonLevels();
   if (levels.length < 2) {
-    handleError(new Error("Select at least two levels."));
+    handleError(new Error("Изберете поне две нива."));
     return;
   }
 
@@ -359,7 +379,7 @@ async function compareLevels(button) {
     });
     renderComparison(payload);
     activeView("comparison");
-    setStatus("Comparison loaded", "ok");
+    setStatus("Сравнението е заредено", "ok");
   } catch (error) {
     handleError(error);
   } finally {
@@ -379,7 +399,7 @@ async function createAudit(button) {
     });
     renderAudit(payload);
     activeView("audit");
-    setStatus("Audit created", "ok");
+    setStatus("Одитът е създаден", "ok");
   } catch (error) {
     handleError(error);
   } finally {
@@ -409,7 +429,7 @@ function bindEvents() {
   $("#clearRaw").addEventListener("click", () => setRaw({}));
   $("#saveNote").addEventListener("click", () => {
     localStorage.setItem("hlaValidationNote", $("#reviewNote").value);
-    setStatus("Review note saved locally", "ok");
+    setStatus("Бележката е запазена локално", "ok");
   });
 }
 
