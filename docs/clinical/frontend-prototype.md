@@ -132,7 +132,7 @@ least:
 
 - formally approved intended use and claims;
 - regulatory classification confirmation;
-- controlled software requirements linked to risk controls;
+- reviewed and baselined software requirements linked to risk controls;
 - role-based authentication and authorization;
 - validated audit trail and retention behavior;
 - clinical workflow hazard analysis;

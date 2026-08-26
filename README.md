@@ -225,6 +225,8 @@ hla-api
 - [Clinical risk management draft](docs/clinical/risk-register.md)
 - [Clinical software lifecycle draft](docs/clinical/software-lifecycle.md)
 - [Clinical frontend prototype draft](docs/clinical/frontend-prototype.md)
+- [Clinical software requirements draft](docs/clinical/software-requirements.md)
+- [Clinical traceability matrix draft](docs/clinical/traceability-matrix.md)
 - [Database schema](docs/schema.md)
 - [Data policy](docs/data.md)
 

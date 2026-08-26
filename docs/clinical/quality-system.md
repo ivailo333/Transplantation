@@ -351,7 +351,7 @@ Before clinical-intended release, establish:
 
 Near-term actions that can be implemented in this repository:
 
-- add requirements traceability matrix;
+- review and baseline the requirements traceability matrix;
 - add risk register;
 - add software development plan;
 - add verification and validation plans;
@@ -397,7 +397,7 @@ Clinical use remains blocked until:
 The project now has a planning-level quality-system outline, but it does not yet
 have an implemented or certified QMS.
 
-The next readiness step should create a requirements specification and
-traceability matrix, because requirements are the bridge between intended use,
-regulatory classification, risk management, implementation, verification, and
-validation.
+The requirements specification and traceability matrix are now drafted at
+planning level. The next readiness step should create architecture, verification,
+validation, usability, release, and change-control records that link back to
+those requirements.

@@ -109,8 +109,8 @@ Minimum deliverables for a clinical-intended software lifecycle:
 | Deliverable | Purpose | Status |
 | --- | --- | --- |
 | Software development plan | Defines lifecycle process, roles, tools, and deliverables | Not started |
-| Software requirements specification | Defines testable software requirements | Not started |
-| Traceability matrix | Links intended use, requirements, risks, controls, tests, validation, release | Not started |
+| Software requirements specification | Defines testable software requirements | Draft started in step 7 |
+| Traceability matrix | Links intended use, requirements, risks, controls, tests, validation, release | Draft started in step 7 |
 | Software architecture document | Defines components, data flows, interfaces, failure modes | Not started |
 | Detailed design records | Defines behavior for safety-related modules | Not started |
 | Verification plan | Defines unit, integration, system, API, migration, and security tests | Not started |
@@ -377,8 +377,10 @@ Intended Use
   -> Maintenance / PMS feedback
 ```
 
-The next document should be a requirements specification and traceability matrix
-so that this lifecycle can become executable rather than descriptive.
+The requirements specification and traceability matrix are now drafted at
+planning level. They still require formal review, owner assignment, controlled
+baseline, and links to architecture, verification, validation, release, and
+maintenance records.
 
 ## Clinical-Use Blockers
 
@@ -414,6 +416,7 @@ The project now has an initial software lifecycle planning document. It remains
 a non-clinical project and does not yet have a completed IEC 62304 software
 lifecycle file.
 
-The next readiness step should create requirements and a traceability matrix,
-because requirements are needed to connect intended use, risks, controls,
-implementation, verification, validation, and release evidence.
+The next readiness step should create the software architecture and verification
+plan, because the new requirements and traceability matrix need design elements,
+test IDs, validation evidence, and release criteria before clinical workflow use
+can be considered.
