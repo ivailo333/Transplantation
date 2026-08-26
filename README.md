@@ -231,6 +231,11 @@ hla-api
 - [Проект на release/deployment plan](docs/clinical/release-deployment-plan.md)
 - [Проект на maintenance plan](docs/clinical/maintenance-plan.md)
 - [Проект на problem-resolution/CAPA plan](docs/clinical/problem-resolution-capa.md)
+- [Проект на document-control index](docs/clinical/document-control-index.md)
+- [Проект на approval matrix](docs/clinical/approval-matrix.md)
+- [Проект на claims-control matrix](docs/clinical/claims-control-matrix.md)
+- [Проект на change-impact checklist](docs/clinical/change-impact-checklist.md)
+- [Проект на clinical-readiness gate checklist](docs/clinical/clinical-readiness-gate-checklist.md)
 - [Схема на базата данни](docs/schema.md)
 - [Политика за данни](docs/data.md)
 

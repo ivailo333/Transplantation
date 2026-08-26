@@ -35,6 +35,11 @@ Problem resolution трябва да бъде свързан с:
 - [SOUP And Dependency Register Draft](soup-dependency-register.md)
 - [Release And Deployment Plan Draft](release-deployment-plan.md)
 - [Maintenance Plan Draft](maintenance-plan.md)
+- [Document Control Index Draft](document-control-index.md)
+- [Approval Matrix Draft](approval-matrix.md)
+- [Claims Control Matrix Draft](claims-control-matrix.md)
+- [Change Impact Checklist Draft](change-impact-checklist.md)
+- [Clinical Readiness Gate Checklist Draft](clinical-readiness-gate-checklist.md)
 
 Официални външни references, проверени на 2026-08-26:
 
@@ -210,4 +215,4 @@ Clinical workflow use remains blocked until:
 
 ## Step 11 Conclusion
 
-This document establishes a planning-level problem-resolution and CAPA interface. It does not implement a certified CAPA system or regulatory reporting workflow.
+This document establishes a planning-level problem-resolution and CAPA interface. The Step 12 baseline package now defines owner, approval, claims and gate controls that must govern problem/CAPA records. It does not implement a certified CAPA system or regulatory reporting workflow.

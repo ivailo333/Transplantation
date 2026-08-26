@@ -33,6 +33,11 @@ verification/validation needs. Той създава начални `ARCH-*` ide
 - [Release And Deployment Plan Draft](release-deployment-plan.md)
 - [Maintenance Plan Draft](maintenance-plan.md)
 - [Problem Resolution And CAPA Plan Draft](problem-resolution-capa.md)
+- [Document Control Index Draft](document-control-index.md)
+- [Approval Matrix Draft](approval-matrix.md)
+- [Claims Control Matrix Draft](claims-control-matrix.md)
+- [Change Impact Checklist Draft](change-impact-checklist.md)
+- [Clinical Readiness Gate Checklist Draft](clinical-readiness-gate-checklist.md)
 
 Официални външни references, проверени на 2026-08-26:
 
@@ -202,6 +207,7 @@ flowchart LR
 | SAD-006 | Sorting remains software ordering and must not become donor/candidate prioritization. | FUNC-005, UI-005 | RM-011, RM-025 |
 | SAD-007 | Future clinical app must own RBAC, user identity, role workflow and final human review. | SEC-002, INT-001, VAL-004 | RM-013, RM-018, RM-023 |
 | SAD-008 | Clinical-intended deployment must be gated by controlled release, deployment, maintenance, problem-resolution and CAPA records. | OPS-003, OPS-004, OPS-005 | RM-008, RM-012, RM-016, RM-017, RM-024 |
+| SAD-009 | Clinical-intended changes must be gated by document-control, approval, claims-control, change-impact and clinical-readiness checklist records. | CLM-005, OPS-006, OPS-007, OPS-008 | RM-005, RM-009, RM-010, RM-018, RM-020, RM-023, RM-024, RM-025 |
 
 ## Failure Modes And Controls
 
@@ -256,6 +262,7 @@ approved and controlled.
 
 The project now has a planning-level software architecture draft connected to
 verification, usability, validation, cybersecurity, data-governance,
-SOUP/dependency, release/deployment, maintenance and problem-resolution/CAPA
-planning artifacts. The next work should connect these architecture identifiers
-to controlled document baseline, claims-control and approval-matrix records.
+SOUP/dependency, release/deployment, maintenance, problem-resolution/CAPA,
+document-control, claims-control, change-impact and gate-checklist planning
+artifacts. The next work should add technical evidence automation and
+security/release scaffolding against this baseline package.

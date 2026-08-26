@@ -31,6 +31,11 @@ Internal project documents:
 - [Release And Deployment Plan Draft](release-deployment-plan.md)
 - [Maintenance Plan Draft](maintenance-plan.md)
 - [Problem Resolution And CAPA Plan Draft](problem-resolution-capa.md)
+- [Document Control Index Draft](document-control-index.md)
+- [Approval Matrix Draft](approval-matrix.md)
+- [Claims Control Matrix Draft](claims-control-matrix.md)
+- [Change Impact Checklist Draft](change-impact-checklist.md)
+- [Clinical Readiness Gate Checklist Draft](clinical-readiness-gate-checklist.md)
 
 Official external references checked for this draft:
 
@@ -124,7 +129,9 @@ The following procedures must exist before clinical-intended release planning:
 
 Controlled documents should include:
 
+- document-control index and approval matrix;
 - intended use;
+- claims-control matrix;
 - regulatory classification rationale;
 - quality system plan;
 - requirements specification;
@@ -140,6 +147,8 @@ Controlled documents should include:
 - release/deployment plan and release records;
 - maintenance plan;
 - problem-resolution and CAPA records;
+- change-impact checklist records;
+- clinical-readiness gate checklist records;
 - release notes;
 - known-issues list;
 - clinical evaluation or performance evaluation plan, if applicable;
@@ -373,7 +382,8 @@ Near-term actions that can be implemented in this repository:
 - add CAPA/incident template;
 - review and baseline supplier/dependency register and cybersecurity/data-governance records;
 - review and baseline release/deployment, maintenance, problem-resolution and CAPA records;
-- add document-control index, claims matrix, change-impact checklist and approval matrix;
+- review and baseline document-control index, claims matrix, change-impact checklist, approval matrix and clinical-readiness gate checklist;
+- add automated evidence scripts for SBOM/dependency audit, secret/PHI scan and release evidence;
 - review and baseline architecture and data-flow records.
 
 ## Clinical-Use Blockers
@@ -413,7 +423,8 @@ have an implemented or certified QMS.
 The requirements specification, traceability matrix, architecture draft,
 verification plan, usability engineering file, validation plan, cybersecurity
 plan, data-governance plan, SOUP/dependency register, release/deployment plan,
-maintenance plan and problem-resolution/CAPA plan are now drafted at planning
-level. The next readiness step should create document-control, claims-control,
-change-impact and approval-matrix records before implementation expands toward
-clinical-intended workflows.
+maintenance plan, problem-resolution/CAPA plan, document-control index, approval
+matrix, claims-control matrix, change-impact checklist and clinical-readiness
+gate checklist are now drafted at planning level. The next readiness step should
+add technical evidence automation and security/release scaffolding while keeping
+clinical workflow use blocked until an approved baseline exists.

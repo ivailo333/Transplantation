@@ -23,6 +23,11 @@ Internal project documents:
 - [Release And Deployment Plan Draft](release-deployment-plan.md)
 - [Maintenance Plan Draft](maintenance-plan.md)
 - [Problem Resolution And CAPA Plan Draft](problem-resolution-capa.md)
+- [Document Control Index Draft](document-control-index.md)
+- [Approval Matrix Draft](approval-matrix.md)
+- [Claims Control Matrix Draft](claims-control-matrix.md)
+- [Change Impact Checklist Draft](change-impact-checklist.md)
+- [Clinical Readiness Gate Checklist Draft](clinical-readiness-gate-checklist.md)
 
 Official external references checked for this draft:
 
@@ -273,7 +278,8 @@ The project must not move to clinical pilot until these gates are complete:
 8. Clinical validation plan drafted.
 9. Security, data-protection, data-governance and SOUP/dependency controls reviewed and approved.
 10. Release/deployment, maintenance, problem-resolution and CAPA controls reviewed and approved.
-11. Manufacturer/legal responsible entity identified.
+11. Document-control index, approval matrix, claims matrix, change-impact checklist and clinical-readiness gate checklist reviewed and approved.
+12. Manufacturer/legal responsible entity identified.
 
 ## Open Regulatory Questions
 

@@ -40,6 +40,11 @@ Internal project documents:
 - [Release And Deployment Plan Draft](release-deployment-plan.md)
 - [Maintenance Plan Draft](maintenance-plan.md)
 - [Problem Resolution And CAPA Plan Draft](problem-resolution-capa.md)
+- [Document Control Index Draft](document-control-index.md)
+- [Approval Matrix Draft](approval-matrix.md)
+- [Claims Control Matrix Draft](claims-control-matrix.md)
+- [Change Impact Checklist Draft](change-impact-checklist.md)
+- [Clinical Readiness Gate Checklist Draft](clinical-readiness-gate-checklist.md)
 
 Official external references checked for this draft:
 
@@ -120,6 +125,11 @@ Minimum deliverables for a clinical-intended software lifecycle:
 
 | Deliverable | Purpose | Status |
 | --- | --- | --- |
+| Document-control index | Defines controlled document candidates, owner roles and baseline status | Draft started in step 12 |
+| Approval matrix | Defines owners, reviewers and approvers for baseline/release decisions | Draft started in step 12 |
+| Claims-control matrix | Defines allowed/prohibited claims and review surfaces | Draft started in step 12 |
+| Change-impact checklist | Defines change review questions and approval routing | Draft started in step 12 |
+| Clinical-readiness gate checklist | Defines blocked/ready gate criteria before clinical workflow use | Draft started in step 12 |
 | Software development plan | Defines lifecycle process, roles, tools, and deliverables | Not started |
 | Software requirements specification | Defines testable software requirements | Draft started in step 7 |
 | Traceability matrix | Links intended use, requirements, risks, controls, tests, validation, release | Draft started in step 7 |
@@ -154,12 +164,17 @@ The current repository already has useful non-clinical engineering controls:
 - audit bundle generation;
 - ignored runtime database, exports, pycache, and secrets;
 - planning-level cybersecurity, data-governance and SOUP/dependency records;
-- planning-level release/deployment, maintenance and problem-resolution/CAPA records.
+- planning-level release/deployment, maintenance and problem-resolution/CAPA records;
+- planning-level document-control, approval, claims-control, change-impact and clinical-readiness gate records.
 
 These are helpful foundations, but they are not sufficient for a clinical
 software lifecycle without controlled requirements, risk traceability,
 validation evidence, release records, and maintenance/problem-resolution
 processes.
+
+## Controlled Baseline Process
+
+The first controlled-baseline planning records are [Document Control Index Draft](document-control-index.md), [Approval Matrix Draft](approval-matrix.md), [Claims Control Matrix Draft](claims-control-matrix.md), [Change Impact Checklist Draft](change-impact-checklist.md), and [Clinical Readiness Gate Checklist Draft](clinical-readiness-gate-checklist.md). They remain drafts until approved by assigned roles.
 
 ## Software Requirements Process
 
@@ -421,7 +436,9 @@ Clinical use remains blocked until:
 - cybersecurity, data-governance and SOUP/dependency records are approved;
 - maintenance and problem-resolution/CAPA procedures are drafted and approved;
 - release approval process is implemented;
-- controlled clinical claims and labelling are approved.
+- controlled document baseline and approval matrix are approved;
+- controlled clinical claims and labelling are approved;
+- clinical-readiness gate checklist is completed and approved.
 
 ## Open Lifecycle Decisions
 
@@ -444,7 +461,8 @@ lifecycle file.
 
 The usability engineering file, validation plan, cybersecurity plan,
 data-governance plan, SOUP/dependency register, release/deployment plan,
-maintenance plan and problem-resolution/CAPA plan are now drafted at planning
-level. The next readiness step should create controlled document baseline,
-claims matrix, change-impact checklist and approval-matrix records before
-clinical use can be considered.
+maintenance plan, problem-resolution/CAPA plan, document-control index, approval
+matrix, claims-control matrix, change-impact checklist and clinical-readiness
+gate checklist are now drafted at planning level. The next readiness step should
+add technical evidence automation and security/release scaffolding while keeping
+clinical use blocked until the baseline package is approved.

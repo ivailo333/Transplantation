@@ -2,7 +2,7 @@
 
 Статус: Работен обзор за планиране. Не е одобрен за клинична употреба.
 
-Този документ е българският централен вход към clinical-readiness материалите на проекта след стъпка 11. Той не замества подробните source drafts, а обобщава текущото състояние, границите и оставащите gate-ове.
+Този документ е българският централен вход към clinical-readiness материалите на проекта след стъпка 12. Той не замества подробните source drafts, а обобщава текущото състояние, границите и оставащите gate-ове.
 
 ## Текуща Граница
 
@@ -23,6 +23,7 @@
 9. Usability engineering и validation plan drafts: дефинират users, environments, safety-related tasks, use errors, datasets, validation scenarios и acceptance criteria.
 10. Cybersecurity, data-governance и SOUP/dependency drafts: дефинират security objectives, threat/asset register, health-data rules, retention, SBOM и vulnerability-monitoring planning.
 11. Release/deployment, maintenance и problem-resolution/CAPA drafts: дефинират release package, deployment runbook, rollback/downtime controls, change types, post-release monitoring, anomaly triage и CAPA records.
+12. Controlled baseline и claims-control drafts: дефинират document-control index, owners/approvers, allowed/prohibited claims, change-impact checklist и clinical-readiness gate checklist.
 
 ## Основни Артефакти
 
@@ -44,6 +45,11 @@
 - [Release And Deployment Plan Draft](release-deployment-plan.md)
 - [Maintenance Plan Draft](maintenance-plan.md)
 - [Problem Resolution And CAPA Plan Draft](problem-resolution-capa.md)
+- [Document Control Index Draft](document-control-index.md)
+- [Approval Matrix Draft](approval-matrix.md)
+- [Claims Control Matrix Draft](claims-control-matrix.md)
+- [Change Impact Checklist Draft](change-impact-checklist.md)
+- [Clinical Readiness Gate Checklist Draft](clinical-readiness-gate-checklist.md)
 
 ## Какво Е На Български
 
@@ -63,6 +69,11 @@
 - Step 11 release/deployment plan draft.
 - Step 11 maintenance plan draft.
 - Step 11 problem-resolution/CAPA plan draft.
+- Step 12 document-control index draft.
+- Step 12 approval matrix draft.
+- Step 12 claims-control matrix draft.
+- Step 12 change-impact checklist draft.
+- Step 12 clinical-readiness gate checklist draft.
 - Този readiness overview.
 
 По-старите подробни source drafts остават на английски на този етап, за да се пази историческата им връзка с предишните commits. При нужда могат да бъдат преведени като отделна controlled localization task.
@@ -73,7 +84,9 @@
 
 - финално одобрено intended use и claims;
 - регулаторна класификация и правен/институционален route;
-- QMS ownership и controlled document process;
+- QMS ownership и approved controlled document process;
+- named owners/approvers and approval matrix;
+- approved claims matrix and change-impact process;
 - baselined requirements и traceability;
 - software architecture и data-flow records;
 - verification plan/report;
@@ -83,7 +96,8 @@
 - approved data governance for any real or pseudonymized health data;
 - role-based access control, audit trail, retention policy и deployment controls;
 - SBOM, vulnerability monitoring and SOUP/supplier review gates;
-- release approval, deployment rehearsal, change control, incident/CAPA и post-market monitoring process.
+- release approval, deployment rehearsal, change control, incident/CAPA и post-market monitoring process;
+- completed clinical-readiness gate decision by assigned approvers.
 
 ## Подход За Българска Локализация
 
@@ -98,4 +112,4 @@
 
 ## Следваща Стъпка
 
-Стъпка 12 трябва да създаде controlled baseline и claims-control package: document-control index, owners/approvers, claims matrix, change-impact checklist, approval matrix и clinical-readiness gate checklist. След това техническото разширяване към RBAC, TLS/gateway, SBOM automation, retention и production deployment трябва да върви само срещу approved baseline.
+Стъпка 13 трябва да започне technical control implementation срещу този planning package: автоматизиран SBOM/dependency audit scaffold, secret/PHI scan checks, release-evidence command, security headers/gateway guidance и baseline-aware CI checks. RBAC, TLS/gateway, retention и production deployment трябва да останат blocked, докато няма named approvers и approved baseline.

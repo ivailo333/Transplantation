@@ -39,6 +39,11 @@ Internal project documents:
 - [Release And Deployment Plan Draft](release-deployment-plan.md)
 - [Maintenance Plan Draft](maintenance-plan.md)
 - [Problem Resolution And CAPA Plan Draft](problem-resolution-capa.md)
+- [Document Control Index Draft](document-control-index.md)
+- [Approval Matrix Draft](approval-matrix.md)
+- [Claims Control Matrix Draft](claims-control-matrix.md)
+- [Change Impact Checklist Draft](change-impact-checklist.md)
+- [Clinical Readiness Gate Checklist Draft](clinical-readiness-gate-checklist.md)
 
 Official external references checked for this draft:
 
@@ -202,7 +207,8 @@ Before clinical-intended development proceeds, complete:
 9. Review and baseline usability/use-error analysis for the frontend.
 10. Review and baseline data-governance and SOUP/dependency controls.
 11. Review and baseline release/deployment, maintenance and problem-resolution/CAPA controls from step 11.
-12. Add controlled document/claims/change-impact baseline process.
+12. Review and baseline controlled document/claims/change-impact/gate package from step 12.
+13. Add automated technical evidence checks for SBOM, dependency audit, secret/PHI scan and release evidence.
 
 ## Risk Traceability Requirements
 
@@ -278,7 +284,8 @@ authorized.
 The requirements specification, traceability matrix, architecture draft,
 verification plan, usability engineering file, validation plan, cybersecurity
 plan, data-governance plan, SOUP/dependency register, release/deployment plan,
-maintenance plan and problem-resolution/CAPA plan are now drafted at planning
-level. The next readiness step should define controlled document baseline,
-claims matrix, change-impact checklist and approval responsibilities before any
-clinical workflow use is considered.
+maintenance plan, problem-resolution/CAPA plan, document-control index, approval
+matrix, claims-control matrix, change-impact checklist and clinical-readiness
+gate checklist are now drafted at planning level. The next readiness step should
+add technical evidence automation while all clinical workflow use remains
+blocked until controlled approvals and validation evidence exist.

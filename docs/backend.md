@@ -111,7 +111,7 @@ docker build -t hla-transplantation-backend .
 docker run --rm -p 8000:8000 --env-file backend.env hla-transplantation-backend
 ```
 
-Mount `transplant.db`, export storage, and `pyard-data/` for real deployments. See [Backend integration guide](backend-integration.md), [Cybersecurity Plan](clinical/cybersecurity-plan.md), [Data Governance Plan](clinical/data-governance.md), [SOUP And Dependency Register](clinical/soup-dependency-register.md), [Release And Deployment Plan](clinical/release-deployment-plan.md), [Maintenance Plan](clinical/maintenance-plan.md), and [Problem Resolution And CAPA Plan](clinical/problem-resolution-capa.md).
+Mount `transplant.db`, export storage, and `pyard-data/` for real deployments. See [Backend integration guide](backend-integration.md), [Cybersecurity Plan](clinical/cybersecurity-plan.md), [Data Governance Plan](clinical/data-governance.md), [SOUP And Dependency Register](clinical/soup-dependency-register.md), [Release And Deployment Plan](clinical/release-deployment-plan.md), [Maintenance Plan](clinical/maintenance-plan.md), [Problem Resolution And CAPA Plan](clinical/problem-resolution-capa.md), [Document Control Index](clinical/document-control-index.md), [Claims Control Matrix](clinical/claims-control-matrix.md), [Change Impact Checklist](clinical/change-impact-checklist.md), [Approval Matrix](clinical/approval-matrix.md), and [Clinical Readiness Gate Checklist](clinical/clinical-readiness-gate-checklist.md).
 
 ## Boundary
 

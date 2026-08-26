@@ -24,6 +24,11 @@ Traceability трябва да показва, че всяка safety-related и
 - [Release And Deployment Plan Draft](release-deployment-plan.md)
 - [Maintenance Plan Draft](maintenance-plan.md)
 - [Problem Resolution And CAPA Plan Draft](problem-resolution-capa.md)
+- [Document Control Index Draft](document-control-index.md)
+- [Approval Matrix Draft](approval-matrix.md)
+- [Claims Control Matrix Draft](claims-control-matrix.md)
+- [Change Impact Checklist Draft](change-impact-checklist.md)
+- [Clinical Readiness Gate Checklist Draft](clinical-readiness-gate-checklist.md)
 - [Frontend Prototype Draft](frontend-prototype.md)
 - [Backend API Component](../backend.md)
 - [Backend Integration Guide](../backend-integration.md)
@@ -48,40 +53,40 @@ Traceability трябва да показва, че всяка safety-related и
 | RM-002 Donor/recipient identity mix-up | DATA-002, UI-001, INT-002 | `subjects.py`, `backend_services.py`, `frontend/index.html` | Direction/role tests; API request fixtures; UI smoke tests | Representative user task for donor/recipient review | Role labels present; clinical confirmation workflow missing |
 | RM-003 Missing or partial HLA data | DATA-004, UI-004 | `step27_reporting.py`, `frontend-prototype.md` | Missing-data fixture tests; report warning tests | Usability validation for incomplete case handling | Planned; explicit UI warnings not fully implemented |
 | RM-004 Stale IMGT/HLA or py-ard data | DATA-005, AUD-002, SEC-004, INT-002 | `doctor.py`, `backend_services.py`, `audit_bundle.py` | Metadata tests; doctor checks; dependency review | User comprehension of version metadata | Version metadata present; dependency register not controlled |
-| RM-005 Incorrect reduction interpretation | CLM-001, CLM-003, FUNC-002, UI-003 | `hla_reduction.py`, `step28_report_comparison.py`, `frontend/` | Level comparison tests; claims wording review | Usability task on level interpretation | Controls present; formal wording approval missing |
+| RM-005 Incorrect reduction interpretation | CLM-001, CLM-003, CLM-005, FUNC-002, UI-003 | `hla_reduction.py`, `step28_report_comparison.py`, `frontend/` | Level comparison tests; claims wording review | Usability task on level interpretation | Controls present; formal wording approval missing |
 | RM-006 Software comparison defect | DATA-003, FUNC-001, FUNC-002, VAL-001 | `hla_comparison.py`, `hla_matrix.py`, `tests/` | Independent expected-case fixtures; regression tests | Clinical reviewer challenge cases | Unit coverage present; independent clinical fixtures missing |
 | RM-007 Export/report mismatch | FUNC-003, FUNC-004 | `exporters.py`, `html_reports.py`, `audit_bundle.py` | Cross-format parity tests; audit manifest tests | Artifact review task during validation | Partial automated coverage; parity matrix not baselined |
-| RM-008 Audit trail incomplete | DATA-005, API-002, FUNC-003, AUD-001, AUD-002, OPS-003, OPS-005 | `audit_bundle.py`, `backend_app.py`, `backend_services.py` | Audit bundle tests; metadata tests; release checklist | Audit investigation drill | Bundle present; clinical release record not defined |
-| RM-009 API misuse as clinical decision engine | CLM-001, CLM-002, FUNC-002, INT-001, VAL-004 | `backend_app.py`, `docs/backend-integration.md`, `docs/clinical/intended-use.md` | API contract tests; OpenAPI review; claims review | Integration validation with downstream app | Non-clinical envelope present; integration contract not baselined |
-| RM-010 Frontend UI implies recommendation | CLM-001, CLM-003, CLM-004, UI-005, UI-006, VAL-003 | `frontend/`, `frontend-prototype.md` | UI text review; visual state review; disabled approval test | Usability comprehension validation | Prototype control present; formal usability file missing |
+| RM-008 Audit trail incomplete | DATA-005, API-002, FUNC-003, AUD-001, AUD-002, OPS-003, OPS-005, OPS-006 | `audit_bundle.py`, `backend_app.py`, `backend_services.py` | Audit bundle tests; metadata tests; release checklist | Audit investigation drill | Bundle present; clinical release record not defined |
+| RM-009 API misuse as clinical decision engine | CLM-001, CLM-002, CLM-005, FUNC-002, INT-001, OPS-008, VAL-004 | `backend_app.py`, `docs/backend-integration.md`, `docs/clinical/intended-use.md` | API contract tests; OpenAPI review; claims review | Integration validation with downstream app | Non-clinical envelope present; integration contract not baselined |
+| RM-010 Frontend UI implies recommendation | CLM-001, CLM-003, CLM-004, CLM-005, UI-005, UI-006, OPS-008, VAL-003 | `frontend/`, `frontend-prototype.md` | UI text review; visual state review; disabled approval test | Usability comprehension validation | Prototype control and usability file draft present; formal usability validation/claims approval missing |
 | RM-011 Wrong sort/ranking interpretation | CLM-003, FUNC-005, UI-001, UI-005, VAL-003 | `step27_reporting.py`, `frontend/index.html`, `frontend/app.js` | Sort disclosure tests; report wording review | User task on sorted output interpretation | Prototype only; rank/sort labelling needs deeper validation |
-| RM-012 Database schema mismatch | API-004, API-005, OPS-002, OPS-003, OPS-004, VAL-001 | `database.py`, `migrations.py`, `backend_services.py` | Migration tests; readiness tests; deployment dry run | Operator readiness workflow validation | Technical checks present; release gate not controlled |
-| RM-013 Unauthorized access | API-003, API-004, SEC-001, SEC-002, SEC-003 | `backend_config.py`, `backend.env.example`, `backend_app.py` | Auth tests; security review; deployment review | Access review process validation | API key present; RBAC/TLS/production controls missing |
-| RM-014 Identifiable clinical data without governance | DATA-001, DATA-006, SEC-001, SEC-002, SEC-003 | `.gitignore`, `docs/data.md`, `frontend-prototype.md` | Repo secret/PHI scan; config review | Data-governance approval workflow | Non-clinical policy present; clinical governance not approved |
-| RM-015 Dependency vulnerability | AUD-002, SEC-004, OPS-003 | `pyproject.toml`, `requirements*.txt`, `Dockerfile` | Dependency audit; SBOM review; image scan | Release review of vulnerability decisions | Dependency list present; controlled monitoring not implemented |
-| RM-016 Service unavailable during donor review | API-004, UI-002, OPS-001, OPS-002, OPS-003, OPS-004 | `backend_app.py`, `frontend/serve.py`, `frontend/app.js` | Probe tests; proxy error tests; deployment smoke tests | Downtime procedure simulation | Probes present; downtime SOP missing |
-| RM-017 Error handling hides root cause | API-005, API-006, UI-002, OPS-001, OPS-004, OPS-005 | `backend_app.py`, `backend_services.py`, `frontend/app.js` | Error-path tests; log/request ID review | Support workflow validation | Structured errors present; support SOP missing |
-| RM-018 Incorrect clinical expansion of scope | CLM-001, CLM-002, CLM-003, CLM-004, INT-001, VAL-004 | `docs/clinical/`, `backend_app.py`, `frontend/` | Claims matrix review; change-impact review | Clinical governance review | Draft controls present; formal claims approval missing |
-| RM-019 Validation dataset bias | VAL-002 | `docs/clinical/software-requirements.md` | Dataset inventory review; edge-case checklist | Validation protocol/report with representative cases | Not started beyond requirement identification |
-| RM-020 User training insufficient | CLM-001, DATA-001, VAL-003 | `README.md`, `docs/clinical/intended-use.md`, `frontend/` | Training material review; UI warning checks | Role-based competency assessment | Warnings present; training program missing |
-| RM-021 Logs or audit bundles leak sensitive data | DATA-006, API-006, AUD-001, SEC-002, SEC-003, OPS-005 | `.gitignore`, `audit_bundle.py`, `backend_app.py` | Log review; export review; access-control test | Privacy workflow validation | Ignored files present; retention/access controls missing |
+| RM-012 Database schema mismatch | API-004, API-005, OPS-002, OPS-003, OPS-004, VAL-001 | `database.py`, `migrations.py`, `backend_services.py` | Migration tests; readiness tests; deployment dry run | Operator readiness workflow validation | Technical checks and gate checklist draft present; release gate not approved/enforced |
+| RM-013 Unauthorized access | API-003, API-004, SEC-001, SEC-002, SEC-003, OPS-007 | `backend_config.py`, `backend.env.example`, `backend_app.py` | Auth tests; security review; deployment review | Access review process validation | API key present; RBAC/TLS/production controls missing |
+| RM-014 Identifiable clinical data without governance | DATA-001, DATA-006, SEC-001, SEC-002, SEC-003, OPS-007, OPS-008 | `.gitignore`, `docs/data.md`, `frontend-prototype.md` | Repo secret/PHI scan; config review | Data-governance approval workflow | Non-clinical policy present; clinical governance not approved |
+| RM-015 Dependency vulnerability | AUD-002, SEC-004, OPS-003, OPS-007 | `pyproject.toml`, `requirements*.txt`, `Dockerfile` | Dependency audit; SBOM review; image scan | Release review of vulnerability decisions | Dependency list present; controlled monitoring not implemented |
+| RM-016 Service unavailable during donor review | API-004, UI-002, OPS-001, OPS-002, OPS-003, OPS-004 | `backend_app.py`, `frontend/serve.py`, `frontend/app.js` | Probe tests; proxy error tests; deployment smoke tests | Downtime procedure simulation | Probes and release/deployment draft present; downtime SOP not approved/rehearsed |
+| RM-017 Error handling hides root cause | API-005, API-006, UI-002, OPS-001, OPS-004, OPS-005 | `backend_app.py`, `backend_services.py`, `frontend/app.js` | Error-path tests; log/request ID review | Support workflow validation | Structured errors and problem-resolution draft present; support SOP not approved/enforced |
+| RM-018 Incorrect clinical expansion of scope | CLM-001, CLM-002, CLM-003, CLM-004, CLM-005, INT-001, OPS-006, OPS-007, OPS-008, VAL-004 | `docs/clinical/`, `backend_app.py`, `frontend/` | Claims matrix review; change-impact review | Clinical governance review | Draft controls present; formal claims approval missing |
+| RM-019 Validation dataset bias | VAL-002 | `docs/clinical/software-requirements.md` | Dataset inventory review; edge-case checklist | Validation protocol/report with representative cases | Validation and data-governance drafts present; representative dataset not approved |
+| RM-020 User training insufficient | CLM-001, CLM-005, DATA-001, OPS-008, VAL-003 | `README.md`, `docs/clinical/intended-use.md`, `frontend/` | Training material review; UI warning checks | Role-based competency assessment | Warnings present; training program missing |
+| RM-021 Logs or audit bundles leak sensitive data | DATA-006, API-006, AUD-001, SEC-002, SEC-003, OPS-005, OPS-007 | `.gitignore`, `audit_bundle.py`, `backend_app.py` | Log review; export review; access-control test | Privacy workflow validation | Ignored files present; retention/access controls missing |
 | RM-022 Concurrency or stale view issue | DATA-002, DATA-005, UI-001, UI-003, UI-004, INT-002 | `backend_services.py`, `step27_reporting.py`, `frontend/app.js` | Timestamp/request metadata tests; refresh tests | User stale-report recognition task | Metadata present; stale-view warning not complete |
-| RM-023 Human oversight bypassed | CLM-002, CLM-004, API-003, INT-001, VAL-004 | `backend_app.py`, `frontend/index.html`, `docs/backend-integration.md` | API contract review; disabled approval test; integration tests | Human-signoff workflow validation | Prototype blocks approval; clinical sign-off process missing |
-| RM-024 Incorrect environment configuration | API-005, OPS-001, OPS-002, OPS-003, OPS-004, OPS-005, SEC-001, SEC-003 | `backend_config.py`, `backend.env.example`, `Dockerfile` | Config tests; readiness tests; deployment checklist | Operator deployment rehearsal | Env examples present; production checklist not baselined |
-| RM-025 Report language ambiguity | CLM-001, CLM-003, FUNC-005, UI-005, VAL-003 | `step27_reporting.py`, `step28_report_comparison.py`, `frontend/`, `docs/clinical/` | Report wording tests; claims review | User comprehension validation | Non-clinical wording present; formal label/claims review missing |
+| RM-023 Human oversight bypassed | CLM-002, CLM-004, CLM-005, API-003, INT-001, OPS-008, VAL-004 | `backend_app.py`, `frontend/index.html`, `docs/backend-integration.md` | API contract review; disabled approval test; integration tests | Human-signoff workflow validation | Prototype blocks approval; clinical sign-off process missing |
+| RM-024 Incorrect environment configuration | API-005, OPS-001, OPS-002, OPS-003, OPS-004, OPS-005, OPS-006, OPS-007, SEC-001, SEC-003 | `backend_config.py`, `backend.env.example`, `Dockerfile` | Config tests; readiness tests; deployment checklist | Operator deployment rehearsal | Env examples present; production checklist not baselined |
+| RM-025 Report language ambiguity | CLM-001, CLM-003, CLM-005, FUNC-005, UI-005, OPS-007, VAL-003 | `step27_reporting.py`, `step28_report_comparison.py`, `frontend/`, `docs/clinical/` | Report wording tests; claims review | User comprehension validation | Non-clinical wording present; formal label/claims review missing |
 
 ## Индекс Изискване Към Артефакт
 
 | Група изисквания | Текущи implementation references | Основни липсващи evidence |
 | --- | --- | --- |
-| CLM claims controls | `README.md`, `docs/clinical/`, `backend_app.py`, `frontend/` | Claims matrix, clinical/regulatory approval, UI wording validation |
+| CLM claims controls | `README.md`, `docs/clinical/`, `docs/clinical/claims-control-matrix.md`, `backend_app.py`, `frontend/` | Approved claims matrix, clinical/regulatory approval, UI wording validation |
 | DATA data controls | `database.py`, `subjects.py`, `typings.py`, `importers.py`, `.gitignore`, `docs/clinical/data-governance.md` | Clinical source traceability, missing-data requirements, data-governance approval |
 | API service controls | `backend_app.py`, `backend_services.py`, `backend_config.py` | API contract tests, security review, production auth model |
 | FUNC deterministic outputs | `step27_reporting.py`, `step28_report_comparison.py`, `audit_bundle.py`, `exporters.py` | Requirements-based regression suite, independent expected-case fixtures |
 | UI workflow controls | `frontend/index.html`, `frontend/styles.css`, `frontend/app.js`, `frontend/serve.py` | Usability engineering file, workflow validation, accessibility review |
 | AUD audit controls | `audit_bundle.py`, `backend_services.py` | Release metadata, retention policy, audit investigation rehearsal |
 | SEC security controls | `backend_config.py`, `backend.env.example`, `.gitignore`, `Dockerfile`, `docs/clinical/cybersecurity-plan.md`, `docs/clinical/soup-dependency-register.md` | RBAC, threat model, secrets management, SBOM, vulnerability monitoring and security test evidence |
-| OPS operational controls | `backend_app.py`, `doctor.py`, `migrations.py`, `Dockerfile`, `docs/clinical/release-deployment-plan.md`, `docs/clinical/maintenance-plan.md`, `docs/clinical/problem-resolution-capa.md` | Release approval, deployment runbook, downtime SOP, rollback, maintenance and CAPA controls |
+| OPS operational controls | `backend_app.py`, `doctor.py`, `migrations.py`, `Dockerfile`, `docs/clinical/release-deployment-plan.md`, `docs/clinical/maintenance-plan.md`, `docs/clinical/problem-resolution-capa.md`, `docs/clinical/document-control-index.md`, `docs/clinical/approval-matrix.md`, `docs/clinical/change-impact-checklist.md`, `docs/clinical/clinical-readiness-gate-checklist.md` | Release approval, deployment runbook, downtime SOP, rollback, maintenance, CAPA, document-control, approval and gate controls |
 | INT integration controls | `docs/backend-integration.md`, `backend_app.py` | Downstream integration contract, LIS/EHR/FHIR/HL7 design |
 | VAL validation controls | `docs/clinical/software-requirements.md`, `docs/clinical/validation-plan.md`, `docs/clinical/data-governance.md` | Representative dataset governance, validation execution, validation report |
 
@@ -198,6 +203,33 @@ Traceability трябва да показва, че всяка safety-related и
 - requirement groups имат връзки към `REL-*`, `RROLE-*`, `RPKG-*`, `RCHK-*`, `DEP-*`, `MNT-*`, `CHG-*`, `MON-*`, `PROB-*`, `TRI-*` и `CAPA-*`;
 - clinical-use blockers остават видими, защото release execution, deployment rehearsal, maintenance workflow, CAPA system и regulatory reporting decision trees не са изпълнени.
 
+## Step 12 Controlled Baseline And Claims-Control Links
+
+| Requirement group | Document/baseline links | Claims/approval links | Change/gate links | Remaining evidence gap |
+| --- | --- | --- | --- | --- |
+| CLM | DOCCTRL-001, DOCCTRL-007, DOC-001, DOC-018, BASE-007 | CLAIM-001 through CLAIM-016, AC-001 through AC-008, PC-001 through PC-012, APPR-003 | IMPACT-002, IMPACT-003, IMPACT-016, GATE-001, GATE-002 | Claims matrix exists as draft; no approved clinical claims baseline |
+| DATA | DOCCTRL-006, DOC-013, DOC-025 | APPR-007 | IMPACT-011, GATE-014 | Data governance still draft; no approved real-data route |
+| API | DOCCTRL-005, DOC-023, DOC-024 | CLAIM-006, CLAIM-009, APPR-005 | IMPACT-006, IMPACT-013, GATE-016, GATE-019 | Integration/API claims and downstream contract not approved |
+| FUNC | DOCCTRL-005, DOC-006, DOC-009 | CLAIM-004, CLAIM-005, APPR-004 | IMPACT-005, IMPACT-008, GATE-010 | Requirements-based expected cases and verification report not baselined |
+| UI | DOCCTRL-010, DOC-018 | CLAIM-001, CLAIM-009, CLAIM-010, APPR-011 | IMPACT-009, GATE-012, GATE-018 | Clinical UI labeling/usability evidence not approved |
+| AUD | DOCCTRL-008, DOCCTRL-014, DOC-007, DOC-015 | APPR-005, APPR-012 | IMPACT-014, GATE-016, GATE-017 | Controlled record-retention and release evidence not approved |
+| SEC | DOC-012, DOC-013, DOC-014 | APPR-008, APPR-009 | IMPACT-010, IMPACT-012, GATE-013, GATE-015 | Threat model, SBOM and vulnerability process not implemented |
+| OPS | DOCCTRL-001 through DOCCTRL-012, DOC-015 through DOC-021, BASE-001 through BASE-012 | APPR-001 through APPR-014 | IMPACT-001 through IMPACT-016, GATE-001 through GATE-020 | Owners are placeholders; no approved baseline or completed gate |
+| INT | DOC-024 | CLAIM-006, CLAIM-012, APPR-006 | IMPACT-004, IMPACT-013, GATE-019 | Downstream integration contract and clinical pilot gate not approved |
+| VAL | DOC-010, DOC-011, DOC-021 | APPR-010, APPR-011 | IMPACT-009, GATE-011, GATE-012, GATE-020 | Validation/usability execution and pilot approval not complete |
+
+## Критерии За Завършване На Стъпка 12 В Traceability
+
+Стъпка 12 е отразена в тази matrix, когато:
+
+- document-control index е добавен като source record;
+- approval matrix е добавен като source record;
+- claims-control matrix е добавен като source record;
+- change-impact checklist е добавен като source record;
+- clinical-readiness gate checklist е добавен като source record;
+- requirement groups имат връзки към `DOCCTRL-*`, `DOC-*`, `BASE-*`, `CLAIM-*`, `AC-*`, `PC-*`, `APPR-*`, `IMPACT-*` и `GATE-*`;
+- clinical-use blockers остават видими, защото всички Step 12 records са drafts, role holders са `TBD`, baseline package не е approved и gate decision остава `Blocked`.
+
 ## Следваща Traceability Работа
 
 Преди clinical-intended development да продължи:
@@ -205,7 +237,8 @@ Traceability трябва да показва, че всяка safety-related и
 1. Review и approval на requirement ID scheme.
 2. Назначаване на requirement owners.
 3. Прехвърляне на draft-а в избрания controlled traceability tool или format.
-4. Review и baseline на добавените `ARCH-*`, `IF-*`, `DF-*`, `SAD-*`, `VER-*`, `USE-*`, `UTASK-*`, `UERR-*`, `VSCN-*`, `VACC-*`, `SECPLAN-*`, `ASSET-*`, `CYTH-*`, `CVER-*`, `DCLASS-*`, `DGOV-*`, `SOUP-*`, `REL-*`, `RROLE-*`, `RPKG-*`, `RCHK-*`, `DEP-*`, `MNT-*`, `CHG-*`, `MON-*`, `PROB-*`, `TRI-*` и `CAPA-*` links след стъпка 11.
+4. Review и baseline на добавените `ARCH-*`, `IF-*`, `DF-*`, `SAD-*`, `VER-*`, `USE-*`, `UTASK-*`, `UERR-*`, `VSCN-*`, `VACC-*`, `SECPLAN-*`, `ASSET-*`, `CYTH-*`, `CVER-*`, `DCLASS-*`, `DGOV-*`, `SOUP-*`, `REL-*`, `RROLE-*`, `RPKG-*`, `RCHK-*`, `DEP-*`, `MNT-*`, `CHG-*`, `MON-*`, `PROB-*`, `TRI-*`, `CAPA-*`, `DOCCTRL-*`, `DOC-*`, `BASE-*`, `CLAIM-*`, `AC-*`, `PC-*`, `APPR-*`, `IMPACT-*` и `GATE-*` links след стъпка 12.
 5. Clinical/regulatory/quality/software/security/data-governance review.
-6. Добавяне на document-control index, claims matrix, change-impact checklist и approval matrix.
-7. Freeze на baseline преди formal validation execution.
+6. Назначаване на real owners/approvers и approval route.
+7. Добавяне на technical evidence automation за SBOM/dependency audit, secret/PHI scan и release evidence.
+8. Freeze на baseline преди formal validation execution.

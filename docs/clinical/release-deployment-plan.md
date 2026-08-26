@@ -40,6 +40,11 @@
 - [SOUP And Dependency Register Draft](soup-dependency-register.md)
 - [Maintenance Plan Draft](maintenance-plan.md)
 - [Problem Resolution And CAPA Plan Draft](problem-resolution-capa.md)
+- [Document Control Index Draft](document-control-index.md)
+- [Approval Matrix Draft](approval-matrix.md)
+- [Claims Control Matrix Draft](claims-control-matrix.md)
+- [Change Impact Checklist Draft](change-impact-checklist.md)
+- [Clinical Readiness Gate Checklist Draft](clinical-readiness-gate-checklist.md)
 - [Backend API Component](../backend.md)
 - [Backend Integration Guide](../backend-integration.md)
 - [Data Policy](../data.md)
@@ -243,4 +248,4 @@ Clinical workflow deployment remains blocked until:
 
 ## Step 11 Conclusion
 
-This document establishes the first release and deployment planning file. It supports future controlled release work, but it does not promote the project beyond non-clinical use.
+This document establishes the first release and deployment planning file. The Step 12 document-control, approval, claims-control, change-impact and gate-checklist drafts now define how this plan should be reviewed before any baseline or release decision. It does not promote the project beyond non-clinical use.

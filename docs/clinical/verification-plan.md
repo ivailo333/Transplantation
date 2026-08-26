@@ -33,6 +33,11 @@ architecture identifiers.
 - [Release And Deployment Plan Draft](release-deployment-plan.md)
 - [Maintenance Plan Draft](maintenance-plan.md)
 - [Problem Resolution And CAPA Plan Draft](problem-resolution-capa.md)
+- [Document Control Index Draft](document-control-index.md)
+- [Approval Matrix Draft](approval-matrix.md)
+- [Claims Control Matrix Draft](claims-control-matrix.md)
+- [Change Impact Checklist Draft](change-impact-checklist.md)
+- [Clinical Readiness Gate Checklist Draft](clinical-readiness-gate-checklist.md)
 
 Официални външни references, проверени на 2026-08-26:
 
@@ -133,6 +138,8 @@ must show:
 | VER-026 | Data governance and SOUP release evidence | DATA-001, DATA-005, DATA-006, AUD-002, SEC-004 | ARCH-006, ARCH-009, ARCH-013 | RM-004, RM-008, RM-014, RM-015, RM-019, RM-021 | STATIC, REVIEW | Data-governance and SOUP drafts started in step 10; SBOM and retention approval not complete |
 | VER-027 | Release and deployment controls | OPS-002, OPS-003, OPS-004, AUD-002, SEC-003, SEC-004 | ARCH-002, ARCH-003, ARCH-013, ARCH-014, SAD-008 | RM-008, RM-012, RM-015, RM-016, RM-017, RM-024 | SYS, REVIEW | Release/deployment plan draft started in step 11; deployment rehearsal not complete |
 | VER-028 | Maintenance, problem-resolution and CAPA controls | OPS-001, OPS-005, VAL-001, VAL-004 | ARCH-012, ARCH-013, ARCH-014, SAD-008 | RM-006, RM-008, RM-013, RM-014, RM-017, RM-021, RM-024 | REVIEW | Maintenance and problem-resolution/CAPA drafts started in step 11; controlled workflow not implemented |
+| VER-029 | Controlled baseline and approval records | OPS-006, OPS-008 | ARCH-012, SAD-009 | RM-008, RM-018, RM-024 | REVIEW | Document-control index, approval matrix and gate checklist drafts started in step 12; no approved baseline |
+| VER-030 | Claims and change-impact controls | CLM-005, OPS-007 | ARCH-008, ARCH-010, ARCH-014, SAD-009 | RM-005, RM-009, RM-010, RM-018, RM-020, RM-023, RM-025 | REVIEW | Claims-control matrix and change-impact checklist drafts started in step 12; no approved claims baseline |
 
 ## Current Automated Check Set
 
@@ -207,7 +214,7 @@ Step 8 is complete at planning level when:
 
 ## Next Readiness Work
 
-The next readiness step should create controlled document baseline, claims
-matrix, change-impact checklist and approval-matrix records. Those documents
-should define owners, approvers, baseline status, allowed claims, change-impact
-rules and clinical-readiness gate criteria.
+The next readiness step should add technical evidence automation and
+security/release scaffolding. Those changes should generate or check SBOM,
+dependency-audit evidence, secret/PHI scan evidence, release metadata and
+baseline-aware CI checks while keeping clinical-readiness gates blocked.

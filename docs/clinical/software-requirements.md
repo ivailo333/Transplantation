@@ -27,6 +27,11 @@
 - [Release And Deployment Plan Draft](release-deployment-plan.md)
 - [Maintenance Plan Draft](maintenance-plan.md)
 - [Problem Resolution And CAPA Plan Draft](problem-resolution-capa.md)
+- [Document Control Index Draft](document-control-index.md)
+- [Approval Matrix Draft](approval-matrix.md)
+- [Claims Control Matrix Draft](claims-control-matrix.md)
+- [Change Impact Checklist Draft](change-impact-checklist.md)
+- [Clinical Readiness Gate Checklist Draft](clinical-readiness-gate-checklist.md)
 
 Официални външни references, проверени на 2026-08-26:
 
@@ -66,6 +71,7 @@
 | CLM-002 | Софтуерът shall not expose donor acceptance, donor rejection, transplant suitability, allocation, prioritization, treatment или autonomous clinical decision fields. | Present | RM-009, RM-010, RM-018, RM-023 | Integration, Review |
 | CLM-003 | User-facing labels, API fields, reports и documentation shall avoid compatibility, recommendation, risk-score или clinical ranking claims, освен ако не са formally approved. | Prototype | RM-005, RM-010, RM-011, RM-018, RM-025 | Review, Validation |
 | CLM-004 | Clinical approval или sign-off workflow shall remain disabled or absent, докато intended use, regulatory, risk, usability, validation и release gates не бъдат approved. | Prototype | RM-010, RM-018, RM-023 | Integration, Review |
+| CLM-005 | User-facing, API, report, export, audit, release-note и integration claims shall be controlled by an approved claims matrix before clinical-intended use. | Blocker | RM-005, RM-009, RM-010, RM-018, RM-020, RM-025 | Review |
 | DATA-001 | Текущата употреба shall be limited to synthetic, demo, anonymized или validation-planning records. | Present | RM-014, RM-021 | Review |
 | DATA-002 | Софтуерът shall preserve donor/recipient direction и subject role labels през input, persistence, API, reports, frontend display и audit artifacts. | Prototype | RM-002, RM-011, RM-022 | Unit, Integration, Validation |
 | DATA-003 | HLA typing values shall be validated against the configured HLA validation path преди persistence или deterministic comparison. | Present | RM-001, RM-003, RM-006 | Unit, Integration |
@@ -100,6 +106,9 @@
 | OPS-003 | Clinical-intended release candidates shall include commit/tag, dependency/SBOM, verification/validation status, risk/security/data review, known issues and approval records. | Blocker | RM-008, RM-012, RM-015, RM-016, RM-018, RM-024 | Review |
 | OPS-004 | Production-like deployment shall define runbook, environment separation, readiness checks, backup/restore, rollback and downtime/degraded-mode procedures. | Blocker | RM-012, RM-016, RM-017, RM-024 | System, Review |
 | OPS-005 | Maintenance, problem-resolution and CAPA workflow shall capture anomalies, complaints, security/data incidents, root cause, corrective actions and effectiveness checks. | Blocker | RM-006, RM-008, RM-013, RM-014, RM-017, RM-021 | Review, System |
+| OPS-006 | Controlled document index and approval matrix shall define owners, approvers, baseline status and document-control route before clinical-intended work proceeds. | Blocker | RM-008, RM-018, RM-024 | Review |
+| OPS-007 | Change-impact checklist shall be completed for changes affecting intended use, claims, risks, validation, cybersecurity, data governance, dependencies, release or clinical workflow. | Blocker | RM-006, RM-013, RM-014, RM-015, RM-018, RM-021, RM-024 | Review |
+| OPS-008 | Clinical-readiness gate checklist shall remain blocked until required evidence, owners and approvals are complete. | Blocker | RM-009, RM-010, RM-014, RM-018, RM-019, RM-020, RM-023 | Review |
 | INT-001 | Integration contracts shall state that downstream systems must not treat API outputs as autonomous clinical actions or automated sign-off. | Planned | RM-009, RM-018, RM-023 | Review, System |
 | INT-002 | Future LIS/EHR/FHIR/HL7 integrations shall preserve source-system identity, data timestamps, authoritativeness and transformation provenance. | Planned | RM-001, RM-002, RM-004, RM-022 | Integration, Review |
 | VAL-001 | Verification shall include requirements-based tests for deterministic comparison, reporting, export parity, API contracts, migrations, errors and audit bundles. | Planned | RM-006, RM-007, RM-008, RM-012, RM-017 | Unit, Integration |
@@ -120,4 +129,4 @@
 
 ## Заключение За Requirements Readiness
 
-Проектът вече има начален requirements draft, architecture draft, verification plan draft, usability engineering draft, validation plan draft, cybersecurity plan, data-governance plan, SOUP/dependency register, release/deployment plan, maintenance plan и problem-resolution/CAPA plan. Следващата readiness работа трябва да създаде controlled document baseline, claims matrix, change-impact checklist и approval matrix, след което frontend, security моделът и интеграциите да се разширяват само под approved change control.
+Проектът вече има начален requirements draft, architecture draft, verification plan draft, usability engineering draft, validation plan draft, cybersecurity plan, data-governance plan, SOUP/dependency register, release/deployment plan, maintenance plan, problem-resolution/CAPA plan, document-control index, approval matrix, claims-control matrix, change-impact checklist и clinical-readiness gate checklist. Следващата readiness работа трябва да добави technical evidence automation за SBOM/dependency audit, secret/PHI scan и release evidence, докато frontend, security моделът и интеграциите се разширяват само под approved change control.

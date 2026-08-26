@@ -39,6 +39,11 @@ Maintenance planning трябва да обхване:
 - [SOUP And Dependency Register Draft](soup-dependency-register.md)
 - [Release And Deployment Plan Draft](release-deployment-plan.md)
 - [Problem Resolution And CAPA Plan Draft](problem-resolution-capa.md)
+- [Document Control Index Draft](document-control-index.md)
+- [Approval Matrix Draft](approval-matrix.md)
+- [Claims Control Matrix Draft](claims-control-matrix.md)
+- [Change Impact Checklist Draft](change-impact-checklist.md)
+- [Clinical Readiness Gate Checklist Draft](clinical-readiness-gate-checklist.md)
 
 Официални външни references, проверени на 2026-08-26:
 
@@ -203,4 +208,4 @@ Clinical workflow use remains blocked until:
 
 ## Step 11 Conclusion
 
-This document establishes maintenance planning for future controlled releases. It does not create post-market approval, clinical support coverage or permission for donor-situation use.
+This document establishes maintenance planning for future controlled releases. The Step 12 baseline package now defines owner, approval, claims and change-impact controls that must govern maintenance work. It does not create post-market approval, clinical support coverage or permission for donor-situation use.

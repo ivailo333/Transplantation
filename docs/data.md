@@ -36,7 +36,7 @@ Python bytecode caches, temporary files, test caches, and build outputs are also
 
 ## Clinical Data Governance
 
-Future use with identifiable or pseudonymized health data must follow the planning controls in [Data Governance Plan](clinical/data-governance.md), [Cybersecurity Plan](clinical/cybersecurity-plan.md), [SOUP And Dependency Register](clinical/soup-dependency-register.md), [Release And Deployment Plan](clinical/release-deployment-plan.md), [Maintenance Plan](clinical/maintenance-plan.md), and [Problem Resolution And CAPA Plan](clinical/problem-resolution-capa.md). Until those controls are reviewed, approved, implemented and verified, do not use this repository or local runtime database for real donor, recipient, patient or operational transplant data.
+Future use with identifiable or pseudonymized health data must follow the planning controls in [Data Governance Plan](clinical/data-governance.md), [Cybersecurity Plan](clinical/cybersecurity-plan.md), [SOUP And Dependency Register](clinical/soup-dependency-register.md), [Release And Deployment Plan](clinical/release-deployment-plan.md), [Maintenance Plan](clinical/maintenance-plan.md), [Problem Resolution And CAPA Plan](clinical/problem-resolution-capa.md), [Document Control Index](clinical/document-control-index.md), [Claims Control Matrix](clinical/claims-control-matrix.md), [Change Impact Checklist](clinical/change-impact-checklist.md), [Approval Matrix](clinical/approval-matrix.md), and [Clinical Readiness Gate Checklist](clinical/clinical-readiness-gate-checklist.md). Until those controls are reviewed, approved, implemented and verified, do not use this repository or local runtime database for real donor, recipient, patient or operational transplant data.
 
 ## Rules For Future Data
 
