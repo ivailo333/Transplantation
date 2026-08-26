@@ -221,6 +221,8 @@ hla-api
 - [Проект на frontend прототип](docs/clinical/frontend-prototype.md)
 - [Проект на софтуерни изисквания](docs/clinical/software-requirements.md)
 - [Проект на traceability matrix](docs/clinical/traceability-matrix.md)
+- [Проект на software architecture](docs/clinical/software-architecture.md)
+- [Проект на verification plan](docs/clinical/verification-plan.md)
 - [Схема на базата данни](docs/schema.md)
 - [Политика за данни](docs/data.md)
 

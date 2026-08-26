@@ -2,7 +2,7 @@
 
 Статус: Работен обзор за планиране. Не е одобрен за клинична употреба.
 
-Този документ е българският централен вход към clinical-readiness материалите на проекта преди стъпка 8. Той не замества подробните source drafts, а обобщава текущото състояние, границите и оставащите gate-ове.
+Този документ е българският централен вход към clinical-readiness материалите на проекта след стъпка 8. Той не замества подробните source drafts, а обобщава текущото състояние, границите и оставащите gate-ове.
 
 ## Текуща Граница
 
@@ -19,6 +19,7 @@
 5. Software lifecycle draft: описва IEC 62304-style lifecycle процеса и deliverables.
 6. Frontend prototype draft: добавя локален неклиничен validation UI към backend API компонента.
 7. Software requirements и traceability drafts: свързват requirements, risks, controls, current implementation и evidence gaps.
+8. Software architecture и verification plan drafts: дефинират components, interfaces, data flows, trust boundaries, failure modes и `VER-*` verification items.
 
 ## Основни Артефакти
 
@@ -30,6 +31,8 @@
 - [Frontend Prototype Draft](frontend-prototype.md)
 - [Software Requirements Specification Draft](software-requirements.md)
 - [Traceability Matrix Draft](traceability-matrix.md)
+- [Software Architecture Draft](software-architecture.md)
+- [Verification Plan Draft](verification-plan.md)
 
 ## Какво Е На Български
 
@@ -39,6 +42,8 @@
 - Step 6 frontend prototype draft.
 - Step 7 software requirements draft.
 - Step 7 traceability matrix draft.
+- Step 8 software architecture draft.
+- Step 8 verification plan draft.
 - Този readiness overview.
 
 По-старите подробни source drafts остават на английски на този етап, за да се пази историческата им връзка с предишните commits. При нужда могат да бъдат преведени като отделна controlled localization task.
@@ -72,4 +77,4 @@
 
 ## Следваща Стъпка
 
-Стъпка 8 трябва да създаде software architecture и verification planning artifacts, които да свържат requirements и risk controls с конкретни components, interfaces, tests, validation tasks и release criteria.
+Стъпка 9 трябва да създаде usability engineering и validation planning artifacts, които да дефинират representative users, clinical workflow tasks, foreseeable use errors, validation datasets, acceptance criteria и clinical stakeholder review gates.

@@ -267,7 +267,7 @@ The project now has an initial risk management structure and seed risk register.
 All risks remain open. No residual risk has been accepted, and no clinical use is
 authorized.
 
-The requirements specification and traceability matrix are now drafted at
-planning level. The next readiness step should define architecture and
-verification/validation evidence for each linked risk control before any
-clinical workflow use is considered.
+The requirements specification, traceability matrix, architecture draft and
+verification plan are now drafted at planning level. The next readiness step
+should define usability and validation evidence for user-facing risk controls
+before any clinical workflow use is considered.

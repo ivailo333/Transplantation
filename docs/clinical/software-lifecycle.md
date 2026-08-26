@@ -28,6 +28,10 @@ Internal project documents:
 - [Backend API Component](../backend.md)
 - [Backend Integration Guide](../backend-integration.md)
 - [Data Policy](../data.md)
+- [Software Requirements Specification Draft](software-requirements.md)
+- [Traceability Matrix Draft](traceability-matrix.md)
+- [Software Architecture Draft](software-architecture.md)
+- [Verification Plan Draft](verification-plan.md)
 
 Official external references checked for this draft:
 
@@ -111,9 +115,9 @@ Minimum deliverables for a clinical-intended software lifecycle:
 | Software development plan | Defines lifecycle process, roles, tools, and deliverables | Not started |
 | Software requirements specification | Defines testable software requirements | Draft started in step 7 |
 | Traceability matrix | Links intended use, requirements, risks, controls, tests, validation, release | Draft started in step 7 |
-| Software architecture document | Defines components, data flows, interfaces, failure modes | Not started |
+| Software architecture document | Defines components, data flows, interfaces, failure modes | Draft started in step 8 |
 | Detailed design records | Defines behavior for safety-related modules | Not started |
-| Verification plan | Defines unit, integration, system, API, migration, and security tests | Not started |
+| Verification plan | Defines unit, integration, system, API, migration, and security tests | Draft started in step 8 |
 | Verification report | Records executed tests and results | Not started |
 | Validation plan | Defines clinical workflow validation and representative cases | Not started |
 | Validation report | Records validation results and deviations | Not started |
@@ -416,7 +420,8 @@ The project now has an initial software lifecycle planning document. It remains
 a non-clinical project and does not yet have a completed IEC 62304 software
 lifecycle file.
 
-The next readiness step should create the software architecture and verification
-plan, because the new requirements and traceability matrix need design elements,
-test IDs, validation evidence, and release criteria before clinical workflow use
+The software architecture and verification plan are now drafted at planning
+level. The next readiness step should create usability engineering and validation
+planning artifacts, because user workflow, representative cases, use-error
+analysis, and clinical stakeholder review gates remain open before clinical use
 can be considered.

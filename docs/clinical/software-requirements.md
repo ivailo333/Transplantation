@@ -111,4 +111,4 @@
 
 ## Заключение За Стъпка 7
 
-Проектът вече има начален requirements draft. Следващата readiness работа трябва да превърне тези requirements в controlled architecture, verification и validation records, след което frontend и security моделът да се разширяват само под change control.
+Проектът вече има начален requirements draft, architecture draft и verification plan draft. Следващата readiness работа трябва да създаде usability engineering и validation planning records, след което frontend и security моделът да се разширяват само под change control.

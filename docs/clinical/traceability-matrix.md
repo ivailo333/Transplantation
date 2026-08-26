@@ -14,6 +14,8 @@ Traceability трябва да показва, че всяка safety-related и
 - [Risk Management And Initial Risk Register](risk-register.md)
 - [Software Requirements Specification Draft](software-requirements.md)
 - [Software Lifecycle Draft](software-lifecycle.md)
+- [Software Architecture Draft](software-architecture.md)
+- [Verification Plan Draft](verification-plan.md)
 - [Frontend Prototype Draft](frontend-prototype.md)
 - [Backend API Component](../backend.md)
 - [Backend Integration Guide](../backend-integration.md)
@@ -75,6 +77,22 @@ Traceability трябва да показва, че всяка safety-related и
 | INT integration controls | `docs/backend-integration.md`, `backend_app.py` | Downstream integration contract, LIS/EHR/FHIR/HL7 design |
 | VAL validation controls | `docs/clinical/software-requirements.md` | Validation plan, representative dataset, validation report |
 
+
+## Step 8 Architecture And Verification Links
+
+| Requirement group | Architecture links | Verification links | Remaining evidence gap |
+| --- | --- | --- | --- |
+| CLM | ARCH-002, ARCH-003, ARCH-008, ARCH-010, SAD-001, SAD-004, SAD-006 | VER-002, VER-012, VER-013, VER-014, VER-017 | Formal claims matrix and clinical/regulatory sign-off |
+| DATA | ARCH-004, ARCH-006, ARCH-008, IF-003, IF-005, DF-001, DF-002 | VER-003, VER-004, VER-006, VER-018 | Clinical source-data governance and missing-data UI validation |
+| API | ARCH-002, ARCH-003, ARCH-011, IF-002, IF-006, IF-007 | VER-012, VER-013, VER-015, VER-020 | Production auth, TLS/gateway and deployment runbook |
+| FUNC | ARCH-005, ARCH-007, ARCH-008, DF-001, DF-002, DF-003 | VER-005, VER-007, VER-008, VER-009, VER-010, VER-016 | Independent expected-case fixtures and parity baseline |
+| UI | ARCH-010, ARCH-011, DF-005, SAD-004, SAD-006 | VER-014, VER-015, VER-017, VER-022, VER-024 | Usability engineering file and user comprehension evidence |
+| AUD | ARCH-009, IF-004, DF-004, SAD-005 | VER-011, VER-016, VER-018 | Retention policy and audit investigation rehearsal |
+| SEC | ARCH-002, ARCH-013, ARCH-014, IF-006, IF-009, SAD-007 | VER-017, VER-018, VER-019, VER-020 | RBAC, secrets management, SBOM and cybersecurity risk assessment |
+| OPS | ARCH-002, ARCH-003, ARCH-013, ARCH-014, SAD-003 | VER-012, VER-013, VER-020 | Downtime SOP, monitoring, rollback and support escalation |
+| INT | ARCH-014, ARCH-015, IF-009, DF-006, SAD-007 | VER-021, VER-022 | Downstream integration contract and LIS/EHR/FHIR/HL7 design |
+| VAL | ARCH-012 | VER-023, VER-024 | Representative validation dataset, usability plan and validation report |
+
 ## Критерии За Завършване На Стъпка 7
 
 Този draft завършва step 7 на planning level, когато:
@@ -85,6 +103,17 @@ Traceability трябва да показва, че всяка safety-related и
 - verification и validation evidence gaps са видими;
 - README и lifecycle documents сочат към новите requirements artifacts.
 
+
+## Критерии За Завършване На Стъпка 8 В Traceability
+
+Стъпка 8 е отразена в тази matrix, когато:
+
+- architecture documents са добавени като source records;
+- requirement groups имат връзки към `ARCH-*`, `IF-*`, `DF-*` и `SAD-*`;
+- verification plan е добавен като source record;
+- requirement groups имат връзки към `VER-*` verification items;
+- remaining evidence gaps са видими преди usability, validation и clinical release planning.
+
 ## Следваща Traceability Работа
 
 Преди clinical-intended development да продължи:
@@ -92,6 +121,6 @@ Traceability трябва да показва, че всяка safety-related и
 1. Review и approval на requirement ID scheme.
 2. Назначаване на requirement owners.
 3. Прехвърляне на draft-а в избрания controlled traceability tool или format.
-4. Добавяне на design IDs и test IDs след създаване на architecture и verification documents.
+4. Review и baseline на добавените `ARCH-*`, `IF-*`, `DF-*`, `SAD-*` и `VER-*` links след стъпка 8.
 5. Clinical/regulatory/quality/software/security review.
 6. Freeze на baseline преди formal validation execution.
