@@ -191,9 +191,9 @@ Before clinical-intended development proceeds, complete:
 4. Convert this draft into a controlled risk management file.
 5. Link each risk to software requirements.
 6. Define verification for every risk control.
-7. Define validation evidence for workflow/user-facing controls.
+7. Review and baseline validation evidence for workflow/user-facing controls.
 8. Add cybersecurity-specific risk assessment.
-9. Add usability/use-error analysis for the frontend.
+9. Review and baseline usability/use-error analysis for the frontend.
 10. Add production/post-production risk monitoring process.
 
 ## Risk Traceability Requirements
@@ -267,7 +267,8 @@ The project now has an initial risk management structure and seed risk register.
 All risks remain open. No residual risk has been accepted, and no clinical use is
 authorized.
 
-The requirements specification, traceability matrix, architecture draft and
-verification plan are now drafted at planning level. The next readiness step
-should define usability and validation evidence for user-facing risk controls
-before any clinical workflow use is considered.
+The requirements specification, traceability matrix, architecture draft,
+verification plan, usability engineering file and validation plan are now drafted
+at planning level. The next readiness step should define cybersecurity,
+data-governance and SOUP/dependency evidence before any clinical workflow use is
+considered.

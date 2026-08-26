@@ -16,6 +16,8 @@ Traceability трябва да показва, че всяка safety-related и
 - [Software Lifecycle Draft](software-lifecycle.md)
 - [Software Architecture Draft](software-architecture.md)
 - [Verification Plan Draft](verification-plan.md)
+- [Usability Engineering File Draft](usability-engineering.md)
+- [Validation Plan Draft](validation-plan.md)
 - [Frontend Prototype Draft](frontend-prototype.md)
 - [Backend API Component](../backend.md)
 - [Backend Integration Guide](../backend-integration.md)
@@ -104,6 +106,22 @@ Traceability трябва да показва, че всяка safety-related и
 - README и lifecycle documents сочат към новите requirements artifacts.
 
 
+
+## Step 9 Usability And Validation Links
+
+| Requirement group | Usability links | Validation links | Remaining evidence gap |
+| --- | --- | --- | --- |
+| CLM | USE-001, USE-002, UTASK-001, UERR-001 | VSCN-001, VACC-001, VACC-002 | Formal claims review and user comprehension evidence |
+| DATA | USE-003, USE-005, UTASK-003, UTASK-004, UERR-002, UERR-003 | VDATA-002, VDATA-003, VSCN-003, VSCN-004, VACC-003, VACC-004 | Missing/stale data warning implementation and governed datasets |
+| API | USE-001, USE-007, UTASK-002, UTASK-009, UERR-007 | VDATA-005, VSCN-002, VSCN-008, VACC-005 | Production auth and operational support process |
+| FUNC | USE-002, USE-003, UTASK-005, UTASK-006, UERR-004, UERR-005 | VSCN-005, VSCN-006, VACC-002 | Independent expected-case fixtures and sort/ranking comprehension evidence |
+| UI | USE-002, USE-003, USE-004, USE-005, UIE-004, UIE-005, UIE-007 | VSCN-001 through VSCN-010, VACC-001 through VACC-005 | Formative/summative usability execution not complete |
+| AUD | USE-002, USE-006, UTASK-007, UERR-009 | VSCN-007, VACC-003, VACC-007 | Audit retention/access controls and investigation rehearsal |
+| SEC | USE-007, UENV-003, UENV-004, UERR-009, UERR-010 | VSCN-012, VACC-007 | RBAC, PHI governance, cybersecurity and retention controls |
+| OPS | USE-007, UENV-005, UTASK-002, UTASK-009, UERR-007 | VSCN-002, VSCN-008, VACC-005 | Downtime/degraded-mode validation and support SOP |
+| INT | USE-003, USE-004, USE-005, UTASK-010, UERR-010 | VDATA-004, VSCN-010, VACC-008 | Downstream integration contract and clinical sign-off workflow |
+| VAL | USE-003, USE-004, USE-005, UF-001 through UF-004 | VROLE-001 through VROLE-007, VDATA-001 through VDATA-005, VSCN-001 through VSCN-012, VACC-001 through VACC-008 | Formal validation execution and validation report not started |
+
 ## Критерии За Завършване На Стъпка 8 В Traceability
 
 Стъпка 8 е отразена в тази matrix, когато:
@@ -114,6 +132,16 @@ Traceability трябва да показва, че всяка safety-related и
 - requirement groups имат връзки към `VER-*` verification items;
 - remaining evidence gaps са видими преди usability, validation и clinical release planning.
 
+
+## Критерии За Завършване На Стъпка 9 В Traceability
+
+Стъпка 9 е отразена в тази matrix, когато:
+
+- usability engineering file е добавен като source record;
+- validation plan е добавен като source record;
+- requirement groups имат връзки към `USE-*`, `UTASK-*`, `UERR-*`, `UF-*`, `VROLE-*`, `VDATA-*`, `VSCN-*` и `VACC-*`;
+- clinical-use blockers остават видими, защото validation execution и validation report не са изпълнени.
+
 ## Следваща Traceability Работа
 
 Преди clinical-intended development да продължи:
@@ -121,6 +149,6 @@ Traceability трябва да показва, че всяка safety-related и
 1. Review и approval на requirement ID scheme.
 2. Назначаване на requirement owners.
 3. Прехвърляне на draft-а в избрания controlled traceability tool или format.
-4. Review и baseline на добавените `ARCH-*`, `IF-*`, `DF-*`, `SAD-*` и `VER-*` links след стъпка 8.
+4. Review и baseline на добавените `ARCH-*`, `IF-*`, `DF-*`, `SAD-*`, `VER-*`, `USE-*`, `UTASK-*`, `UERR-*`, `VSCN-*` и `VACC-*` links след стъпка 9.
 5. Clinical/regulatory/quality/software/security review.
 6. Freeze на baseline преди formal validation execution.

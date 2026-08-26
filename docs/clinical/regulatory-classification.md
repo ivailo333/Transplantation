@@ -263,7 +263,7 @@ The project must not move to clinical pilot until these gates are complete:
 4. Claims matrix approved.
 5. Risk management file initiated.
 6. Requirements traceability started.
-7. Usability plan started for any clinical UI.
+7. Usability engineering plan drafted for any clinical UI.
 8. Clinical validation plan drafted.
 9. Security and data-protection controls defined.
 10. Manufacturer/legal responsible entity identified.

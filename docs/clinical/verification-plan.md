@@ -22,6 +22,8 @@ architecture identifiers.
 - [Software Architecture Draft](software-architecture.md)
 - [Risk Management And Initial Risk Register](risk-register.md)
 - [Software Lifecycle Draft](software-lifecycle.md)
+- [Usability Engineering File Draft](usability-engineering.md)
+- [Validation Plan Draft](validation-plan.md)
 - [Frontend Prototype Draft](frontend-prototype.md)
 - [Backend API Component](../backend.md)
 - [Backend Integration Guide](../backend-integration.md)
@@ -119,8 +121,8 @@ must show:
 | VER-020 | Operational readiness and deployment smoke | OPS-001, OPS-002, SEC-003 | ARCH-002, ARCH-003, ARCH-013, ARCH-014 | RM-012, RM-016, RM-024 | SYS, REVIEW | Local probes and Docker docs; production runbook missing |
 | VER-021 | Future integration contract | INT-001, INT-002 | ARCH-014, ARCH-015 | RM-001, RM-002, RM-004, RM-009, RM-018, RM-022, RM-023 | INT, REVIEW | Backend integration guide; formal downstream contract missing |
 | VER-022 | Clinical workflow human oversight | CLM-004, UI-006, VAL-004 | ARCH-010, ARCH-014 | RM-010, RM-018, RM-023 | SYS, VAL-LINK | Frontend approval button disabled; clinical sign-off workflow missing |
-| VER-023 | Validation dataset representativeness | VAL-002 | ARCH-012 | RM-019 | REVIEW, VAL-LINK | Not started beyond requirement identification |
-| VER-024 | Usability and use-error controls | VAL-003, UI-001, UI-004, UI-005 | ARCH-010, ARCH-014 | RM-010, RM-011, RM-020, RM-025 | REVIEW, VAL-LINK | Prototype UI warnings; usability file not started |
+| VER-023 | Validation dataset representativeness | VAL-002 | ARCH-012 | RM-019 | REVIEW, VAL-LINK | Validation plan draft started in step 9; representative dataset not approved |
+| VER-024 | Usability and use-error controls | VAL-003, UI-001, UI-004, UI-005 | ARCH-010, ARCH-014 | RM-010, RM-011, RM-020, RM-025 | REVIEW, VAL-LINK | Prototype UI warnings; usability file draft started in step 9 |
 
 ## Current Automated Check Set
 
@@ -195,7 +197,7 @@ Step 8 is complete at planning level when:
 
 ## Next Readiness Work
 
-The next readiness step should create usability engineering and validation
-planning artifacts. Those documents should define representative users, intended
-clinical workflow tasks, foreseeable use errors, validation datasets, acceptance
-criteria and clinical stakeholder review gates.
+The next readiness step should create cybersecurity, data-governance and
+SOUP/dependency planning artifacts. Those documents should define RBAC,
+TLS/gateway, secrets management, PHI/data handling, retention, vulnerability
+monitoring, dependency controls and supplier review gates.

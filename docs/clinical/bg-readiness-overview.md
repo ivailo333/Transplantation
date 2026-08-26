@@ -2,7 +2,7 @@
 
 Статус: Работен обзор за планиране. Не е одобрен за клинична употреба.
 
-Този документ е българският централен вход към clinical-readiness материалите на проекта след стъпка 8. Той не замества подробните source drafts, а обобщава текущото състояние, границите и оставащите gate-ове.
+Този документ е българският централен вход към clinical-readiness материалите на проекта след стъпка 9. Той не замества подробните source drafts, а обобщава текущото състояние, границите и оставащите gate-ове.
 
 ## Текуща Граница
 
@@ -20,6 +20,7 @@
 6. Frontend prototype draft: добавя локален неклиничен validation UI към backend API компонента.
 7. Software requirements и traceability drafts: свързват requirements, risks, controls, current implementation и evidence gaps.
 8. Software architecture и verification plan drafts: дефинират components, interfaces, data flows, trust boundaries, failure modes и `VER-*` verification items.
+9. Usability engineering и validation plan drafts: дефинират users, environments, safety-related tasks, use errors, datasets, validation scenarios и acceptance criteria.
 
 ## Основни Артефакти
 
@@ -33,6 +34,8 @@
 - [Traceability Matrix Draft](traceability-matrix.md)
 - [Software Architecture Draft](software-architecture.md)
 - [Verification Plan Draft](verification-plan.md)
+- [Usability Engineering File Draft](usability-engineering.md)
+- [Validation Plan Draft](validation-plan.md)
 
 ## Какво Е На Български
 
@@ -44,6 +47,8 @@
 - Step 7 traceability matrix draft.
 - Step 8 software architecture draft.
 - Step 8 verification plan draft.
+- Step 9 usability engineering draft.
+- Step 9 validation plan draft.
 - Този readiness overview.
 
 По-старите подробни source drafts остават на английски на този етап, за да се пази историческата им връзка с предишните commits. При нужда могат да бъдат преведени като отделна controlled localization task.
@@ -77,4 +82,4 @@
 
 ## Следваща Стъпка
 
-Стъпка 9 трябва да създаде usability engineering и validation planning artifacts, които да дефинират representative users, clinical workflow tasks, foreseeable use errors, validation datasets, acceptance criteria и clinical stakeholder review gates.
+Стъпка 10 трябва да създаде cybersecurity, data-governance и SOUP/dependency planning artifacts, защото преди clinical workflow употреба остават отворени RBAC, TLS/gateway, secrets management, PHI/data handling, retention, vulnerability monitoring и supplier/dependency controls.

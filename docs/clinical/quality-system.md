@@ -355,12 +355,12 @@ Near-term actions that can be implemented in this repository:
 - add risk register;
 - add software development plan;
 - review and baseline the verification plan;
-- add usability engineering plan;
+- review and baseline the usability engineering file;
 - add claims matrix;
 - add release checklist template;
 - add change impact checklist template;
 - add CAPA/incident template;
-- add supplier/dependency register;
+- add supplier/dependency register and cybersecurity/data-governance records;
 - review and baseline architecture and data-flow records.
 
 ## Clinical-Use Blockers
@@ -397,7 +397,8 @@ Clinical use remains blocked until:
 The project now has a planning-level quality-system outline, but it does not yet
 have an implemented or certified QMS.
 
-The requirements specification, traceability matrix, architecture draft and
-verification plan are now drafted at planning level. The next readiness step
-should create usability and validation planning records that link back to those
-requirements and risk controls.
+The requirements specification, traceability matrix, architecture draft,
+verification plan, usability engineering file and validation plan are now drafted
+at planning level. The next readiness step should create cybersecurity,
+data-governance and supplier/dependency records that link back to requirements
+and risk controls.

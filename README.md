@@ -223,6 +223,8 @@ hla-api
 - [Проект на traceability matrix](docs/clinical/traceability-matrix.md)
 - [Проект на software architecture](docs/clinical/software-architecture.md)
 - [Проект на verification plan](docs/clinical/verification-plan.md)
+- [Проект на usability engineering file](docs/clinical/usability-engineering.md)
+- [Проект на validation plan](docs/clinical/validation-plan.md)
 - [Схема на базата данни](docs/schema.md)
 - [Политика за данни](docs/data.md)
 

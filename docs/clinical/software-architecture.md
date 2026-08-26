@@ -247,8 +247,7 @@ approved and controlled.
 
 ## Step 8 Conclusion
 
-The project now has a planning-level software architecture draft with component,
-interface, data-flow, trust-boundary, safety-decision and failure-mode
-identifiers. The next work should connect these `ARCH-*`, `IF-*`, `DF-*` and
-`SAD-*` identifiers to verification tests, usability validation and release
-criteria.
+The project now has a planning-level software architecture draft connected to
+verification, usability and validation planning artifacts. The next work should
+connect these architecture identifiers to cybersecurity, data-governance,
+SOUP/dependency, deployment and release-control records.

@@ -32,6 +32,8 @@ Internal project documents:
 - [Traceability Matrix Draft](traceability-matrix.md)
 - [Software Architecture Draft](software-architecture.md)
 - [Verification Plan Draft](verification-plan.md)
+- [Usability Engineering File Draft](usability-engineering.md)
+- [Validation Plan Draft](validation-plan.md)
 
 Official external references checked for this draft:
 
@@ -119,7 +121,8 @@ Minimum deliverables for a clinical-intended software lifecycle:
 | Detailed design records | Defines behavior for safety-related modules | Not started |
 | Verification plan | Defines unit, integration, system, API, migration, and security tests | Draft started in step 8 |
 | Verification report | Records executed tests and results | Not started |
-| Validation plan | Defines clinical workflow validation and representative cases | Not started |
+| Usability engineering file | Defines safety-related user tasks, foreseeable use errors, UI controls and usability evidence | Draft started in step 9 |
+| Validation plan | Defines clinical workflow validation and representative cases | Draft started in step 9 |
 | Validation report | Records validation results and deviations | Not started |
 | Release checklist | Confirms release readiness and approvals | Not started |
 | Maintenance plan | Defines change, patch, and anomaly handling after release | Not started |
@@ -420,8 +423,8 @@ The project now has an initial software lifecycle planning document. It remains
 a non-clinical project and does not yet have a completed IEC 62304 software
 lifecycle file.
 
-The software architecture and verification plan are now drafted at planning
-level. The next readiness step should create usability engineering and validation
-planning artifacts, because user workflow, representative cases, use-error
-analysis, and clinical stakeholder review gates remain open before clinical use
-can be considered.
+The usability engineering file and validation plan are now drafted at
+planning level. The next readiness step should create cybersecurity,
+data-governance and SOUP/dependency planning artifacts, because RBAC,
+TLS/gateway, PHI/data handling, retention, vulnerability monitoring and supplier
+controls remain open before clinical use can be considered.
