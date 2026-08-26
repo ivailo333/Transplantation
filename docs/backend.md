@@ -111,7 +111,7 @@ docker build -t hla-transplantation-backend .
 docker run --rm -p 8000:8000 --env-file backend.env hla-transplantation-backend
 ```
 
-Mount `transplant.db`, export storage, and `pyard-data/` for real deployments. See [Backend integration guide](backend-integration.md).
+Mount `transplant.db`, export storage, and `pyard-data/` for real deployments. See [Backend integration guide](backend-integration.md), [Cybersecurity Plan](clinical/cybersecurity-plan.md), [Data Governance Plan](clinical/data-governance.md), and [SOUP And Dependency Register](clinical/soup-dependency-register.md).
 
 ## Boundary
 

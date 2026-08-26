@@ -27,6 +27,9 @@ architecture identifiers.
 - [Frontend Prototype Draft](frontend-prototype.md)
 - [Backend API Component](../backend.md)
 - [Backend Integration Guide](../backend-integration.md)
+- [Cybersecurity Plan Draft](cybersecurity-plan.md)
+- [Data Governance Plan Draft](data-governance.md)
+- [SOUP And Dependency Register Draft](soup-dependency-register.md)
 
 Официални външни references, проверени на 2026-08-26:
 
@@ -116,13 +119,15 @@ must show:
 | VER-015 | Frontend proxy and local end-to-end smoke | UI-002, UI-003 | ARCH-010, ARCH-011 | RM-016, RM-017, RM-022 | SYS | Local `/api/live`, `/api/reports/live`, `/api/comparisons/levels` smoke checks |
 | VER-016 | Export parity across JSON/CSV/HTML/text/API/audit | FUNC-004, AUD-001 | ARCH-008, ARCH-009 | RM-007, RM-008 | UNIT, INT | Existing export tests; parity matrix still needs baseline |
 | VER-017 | Claims and labeling review | CLM-001, CLM-002, CLM-003, FUNC-005, UI-005 | ARCH-002, ARCH-008, ARCH-010 | RM-005, RM-009, RM-010, RM-011, RM-018, RM-025 | REVIEW, VAL-LINK | Draft docs and Bulgarian UI; formal review not complete |
-| VER-018 | Data governance and PHI/secrets exclusion | DATA-001, DATA-006, SEC-001 | ARCH-006, ARCH-013 | RM-014, RM-021 | STATIC, REVIEW | `.gitignore`, data policy; controlled scan not complete |
-| VER-019 | Dependency/SOUP and vulnerability review | SEC-004, AUD-002 | ARCH-013 | RM-004, RM-015 | REVIEW | `pyproject.toml`, `requirements*.txt`, Dockerfile; SOUP register not complete |
+| VER-018 | Data governance and PHI/secrets exclusion | DATA-001, DATA-006, SEC-001 | ARCH-006, ARCH-013 | RM-014, RM-021 | STATIC, REVIEW | `.gitignore`, data policy and data-governance draft; controlled scan not complete |
+| VER-019 | Dependency/SOUP and vulnerability review | SEC-004, AUD-002 | ARCH-013 | RM-004, RM-015 | REVIEW | `pyproject.toml`, `requirements*.txt`, Dockerfile and SOUP register draft; SBOM not generated |
 | VER-020 | Operational readiness and deployment smoke | OPS-001, OPS-002, SEC-003 | ARCH-002, ARCH-003, ARCH-013, ARCH-014 | RM-012, RM-016, RM-024 | SYS, REVIEW | Local probes and Docker docs; production runbook missing |
 | VER-021 | Future integration contract | INT-001, INT-002 | ARCH-014, ARCH-015 | RM-001, RM-002, RM-004, RM-009, RM-018, RM-022, RM-023 | INT, REVIEW | Backend integration guide; formal downstream contract missing |
 | VER-022 | Clinical workflow human oversight | CLM-004, UI-006, VAL-004 | ARCH-010, ARCH-014 | RM-010, RM-018, RM-023 | SYS, VAL-LINK | Frontend approval button disabled; clinical sign-off workflow missing |
 | VER-023 | Validation dataset representativeness | VAL-002 | ARCH-012 | RM-019 | REVIEW, VAL-LINK | Validation plan draft started in step 9; representative dataset not approved |
 | VER-024 | Usability and use-error controls | VAL-003, UI-001, UI-004, UI-005 | ARCH-010, ARCH-014 | RM-010, RM-011, RM-020, RM-025 | REVIEW, VAL-LINK | Prototype UI warnings; usability file draft started in step 9 |
+| VER-025 | Cybersecurity planning controls | SEC-001, SEC-002, SEC-003, SEC-004, API-003, API-004, API-005, API-006 | ARCH-002, ARCH-003, ARCH-013, ARCH-014 | RM-013, RM-014, RM-015, RM-016, RM-017, RM-021, RM-024 | STATIC, REVIEW | Cybersecurity plan draft started in step 10; threat model/security tests not complete |
+| VER-026 | Data governance and SOUP release evidence | DATA-001, DATA-005, DATA-006, AUD-002, SEC-004 | ARCH-006, ARCH-009, ARCH-013 | RM-004, RM-008, RM-014, RM-015, RM-019, RM-021 | STATIC, REVIEW | Data-governance and SOUP drafts started in step 10; SBOM and retention approval not complete |
 
 ## Current Automated Check Set
 
@@ -197,7 +202,8 @@ Step 8 is complete at planning level when:
 
 ## Next Readiness Work
 
-The next readiness step should create cybersecurity, data-governance and
-SOUP/dependency planning artifacts. Those documents should define RBAC,
-TLS/gateway, secrets management, PHI/data handling, retention, vulnerability
-monitoring, dependency controls and supplier review gates.
+The next readiness step should create release/deployment, maintenance,
+problem-resolution and CAPA planning artifacts. Those documents should define
+controlled release approval, deployment runbook, rollback criteria, downtime
+procedure, post-release monitoring, anomaly intake and corrective/preventive
+action workflow.

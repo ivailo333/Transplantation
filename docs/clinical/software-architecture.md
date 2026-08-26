@@ -27,6 +27,9 @@ verification/validation needs. Той създава начални `ARCH-*` ide
 - [Backend API Component](../backend.md)
 - [Backend Integration Guide](../backend-integration.md)
 - [Data Policy](../data.md)
+- [Cybersecurity Plan Draft](cybersecurity-plan.md)
+- [Data Governance Plan Draft](data-governance.md)
+- [SOUP And Dependency Register Draft](soup-dependency-register.md)
 
 Официални външни references, проверени на 2026-08-26:
 
@@ -180,8 +183,8 @@ flowchart LR
 | Proxy to backend API | Local HTTP and optional `X-API-Key` | TLS/gateway/RBAC missing |
 | Backend to SQLite | Local configured database path | Production database controls, backup/restore and access review missing |
 | Backend to filesystem exports | Configured export directory; ignored from Git | Retention, access control and audit review missing |
-| Code to py-ard/IPD-IMGT/HLA data | Local dependency and doctor checks | Controlled SOUP/dependency register missing |
-| Repository to runtime secrets/data | `.gitignore`, examples without secrets | Formal PHI/secrets scan and governance missing |
+| Code to py-ard/IPD-IMGT/HLA data | Local dependency, doctor checks and draft SOUP/dependency register | Controlled source-data provenance, checksum and update review missing |
+| Repository to runtime secrets/data | `.gitignore`, examples without secrets, draft cybersecurity/data-governance plans | Formal PHI/secrets scan, retention and governance approval missing |
 | Backend to future clinical workflow | Non-clinical envelope and no decision fields | Integration contract and validation missing |
 
 ## Safety Architecture Decisions
@@ -248,6 +251,7 @@ approved and controlled.
 ## Step 8 Conclusion
 
 The project now has a planning-level software architecture draft connected to
-verification, usability and validation planning artifacts. The next work should
-connect these architecture identifiers to cybersecurity, data-governance,
-SOUP/dependency, deployment and release-control records.
+verification, usability, validation, cybersecurity, data-governance and
+SOUP/dependency planning artifacts. The next work should connect these
+architecture identifiers to release, deployment, maintenance, problem-resolution
+and CAPA records.

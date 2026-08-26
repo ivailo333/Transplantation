@@ -34,6 +34,9 @@ Internal project documents:
 - [Verification Plan Draft](verification-plan.md)
 - [Usability Engineering File Draft](usability-engineering.md)
 - [Validation Plan Draft](validation-plan.md)
+- [Cybersecurity Plan Draft](cybersecurity-plan.md)
+- [Data Governance Plan Draft](data-governance.md)
+- [SOUP And Dependency Register Draft](soup-dependency-register.md)
 
 Official external references checked for this draft:
 
@@ -125,8 +128,10 @@ Minimum deliverables for a clinical-intended software lifecycle:
 | Validation plan | Defines clinical workflow validation and representative cases | Draft started in step 9 |
 | Validation report | Records validation results and deviations | Not started |
 | Release checklist | Confirms release readiness and approvals | Not started |
+| Cybersecurity plan | Defines threat, vulnerability, access, secrets, logging and incident controls | Draft started in step 10 |
+| Data-governance plan | Defines health-data classes, provenance, retention, access and incident controls | Draft started in step 10 |
 | Maintenance plan | Defines change, patch, and anomaly handling after release | Not started |
-| SOUP/dependency register | Controls third-party software and data sources | Not started |
+| SOUP/dependency register | Controls third-party software, data sources and supplier review | Draft started in step 10 |
 
 ## Current Repository Controls
 
@@ -143,7 +148,8 @@ The current repository already has useful non-clinical engineering controls:
 - structured error handling;
 - readiness/liveness probes;
 - audit bundle generation;
-- ignored runtime database, exports, pycache, and secrets.
+- ignored runtime database, exports, pycache, and secrets;
+- planning-level cybersecurity, data-governance and SOUP/dependency records.
 
 These are helpful foundations, but they are not sufficient for a clinical
 software lifecycle without controlled requirements, risk traceability,
@@ -340,7 +346,8 @@ Configuration items must be identifiable and retrievable for each release.
 ## SOUP And Dependency Management
 
 SOUP/dependencies include third-party software and data used without full
-internal design control.
+internal design control. The first register is now started in
+[SOUP And Dependency Register Draft](soup-dependency-register.md).
 
 Initial SOUP/dependency candidates:
 
@@ -400,6 +407,7 @@ Clinical use remains blocked until:
 - architecture and data-flow records are approved;
 - verification plan/report are complete;
 - validation plan/report are complete;
+- cybersecurity, data-governance and SOUP/dependency records are approved;
 - maintenance and problem-resolution procedures are approved;
 - release approval process is implemented;
 - controlled clinical claims and labelling are approved.
@@ -423,8 +431,9 @@ The project now has an initial software lifecycle planning document. It remains
 a non-clinical project and does not yet have a completed IEC 62304 software
 lifecycle file.
 
-The usability engineering file and validation plan are now drafted at
-planning level. The next readiness step should create cybersecurity,
-data-governance and SOUP/dependency planning artifacts, because RBAC,
-TLS/gateway, PHI/data handling, retention, vulnerability monitoring and supplier
-controls remain open before clinical use can be considered.
+The usability engineering file, validation plan, cybersecurity plan,
+data-governance plan and SOUP/dependency register are now drafted at planning
+level. The next readiness step should create release, deployment, maintenance,
+problem-resolution and CAPA planning artifacts, because controlled release
+approval, rollback, incident handling and post-release monitoring remain open
+before clinical use can be considered.

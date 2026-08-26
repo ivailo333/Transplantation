@@ -2,7 +2,7 @@
 
 Статус: Работен обзор за планиране. Не е одобрен за клинична употреба.
 
-Този документ е българският централен вход към clinical-readiness материалите на проекта след стъпка 9. Той не замества подробните source drafts, а обобщава текущото състояние, границите и оставащите gate-ове.
+Този документ е българският централен вход към clinical-readiness материалите на проекта след стъпка 10. Той не замества подробните source drafts, а обобщава текущото състояние, границите и оставащите gate-ове.
 
 ## Текуща Граница
 
@@ -21,6 +21,7 @@
 7. Software requirements и traceability drafts: свързват requirements, risks, controls, current implementation и evidence gaps.
 8. Software architecture и verification plan drafts: дефинират components, interfaces, data flows, trust boundaries, failure modes и `VER-*` verification items.
 9. Usability engineering и validation plan drafts: дефинират users, environments, safety-related tasks, use errors, datasets, validation scenarios и acceptance criteria.
+10. Cybersecurity, data-governance и SOUP/dependency drafts: дефинират security objectives, threat/asset register, health-data rules, retention, SBOM и vulnerability-monitoring planning.
 
 ## Основни Артефакти
 
@@ -36,6 +37,9 @@
 - [Verification Plan Draft](verification-plan.md)
 - [Usability Engineering File Draft](usability-engineering.md)
 - [Validation Plan Draft](validation-plan.md)
+- [Cybersecurity Plan Draft](cybersecurity-plan.md)
+- [Data Governance Plan Draft](data-governance.md)
+- [SOUP And Dependency Register Draft](soup-dependency-register.md)
 
 ## Какво Е На Български
 
@@ -49,6 +53,9 @@
 - Step 8 verification plan draft.
 - Step 9 usability engineering draft.
 - Step 9 validation plan draft.
+- Step 10 cybersecurity plan draft.
+- Step 10 data governance plan draft.
+- Step 10 SOUP/dependency register draft.
 - Този readiness overview.
 
 По-старите подробни source drafts остават на английски на този етап, за да се пази историческата им връзка с предишните commits. При нужда могат да бъдат преведени като отделна controlled localization task.
@@ -65,8 +72,10 @@
 - verification plan/report;
 - validation plan/report с representative cases;
 - usability engineering file;
-- cybersecurity risk assessment;
+- reviewed cybersecurity threat model/risk assessment and security test evidence;
+- approved data governance for any real or pseudonymized health data;
 - role-based access control, audit trail, retention policy и deployment controls;
+- SBOM, vulnerability monitoring and SOUP/supplier review gates;
 - release approval, change control, incident/CAPA и post-market monitoring process.
 
 ## Подход За Българска Локализация
@@ -82,4 +91,4 @@
 
 ## Следваща Стъпка
 
-Стъпка 10 трябва да създаде cybersecurity, data-governance и SOUP/dependency planning artifacts, защото преди clinical workflow употреба остават отворени RBAC, TLS/gateway, secrets management, PHI/data handling, retention, vulnerability monitoring и supplier/dependency controls.
+Стъпка 11 трябва да създаде release, deployment, maintenance, problem-resolution и CAPA planning artifacts, защото след cybersecurity/data/SOUP планирането остават нужни controlled release checklist, deployment runbook, rollback criteria, incident/CAPA workflow и post-release monitoring records.

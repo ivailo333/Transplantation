@@ -25,6 +25,9 @@ Internal project documents:
 - [Backend API Component](../backend.md)
 - [Backend Integration Guide](../backend-integration.md)
 - [Data Policy](../data.md)
+- [Cybersecurity Plan Draft](cybersecurity-plan.md)
+- [Data Governance Plan Draft](data-governance.md)
+- [SOUP And Dependency Register Draft](soup-dependency-register.md)
 
 Official external references checked for this draft:
 
@@ -129,6 +132,8 @@ Controlled documents should include:
 - validation protocol and report;
 - usability plan and report;
 - cybersecurity plan and assessment;
+- data-governance plan and privacy assessment records;
+- SOUP/dependency register and SBOM records;
 - release notes;
 - known-issues list;
 - clinical evaluation or performance evaluation plan, if applicable;
@@ -360,7 +365,8 @@ Near-term actions that can be implemented in this repository:
 - add release checklist template;
 - add change impact checklist template;
 - add CAPA/incident template;
-- add supplier/dependency register and cybersecurity/data-governance records;
+- review and baseline supplier/dependency register and cybersecurity/data-governance records;
+- add release/deployment, maintenance, problem-resolution and CAPA templates;
 - review and baseline architecture and data-flow records.
 
 ## Clinical-Use Blockers
@@ -398,7 +404,8 @@ The project now has a planning-level quality-system outline, but it does not yet
 have an implemented or certified QMS.
 
 The requirements specification, traceability matrix, architecture draft,
-verification plan, usability engineering file and validation plan are now drafted
-at planning level. The next readiness step should create cybersecurity,
-data-governance and supplier/dependency records that link back to requirements
+verification plan, usability engineering file, validation plan, cybersecurity
+plan, data-governance plan and SOUP/dependency register are now drafted at
+planning level. The next readiness step should create release/deployment,
+maintenance, problem-resolution and CAPA records that link back to requirements
 and risk controls.

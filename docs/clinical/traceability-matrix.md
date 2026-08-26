@@ -18,6 +18,9 @@ Traceability трябва да показва, че всяка safety-related и
 - [Verification Plan Draft](verification-plan.md)
 - [Usability Engineering File Draft](usability-engineering.md)
 - [Validation Plan Draft](validation-plan.md)
+- [Cybersecurity Plan Draft](cybersecurity-plan.md)
+- [Data Governance Plan Draft](data-governance.md)
+- [SOUP And Dependency Register Draft](soup-dependency-register.md)
 - [Frontend Prototype Draft](frontend-prototype.md)
 - [Backend API Component](../backend.md)
 - [Backend Integration Guide](../backend-integration.md)
@@ -69,15 +72,15 @@ Traceability трябва да показва, че всяка safety-related и
 | Група изисквания | Текущи implementation references | Основни липсващи evidence |
 | --- | --- | --- |
 | CLM claims controls | `README.md`, `docs/clinical/`, `backend_app.py`, `frontend/` | Claims matrix, clinical/regulatory approval, UI wording validation |
-| DATA data controls | `database.py`, `subjects.py`, `typings.py`, `importers.py`, `.gitignore` | Clinical source traceability, missing-data requirements, data-governance approval |
+| DATA data controls | `database.py`, `subjects.py`, `typings.py`, `importers.py`, `.gitignore`, `docs/clinical/data-governance.md` | Clinical source traceability, missing-data requirements, data-governance approval |
 | API service controls | `backend_app.py`, `backend_services.py`, `backend_config.py` | API contract tests, security review, production auth model |
 | FUNC deterministic outputs | `step27_reporting.py`, `step28_report_comparison.py`, `audit_bundle.py`, `exporters.py` | Requirements-based regression suite, independent expected-case fixtures |
 | UI workflow controls | `frontend/index.html`, `frontend/styles.css`, `frontend/app.js`, `frontend/serve.py` | Usability engineering file, workflow validation, accessibility review |
 | AUD audit controls | `audit_bundle.py`, `backend_services.py` | Release metadata, retention policy, audit investigation rehearsal |
-| SEC security controls | `backend_config.py`, `backend.env.example`, `.gitignore`, `Dockerfile` | RBAC, TLS, secrets management, vulnerability monitoring, SBOM |
+| SEC security controls | `backend_config.py`, `backend.env.example`, `.gitignore`, `Dockerfile`, `docs/clinical/cybersecurity-plan.md`, `docs/clinical/soup-dependency-register.md` | RBAC, threat model, secrets management, SBOM, vulnerability monitoring and security test evidence |
 | OPS operational controls | `backend_app.py`, `doctor.py`, `migrations.py`, `Dockerfile` | Deployment runbook, downtime SOP, rollback criteria |
 | INT integration controls | `docs/backend-integration.md`, `backend_app.py` | Downstream integration contract, LIS/EHR/FHIR/HL7 design |
-| VAL validation controls | `docs/clinical/software-requirements.md` | Validation plan, representative dataset, validation report |
+| VAL validation controls | `docs/clinical/software-requirements.md`, `docs/clinical/validation-plan.md`, `docs/clinical/data-governance.md` | Representative dataset governance, validation execution, validation report |
 
 
 ## Step 8 Architecture And Verification Links
@@ -142,6 +145,31 @@ Traceability трябва да показва, че всяка safety-related и
 - requirement groups имат връзки към `USE-*`, `UTASK-*`, `UERR-*`, `UF-*`, `VROLE-*`, `VDATA-*`, `VSCN-*` и `VACC-*`;
 - clinical-use blockers остават видими, защото validation execution и validation report не са изпълнени.
 
+## Step 10 Cybersecurity Data Governance And SOUP Links
+
+| Requirement group | Cybersecurity links | Data-governance links | SOUP/dependency links | Remaining evidence gap |
+| --- | --- | --- | --- | --- |
+| CLM | SECPLAN-001, CYTH-008 | DGOV-002 | SOUP release gate | Clinical claims and release approval still not baselined |
+| DATA | SECPLAN-002, SECPLAN-007, ASSET-003, ASSET-006 | DCLASS-001 through DCLASS-008, DGOV-001 through DGOV-012 | SOUP-002, SOUP-003, SOUP-004 | Source-data provenance, retention and validation dataset governance not approved |
+| API | SECPLAN-003, SECPLAN-004, SECPLAN-005, SECPLAN-006, SECPLAN-012, CYTH-001 through CYTH-003, CYTH-010 | DGOV-004, DGOV-005, DGOV-007 | SOUP-005, SOUP-006, SOUP-007, SOUP-008, SOUP-009 | Production RBAC, TLS/gateway and auth/session tests not implemented |
+| FUNC | SECPLAN-008, CYTH-005, CYTH-006 | DGOV-005, DGOV-009 | SOUP-002, SOUP-003, SOUP-004 | Dependency/source-data update impact on deterministic outputs not baselined |
+| UI | SECPLAN-003, SECPLAN-006, SECPLAN-007 | DGOV-004, DGOV-007, DGOV-010 | SOUP-017, SOUP-018 | Clinical UI auth, browser support and PHI-safe display rules not validated |
+| AUD | SECPLAN-006, SECPLAN-007, SECPLAN-010 | DGOV-006, DGOV-008, DGOV-010, DGOV-011 | SOUP-004, SOUP-020 | Audit/log retention, backup/restore and incident drill not complete |
+| SEC | SECPLAN-001 through SECPLAN-012, ASSET-001 through ASSET-008, CYTH-001 through CYTH-010, CVER-001 through CVER-008 | DGOV-003, DGOV-007, DGOV-011 | SOUP-001 through SOUP-020 | Formal threat model, SBOM, vulnerability monitoring and security report not complete |
+| OPS | SECPLAN-004, SECPLAN-010, SECPLAN-011, CYTH-007, CYTH-009, CVER-006 | DGOV-006, DGOV-008 | SOUP-008, SOUP-016, SOUP-020 | Deployment runbook, rollback criteria and downtime procedure not drafted |
+| INT | SECPLAN-003, SECPLAN-004, SECPLAN-006, SECPLAN-011, CYTH-008 | DGOV-005, DGOV-012 | SOUP-018, SOUP-019, SOUP-020 | Supplier qualification and downstream data/interface validation not started |
+| VAL | SECPLAN-012, CVER-004, CVER-005, CVER-006 | DGOV-009 | SOUP-002, SOUP-003, SOUP-017 | Formal validation execution, dataset approval and validation report not started |
+
+## Критерии За Завършване На Стъпка 10 В Traceability
+
+Стъпка 10 е отразена в тази matrix, когато:
+
+- cybersecurity plan е добавен като source record;
+- data-governance plan е добавен като source record;
+- SOUP/dependency register е добавен като source record;
+- requirement groups имат връзки към `SECPLAN-*`, `ASSET-*`, `CYTH-*`, `CVER-*`, `DCLASS-*`, `DGOV-*` и `SOUP-*`;
+- clinical-use blockers остават видими, защото threat model, SBOM, RBAC, TLS/gateway, retention, vulnerability monitoring и release evidence не са изпълнени.
+
 ## Следваща Traceability Работа
 
 Преди clinical-intended development да продължи:
@@ -149,6 +177,7 @@ Traceability трябва да показва, че всяка safety-related и
 1. Review и approval на requirement ID scheme.
 2. Назначаване на requirement owners.
 3. Прехвърляне на draft-а в избрания controlled traceability tool или format.
-4. Review и baseline на добавените `ARCH-*`, `IF-*`, `DF-*`, `SAD-*`, `VER-*`, `USE-*`, `UTASK-*`, `UERR-*`, `VSCN-*` и `VACC-*` links след стъпка 9.
-5. Clinical/regulatory/quality/software/security review.
-6. Freeze на baseline преди formal validation execution.
+4. Review и baseline на добавените `ARCH-*`, `IF-*`, `DF-*`, `SAD-*`, `VER-*`, `USE-*`, `UTASK-*`, `UERR-*`, `VSCN-*`, `VACC-*`, `SECPLAN-*`, `ASSET-*`, `CYTH-*`, `CVER-*`, `DCLASS-*`, `DGOV-*` и `SOUP-*` links след стъпка 10.
+5. Clinical/regulatory/quality/software/security/data-governance review.
+6. Добавяне на release/deployment, maintenance, problem-resolution и CAPA traceability records.
+7. Freeze на baseline преди formal validation execution.

@@ -34,6 +34,10 @@ These are small sample import payloads for the `typings import` command.
 
 Python bytecode caches, temporary files, test caches, and build outputs are also ignored through `.gitignore`.
 
+## Clinical Data Governance
+
+Future use with identifiable or pseudonymized health data must follow the planning controls in [Data Governance Plan](clinical/data-governance.md), [Cybersecurity Plan](clinical/cybersecurity-plan.md), and [SOUP And Dependency Register](clinical/soup-dependency-register.md). Until those controls are reviewed, approved, implemented and verified, do not use this repository or local runtime database for real donor, recipient, patient or operational transplant data.
+
 ## Rules For Future Data
 
 - Keep committed examples pseudonymous and minimal.

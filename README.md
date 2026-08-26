@@ -225,6 +225,9 @@ hla-api
 - [Проект на verification plan](docs/clinical/verification-plan.md)
 - [Проект на usability engineering file](docs/clinical/usability-engineering.md)
 - [Проект на validation plan](docs/clinical/validation-plan.md)
+- [Проект на cybersecurity plan](docs/clinical/cybersecurity-plan.md)
+- [Проект на data governance plan](docs/clinical/data-governance.md)
+- [Проект на SOUP/dependency register](docs/clinical/soup-dependency-register.md)
 - [Схема на базата данни](docs/schema.md)
 - [Политика за данни](docs/data.md)
 

@@ -17,6 +17,9 @@ Internal project documents:
 - [Backend API Component](../backend.md)
 - [Backend Integration Guide](../backend-integration.md)
 - [Data Policy](../data.md)
+- [Cybersecurity Plan Draft](cybersecurity-plan.md)
+- [Data Governance Plan Draft](data-governance.md)
+- [SOUP And Dependency Register Draft](soup-dependency-register.md)
 
 Official external references checked for this draft:
 
@@ -265,7 +268,7 @@ The project must not move to clinical pilot until these gates are complete:
 6. Requirements traceability started.
 7. Usability engineering plan drafted for any clinical UI.
 8. Clinical validation plan drafted.
-9. Security and data-protection controls defined.
+9. Security, data-protection, data-governance and SOUP/dependency controls reviewed and approved.
 10. Manufacturer/legal responsible entity identified.
 
 ## Open Regulatory Questions

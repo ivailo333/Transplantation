@@ -21,6 +21,9 @@
 - [Backend API Component](../backend.md)
 - [Backend Integration Guide](../backend-integration.md)
 - [Data Policy](../data.md)
+- [Cybersecurity Plan Draft](cybersecurity-plan.md)
+- [Data Governance Plan Draft](data-governance.md)
+- [SOUP And Dependency Register Draft](soup-dependency-register.md)
 
 Официални външни references, проверени на 2026-08-26:
 
@@ -111,4 +114,4 @@
 
 ## Заключение За Стъпка 7
 
-Проектът вече има начален requirements draft, architecture draft, verification plan draft, usability engineering draft и validation plan draft. Следващата readiness работа трябва да създаде cybersecurity, data-governance и SOUP/dependency records, след което frontend и security моделът да се разширяват само под change control.
+Проектът вече има начален requirements draft, architecture draft, verification plan draft, usability engineering draft, validation plan draft, cybersecurity plan, data-governance plan и SOUP/dependency register. Следващата readiness работа трябва да създаде release/deployment, maintenance, problem-resolution и CAPA records, след което frontend, security моделът и интеграциите да се разширяват само под change control.
