@@ -37,6 +37,9 @@ Internal project documents:
 - [Cybersecurity Plan Draft](cybersecurity-plan.md)
 - [Data Governance Plan Draft](data-governance.md)
 - [SOUP And Dependency Register Draft](soup-dependency-register.md)
+- [Release And Deployment Plan Draft](release-deployment-plan.md)
+- [Maintenance Plan Draft](maintenance-plan.md)
+- [Problem Resolution And CAPA Plan Draft](problem-resolution-capa.md)
 
 Official external references checked for this draft:
 
@@ -127,10 +130,11 @@ Minimum deliverables for a clinical-intended software lifecycle:
 | Usability engineering file | Defines safety-related user tasks, foreseeable use errors, UI controls and usability evidence | Draft started in step 9 |
 | Validation plan | Defines clinical workflow validation and representative cases | Draft started in step 9 |
 | Validation report | Records validation results and deviations | Not started |
-| Release checklist | Confirms release readiness and approvals | Not started |
+| Release checklist | Confirms release readiness and approvals | Draft started in step 11 |
 | Cybersecurity plan | Defines threat, vulnerability, access, secrets, logging and incident controls | Draft started in step 10 |
 | Data-governance plan | Defines health-data classes, provenance, retention, access and incident controls | Draft started in step 10 |
-| Maintenance plan | Defines change, patch, and anomaly handling after release | Not started |
+| Maintenance plan | Defines change, patch, and anomaly handling after release | Draft started in step 11 |
+| Problem-resolution/CAPA plan | Defines anomaly intake, CAPA interface, triage and effectiveness checks | Draft started in step 11 |
 | SOUP/dependency register | Controls third-party software, data sources and supplier review | Draft started in step 10 |
 
 ## Current Repository Controls
@@ -149,7 +153,8 @@ The current repository already has useful non-clinical engineering controls:
 - readiness/liveness probes;
 - audit bundle generation;
 - ignored runtime database, exports, pycache, and secrets;
-- planning-level cybersecurity, data-governance and SOUP/dependency records.
+- planning-level cybersecurity, data-governance and SOUP/dependency records;
+- planning-level release/deployment, maintenance and problem-resolution/CAPA records.
 
 These are helpful foundations, but they are not sufficient for a clinical
 software lifecycle without controlled requirements, risk traceability,
@@ -252,6 +257,8 @@ No clinical validation claim is made by this lifecycle draft.
 
 ## Release Process
 
+The first release/deployment planning draft is [Release And Deployment Plan Draft](release-deployment-plan.md).
+
 A release candidate should require:
 
 1. Frozen release scope.
@@ -274,6 +281,8 @@ A release candidate should require:
 Current releases are non-clinical only.
 
 ## Maintenance Process
+
+The first maintenance planning draft is [Maintenance Plan Draft](maintenance-plan.md).
 
 Maintenance should control:
 
@@ -303,6 +312,8 @@ Each maintenance change must include impact analysis for:
 - release notes and user communication.
 
 ## Problem Resolution Process
+
+The first problem-resolution and CAPA planning draft is [Problem Resolution And CAPA Plan Draft](problem-resolution-capa.md).
 
 Anomalies should be recorded with:
 
@@ -408,7 +419,7 @@ Clinical use remains blocked until:
 - verification plan/report are complete;
 - validation plan/report are complete;
 - cybersecurity, data-governance and SOUP/dependency records are approved;
-- maintenance and problem-resolution procedures are approved;
+- maintenance and problem-resolution/CAPA procedures are drafted and approved;
 - release approval process is implemented;
 - controlled clinical claims and labelling are approved.
 
@@ -432,8 +443,8 @@ a non-clinical project and does not yet have a completed IEC 62304 software
 lifecycle file.
 
 The usability engineering file, validation plan, cybersecurity plan,
-data-governance plan and SOUP/dependency register are now drafted at planning
-level. The next readiness step should create release, deployment, maintenance,
-problem-resolution and CAPA planning artifacts, because controlled release
-approval, rollback, incident handling and post-release monitoring remain open
-before clinical use can be considered.
+data-governance plan, SOUP/dependency register, release/deployment plan,
+maintenance plan and problem-resolution/CAPA plan are now drafted at planning
+level. The next readiness step should create controlled document baseline,
+claims matrix, change-impact checklist and approval-matrix records before
+clinical use can be considered.

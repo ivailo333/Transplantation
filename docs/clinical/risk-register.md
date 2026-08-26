@@ -36,6 +36,9 @@ Internal project documents:
 - [Cybersecurity Plan Draft](cybersecurity-plan.md)
 - [Data Governance Plan Draft](data-governance.md)
 - [SOUP And Dependency Register Draft](soup-dependency-register.md)
+- [Release And Deployment Plan Draft](release-deployment-plan.md)
+- [Maintenance Plan Draft](maintenance-plan.md)
+- [Problem Resolution And CAPA Plan Draft](problem-resolution-capa.md)
 
 Official external references checked for this draft:
 
@@ -198,7 +201,8 @@ Before clinical-intended development proceeds, complete:
 8. Review and baseline cybersecurity-specific risk assessment and controls from step 10.
 9. Review and baseline usability/use-error analysis for the frontend.
 10. Review and baseline data-governance and SOUP/dependency controls.
-11. Add production/post-production risk monitoring process.
+11. Review and baseline release/deployment, maintenance and problem-resolution/CAPA controls from step 11.
+12. Add controlled document/claims/change-impact baseline process.
 
 ## Risk Traceability Requirements
 
@@ -273,7 +277,8 @@ authorized.
 
 The requirements specification, traceability matrix, architecture draft,
 verification plan, usability engineering file, validation plan, cybersecurity
-plan, data-governance plan and SOUP/dependency register are now drafted at
-planning level. The next readiness step should define release, deployment,
-maintenance, problem-resolution and CAPA evidence before any clinical workflow
-use is considered.
+plan, data-governance plan, SOUP/dependency register, release/deployment plan,
+maintenance plan and problem-resolution/CAPA plan are now drafted at planning
+level. The next readiness step should define controlled document baseline,
+claims matrix, change-impact checklist and approval responsibilities before any
+clinical workflow use is considered.

@@ -2,7 +2,7 @@
 
 Статус: Работен обзор за планиране. Не е одобрен за клинична употреба.
 
-Този документ е българският централен вход към clinical-readiness материалите на проекта след стъпка 10. Той не замества подробните source drafts, а обобщава текущото състояние, границите и оставащите gate-ове.
+Този документ е българският централен вход към clinical-readiness материалите на проекта след стъпка 11. Той не замества подробните source drafts, а обобщава текущото състояние, границите и оставащите gate-ове.
 
 ## Текуща Граница
 
@@ -22,6 +22,7 @@
 8. Software architecture и verification plan drafts: дефинират components, interfaces, data flows, trust boundaries, failure modes и `VER-*` verification items.
 9. Usability engineering и validation plan drafts: дефинират users, environments, safety-related tasks, use errors, datasets, validation scenarios и acceptance criteria.
 10. Cybersecurity, data-governance и SOUP/dependency drafts: дефинират security objectives, threat/asset register, health-data rules, retention, SBOM и vulnerability-monitoring planning.
+11. Release/deployment, maintenance и problem-resolution/CAPA drafts: дефинират release package, deployment runbook, rollback/downtime controls, change types, post-release monitoring, anomaly triage и CAPA records.
 
 ## Основни Артефакти
 
@@ -40,6 +41,9 @@
 - [Cybersecurity Plan Draft](cybersecurity-plan.md)
 - [Data Governance Plan Draft](data-governance.md)
 - [SOUP And Dependency Register Draft](soup-dependency-register.md)
+- [Release And Deployment Plan Draft](release-deployment-plan.md)
+- [Maintenance Plan Draft](maintenance-plan.md)
+- [Problem Resolution And CAPA Plan Draft](problem-resolution-capa.md)
 
 ## Какво Е На Български
 
@@ -56,6 +60,9 @@
 - Step 10 cybersecurity plan draft.
 - Step 10 data governance plan draft.
 - Step 10 SOUP/dependency register draft.
+- Step 11 release/deployment plan draft.
+- Step 11 maintenance plan draft.
+- Step 11 problem-resolution/CAPA plan draft.
 - Този readiness overview.
 
 По-старите подробни source drafts остават на английски на този етап, за да се пази историческата им връзка с предишните commits. При нужда могат да бъдат преведени като отделна controlled localization task.
@@ -76,7 +83,7 @@
 - approved data governance for any real or pseudonymized health data;
 - role-based access control, audit trail, retention policy и deployment controls;
 - SBOM, vulnerability monitoring and SOUP/supplier review gates;
-- release approval, change control, incident/CAPA и post-market monitoring process.
+- release approval, deployment rehearsal, change control, incident/CAPA и post-market monitoring process.
 
 ## Подход За Българска Локализация
 
@@ -91,4 +98,4 @@
 
 ## Следваща Стъпка
 
-Стъпка 11 трябва да създаде release, deployment, maintenance, problem-resolution и CAPA planning artifacts, защото след cybersecurity/data/SOUP планирането остават нужни controlled release checklist, deployment runbook, rollback criteria, incident/CAPA workflow и post-release monitoring records.
+Стъпка 12 трябва да създаде controlled baseline и claims-control package: document-control index, owners/approvers, claims matrix, change-impact checklist, approval matrix и clinical-readiness gate checklist. След това техническото разширяване към RBAC, TLS/gateway, SBOM automation, retention и production deployment трябва да върви само срещу approved baseline.

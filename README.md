@@ -228,6 +228,9 @@ hla-api
 - [Проект на cybersecurity plan](docs/clinical/cybersecurity-plan.md)
 - [Проект на data governance plan](docs/clinical/data-governance.md)
 - [Проект на SOUP/dependency register](docs/clinical/soup-dependency-register.md)
+- [Проект на release/deployment plan](docs/clinical/release-deployment-plan.md)
+- [Проект на maintenance plan](docs/clinical/maintenance-plan.md)
+- [Проект на problem-resolution/CAPA plan](docs/clinical/problem-resolution-capa.md)
 - [Схема на базата данни](docs/schema.md)
 - [Политика за данни](docs/data.md)
 

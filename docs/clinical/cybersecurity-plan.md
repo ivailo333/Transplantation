@@ -34,6 +34,9 @@ Security planning трябва да бъде свързан с:
 - [Validation Plan Draft](validation-plan.md)
 - [Data Governance Plan Draft](data-governance.md)
 - [SOUP And Dependency Register Draft](soup-dependency-register.md)
+- [Release And Deployment Plan Draft](release-deployment-plan.md)
+- [Maintenance Plan Draft](maintenance-plan.md)
+- [Problem Resolution And CAPA Plan Draft](problem-resolution-capa.md)
 - [Backend API Component](../backend.md)
 - [Backend Integration Guide](../backend-integration.md)
 - [Data Policy](../data.md)
@@ -257,4 +260,4 @@ Clinical workflow use remains blocked until:
 
 ## Step 10 Conclusion
 
-This document establishes a planning-level cybersecurity file for the backend component and future larger application boundary. It does not authorize clinical use. The next controlled work should turn these draft controls into approved requirements, security test cases, deployment runbooks and release gates.
+This document establishes a planning-level cybersecurity file for the backend component and future larger application boundary. It does not authorize clinical use. Release/deployment, maintenance and problem-resolution/CAPA drafts now provide the next operational planning layer; the remaining work is controlled baseline, owner approval and technical implementation under change control.

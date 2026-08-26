@@ -24,6 +24,9 @@
 - [Cybersecurity Plan Draft](cybersecurity-plan.md)
 - [Data Governance Plan Draft](data-governance.md)
 - [SOUP And Dependency Register Draft](soup-dependency-register.md)
+- [Release And Deployment Plan Draft](release-deployment-plan.md)
+- [Maintenance Plan Draft](maintenance-plan.md)
+- [Problem Resolution And CAPA Plan Draft](problem-resolution-capa.md)
 
 Официални външни references, проверени на 2026-08-26:
 
@@ -94,6 +97,9 @@
 | SEC-004 | Проектът shall maintain a dependency/SOUP register, vulnerability monitoring and update policy before controlled release. | Planned | RM-004, RM-015 | Review |
 | OPS-001 | Clinical workflow shall define downtime, degraded-mode, support and escalation procedures before donor-situation use. | Blocker | RM-016, RM-017, RM-024 | Review, Validation |
 | OPS-002 | Production-like deployment shall require readiness checks, migration checks, environment checks, smoke tests and rollback criteria. | Planned | RM-012, RM-016, RM-024 | System, Review |
+| OPS-003 | Clinical-intended release candidates shall include commit/tag, dependency/SBOM, verification/validation status, risk/security/data review, known issues and approval records. | Blocker | RM-008, RM-012, RM-015, RM-016, RM-018, RM-024 | Review |
+| OPS-004 | Production-like deployment shall define runbook, environment separation, readiness checks, backup/restore, rollback and downtime/degraded-mode procedures. | Blocker | RM-012, RM-016, RM-017, RM-024 | System, Review |
+| OPS-005 | Maintenance, problem-resolution and CAPA workflow shall capture anomalies, complaints, security/data incidents, root cause, corrective actions and effectiveness checks. | Blocker | RM-006, RM-008, RM-013, RM-014, RM-017, RM-021 | Review, System |
 | INT-001 | Integration contracts shall state that downstream systems must not treat API outputs as autonomous clinical actions or automated sign-off. | Planned | RM-009, RM-018, RM-023 | Review, System |
 | INT-002 | Future LIS/EHR/FHIR/HL7 integrations shall preserve source-system identity, data timestamps, authoritativeness and transformation provenance. | Planned | RM-001, RM-002, RM-004, RM-022 | Integration, Review |
 | VAL-001 | Verification shall include requirements-based tests for deterministic comparison, reporting, export parity, API contracts, migrations, errors and audit bundles. | Planned | RM-006, RM-007, RM-008, RM-012, RM-017 | Unit, Integration |
@@ -112,6 +118,6 @@
 5. Добавете version, approval и change-control metadata.
 6. Freeze-нете baseline преди изпълнение на clinical-intended validation protocol.
 
-## Заключение За Стъпка 7
+## Заключение За Requirements Readiness
 
-Проектът вече има начален requirements draft, architecture draft, verification plan draft, usability engineering draft, validation plan draft, cybersecurity plan, data-governance plan и SOUP/dependency register. Следващата readiness работа трябва да създаде release/deployment, maintenance, problem-resolution и CAPA records, след което frontend, security моделът и интеграциите да се разширяват само под change control.
+Проектът вече има начален requirements draft, architecture draft, verification plan draft, usability engineering draft, validation plan draft, cybersecurity plan, data-governance plan, SOUP/dependency register, release/deployment plan, maintenance plan и problem-resolution/CAPA plan. Следващата readiness работа трябва да създаде controlled document baseline, claims matrix, change-impact checklist и approval matrix, след което frontend, security моделът и интеграциите да се разширяват само под approved change control.

@@ -28,6 +28,9 @@ Internal project documents:
 - [Cybersecurity Plan Draft](cybersecurity-plan.md)
 - [Data Governance Plan Draft](data-governance.md)
 - [SOUP And Dependency Register Draft](soup-dependency-register.md)
+- [Release And Deployment Plan Draft](release-deployment-plan.md)
+- [Maintenance Plan Draft](maintenance-plan.md)
+- [Problem Resolution And CAPA Plan Draft](problem-resolution-capa.md)
 
 Official external references checked for this draft:
 
@@ -134,6 +137,9 @@ Controlled documents should include:
 - cybersecurity plan and assessment;
 - data-governance plan and privacy assessment records;
 - SOUP/dependency register and SBOM records;
+- release/deployment plan and release records;
+- maintenance plan;
+- problem-resolution and CAPA records;
 - release notes;
 - known-issues list;
 - clinical evaluation or performance evaluation plan, if applicable;
@@ -366,7 +372,8 @@ Near-term actions that can be implemented in this repository:
 - add change impact checklist template;
 - add CAPA/incident template;
 - review and baseline supplier/dependency register and cybersecurity/data-governance records;
-- add release/deployment, maintenance, problem-resolution and CAPA templates;
+- review and baseline release/deployment, maintenance, problem-resolution and CAPA records;
+- add document-control index, claims matrix, change-impact checklist and approval matrix;
 - review and baseline architecture and data-flow records.
 
 ## Clinical-Use Blockers
@@ -405,7 +412,8 @@ have an implemented or certified QMS.
 
 The requirements specification, traceability matrix, architecture draft,
 verification plan, usability engineering file, validation plan, cybersecurity
-plan, data-governance plan and SOUP/dependency register are now drafted at
-planning level. The next readiness step should create release/deployment,
-maintenance, problem-resolution and CAPA records that link back to requirements
-and risk controls.
+plan, data-governance plan, SOUP/dependency register, release/deployment plan,
+maintenance plan and problem-resolution/CAPA plan are now drafted at planning
+level. The next readiness step should create document-control, claims-control,
+change-impact and approval-matrix records before implementation expands toward
+clinical-intended workflows.

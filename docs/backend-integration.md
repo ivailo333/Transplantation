@@ -79,7 +79,7 @@ HLA_BACKEND_EXPORT_DIR=/app/exports
 
 ## Production Notes
 
-Before production-like or clinical workflow integration, review [Cybersecurity Plan](clinical/cybersecurity-plan.md), [Data Governance Plan](clinical/data-governance.md), and [SOUP And Dependency Register](clinical/soup-dependency-register.md).
+Before production-like or clinical workflow integration, review [Cybersecurity Plan](clinical/cybersecurity-plan.md), [Data Governance Plan](clinical/data-governance.md), [SOUP And Dependency Register](clinical/soup-dependency-register.md), [Release And Deployment Plan](clinical/release-deployment-plan.md), [Maintenance Plan](clinical/maintenance-plan.md), and [Problem Resolution And CAPA Plan](clinical/problem-resolution-capa.md).
 
 - Keep `backend.env`, SQLite databases, audit bundles, and py-ard data out of Git.
 - Put the API behind TLS and a gateway controlled by the larger application.
